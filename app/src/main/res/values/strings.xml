@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">NetUse</string>
+
+    <string name="title_section1">Show Universities</string>
+    <string name="title_section2">Show all users..</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_users">Show Users</string>
+
+    <string name="action_settings">Settings</string>
+
+
+    <string name="signup_error_message"><![CDATA[Please make sure you enter a username,password & email address]]></string>
+    <string name="signup_error_title">Ooops!!!</string>
+    <string name="login_error_message">Please fill username and password fields</string>
+    <string name="login_error_title">Oops!!</string>
+    <string name="menu_logout_label">Logout</string>
+    <string name="title_activity_show_users">ShowUsersActivity</string>
+    <string name="error_title">We are sorry</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="univ_prompt">Choose University</string>
+    <!--string-array name="univ_arrays">
+        <item>Choose Univ</item>
+        <item>CSU Fresno</item>
+        <item>CSU Chico</item>
+        <item>CSU East Bay</item>
+        <item>CSU Fullerton</item>
+        <item>CSU Long Beach</item>
+        <item>CSU Los Angeles</item>
+        <item>CSU San Jose</item>
+
+
+    </string-array-->
+</resources>

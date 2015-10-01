@@ -1,0 +1,99 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:gravity="center_horizontal"
+    android:orientation="vertical" android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="khara.karan.netuse.SignUpActivity"
+    android:background="#72c2ff"
+    >
+
+    <!-- Login progress -->
+    <ProgressBar android:id="@+id/login_progress" style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp" android:visibility="gone" />
+
+    <LinearLayout android:id="@+id/email_login_form" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:orientation="vertical"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Your profile"
+            android:id="@+id/textView"
+            android:layout_gravity="center_horizontal"
+            android:textSize="24dp"
+            android:textColor="#4b4b4b" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/signup_username"
+            android:layout_marginTop="60dp"
+            android:id="@+id/usernameField" />
+
+        <AutoCompleteTextView android:id="@+id/emailField" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:hint="@string/signup_email"
+            android:layout_marginTop="1dp"
+            android:inputType="textEmailAddress" android:maxLines="1"
+            android:singleLine="true" />
+
+        <EditText android:id="@+id/passwordField" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:hint="@string/signup_password"
+
+            android:imeActionLabel="@string/action_sign_up_short"
+            android:imeOptions="actionUnspecified" android:inputType="textPassword"
+            android:maxLines="1" android:singleLine="true" />
+
+        <!--TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your University"
+            android:id="@+id/textView3"
+            android:textSize="18dp"
+            android:textColor="#ff121212"
+            android:layout_below="@+id/button"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="-25dp"
+            android:backgroundTint="#fffbfff6"
+            android:background="#ffffffff" /-->
+        <!-- Spinner Dropdown -->
+
+        <Spinner android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spDepth"
+
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/email_sign_up_button"
+            android:layout_marginTop="10dp"
+
+            android:spinnerMode="dialog"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="0.35"
+            android:dropDownWidth="80dp"
+            android:minHeight="50dp"
+            >
+            </Spinner>
+
+            <Button android:id="@+id/email_sign_up_button" style="?android:textAppearanceSmall"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="@string/action_sign_up"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <ScrollView android:id="@+id/login_form"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="90dp">
+
+        </ScrollView>
+
+    </LinearLayout>
+
