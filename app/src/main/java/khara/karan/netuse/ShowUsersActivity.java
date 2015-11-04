@@ -8,12 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import java.util.List;
@@ -21,7 +19,7 @@ import java.util.List;
 public class ShowUsersActivity extends ListActivity {
 
     public static final String TAG=ShowUsersActivity.class.getSimpleName();
-    protected ParseRelation<ParseUser> mFriendsRelation;
+    //protected ParseRelation<ParseUser> mFriendsRelation;
     protected List<ParseUser> mUsers;
     protected ParseUser mCurrentUser;
 
@@ -45,12 +43,16 @@ public class ShowUsersActivity extends ListActivity {
         super.onResume();
 
         mCurrentUser = ParseUser.getCurrentUser();
-        Toast.makeText(ShowUsersActivity.this, "mCurrent: "+mCurrentUser.getUsername(), Toast.LENGTH_LONG).show();
-        mFriendsRelation= mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
+       // Toast.makeText(ShowUsersActivity.this, "mCurrent: "+mCurrentUser.getUsername(), Toast.LENGTH_LONG).show();
+        //mFriendsRelation= mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
         setProgressBarIndeterminateVisibility(true);
 
-        ParseQuery<ParseUser> query = ParseUser.getQuery(); // means query is going to return list of ParseUser objects.
-        query.orderByAscending(ParseConstants.KEY_USERNAME);
+        //ParseQuery<ParseUser> query = ParseQuery.getQuery("User"); // means query is going to return list of ParseUser objects.
+        //query.orderByAscending(ParseConstants.KEY_USERNAME);
+
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        //query.orderByAscending(ParseConstants.KEY_USERNAME);
+
         // we limit by 1000. because returning a large no of users will take too long or will crash our app
         query.setLimit(1000);
         query.findInBackground(new FindCallback<ParseUser>() {
@@ -61,20 +63,23 @@ public class ShowUsersActivity extends ListActivity {
                     // success
                     mUsers = users;
                     String[] usernames = new String[mUsers.size()];
+                    //Toast.makeText(ShowUsersActivity.this, " (2..) "+mUsers.size(), Toast.LENGTH_SHORT).show();
                     int i = 0;
                     //if(user.getuserna)
                     for (ParseUser user : mUsers)
                     {
-                        usernames[i] = user.getUsername();
+                        //Toast.makeText(ShowUsersActivity.this, " (2..) ", Toast.LENGTH_SHORT).show();
+                        usernames[i] = user.get("username").toString();
                         //if(! mCurrentUser.getUsername().equals(usernames[i]))
                        // {
                             i++;
                             //create array adapter
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(ShowUsersActivity.this,
                                     android.R.layout.simple_list_item_checked, usernames);
+                                    //android.R.layout.simple_selectable_list_item, usernames);
                             setListAdapter(adapter);
 
-                            addFriendCheckmarks();
+                            //addFriendCheckmarks();
                        // }
                         //System.out.println("user[" + i + "]: " + usernames[i]);
                     }
@@ -96,7 +101,7 @@ public class ShowUsersActivity extends ListActivity {
 
     }
 
-    private void addFriendCheckmarks()
+    /*private void addFriendCheckmarks()
     {
         mFriendsRelation.getQuery().findInBackground(new FindCallback<ParseUser>() {
             @Override
@@ -117,7 +122,7 @@ public class ShowUsersActivity extends ListActivity {
                 }
             }
         });
-    }
+    }  */
 
 
     @Override

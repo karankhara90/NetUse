@@ -54,6 +54,74 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="khara.karan.netuse.MainActivity" />
         </activity>
+        <activity
+            android:name=".CreateProfile"
+            android:label="@string/title_activity_create_profile"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="khara.karan.netuse.MainActivity" />
+        </activity>
+        <activity
+            android:name=".UpdateProfile"
+            android:label="@string/title_activity_update_profile"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="khara.karan.netuse.MainActivity" />
+        </activity>
+        <activity
+            android:name=".CurrentUserActivity"
+            android:label="@string/title_activity_current_user" >
+        </activity>
+        <activity
+            android:name=".ShowNamesActivity"
+            android:label="@string/title_activity_show_names"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="khara.karan.netuse.MainActivity" />
+        </activity>
+        <activity
+            android:name=".SuggestUnivActivity"
+            android:label="@string/title_activity_suggest_univ"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="khara.karan.netuse.MainActivity" />
+        </activity>
+        <activity
+            android:name=".NearbyPlaces"
+            android:label="@string/title_activity_nearby_places"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="khara.karan.netuse.MainActivity" />
+        </activity>
+        <activity
+            android:name=".AddPlace"
+            android:label="@string/title_activity_add_place"
+            android:parentActivityName=".NearbyPlaces" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="khara.karan.netuse.NearbyPlaces" />
+        </activity>
+        <activity
+            android:name=".FutureStudent"
+            android:label="@string/title_activity_future_student"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="khara.karan.netuse.MainActivity" />
+        </activity>
+        <activity
+            android:name=".UnivDetails"
+            android:label="@string/title_activity_univ_details"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="khara.karan.netuse.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

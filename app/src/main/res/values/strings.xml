@@ -14,7 +14,9 @@
 
 
     <string name="signup_error_message"><![CDATA[Please make sure you enter a username,password & email address]]></string>
+    <string name="create_profile_error_message"><![CDATA[Please make sure you enter a all the fields]]></string>
     <string name="signup_error_title">Ooops!!!</string>
+    <string name="create_profile_error_title">Ooops!!!</string>
     <string name="login_error_message">Please fill username and password fields</string>
     <string name="login_error_title">Oops!!</string>
     <string name="menu_logout_label">Logout</string>
@@ -24,6 +26,15 @@
     <string name="hello_world">Hello world!</string>
 
     <string name="univ_prompt">Choose University</string>
+    <string name="title_activity_create_profile">CreateProfile</string>
+    <string name="title_activity_update_profile">UpdateProfile</string>
+    <string name="title_activity_current_user">CurrentUserActivity</string>
+    <string name="title_activity_show_names">ShowNamesActivity</string>
+    <string name="title_activity_suggest_univ">SuggestUnivActivity</string>
+    <string name="title_activity_nearby_places">NearbyPlaces</string>
+    <string name="title_activity_add_place">AddPlace</string>
+    <string name="title_activity_future_student">FutureStudent</string>
+    <string name="title_activity_univ_details">UnivDetails</string>
     <!--string-array name="univ_arrays">
         <item>Choose Univ</item>
         <item>CSU Fresno</item>

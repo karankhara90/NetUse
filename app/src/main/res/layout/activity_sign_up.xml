@@ -7,45 +7,175 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="khara.karan.netuse.SignUpActivity"
     android:background="#72c2ff"
-    >
+    android:weightSum="1">
 
     <!-- Login progress -->
     <ProgressBar android:id="@+id/login_progress" style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:layout_marginBottom="8dp" android:visibility="gone" />
 
-    <LinearLayout android:id="@+id/email_login_form" android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:orientation="vertical"
-        android:weightSum="1">
+    <LinearLayout android:id="@+id/email_login_form" android:layout_width="327dp"
+        android:layout_height="match_parent" android:orientation="vertical"
+        android:weightSum="1"
+        android:height="150dp"
+        android:layout_marginBottom="-20dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Create Your profile"
             android:id="@+id/textView"
             android:layout_gravity="center_horizontal"
-            android:textSize="24dp"
-            android:textColor="#4b4b4b" />
+            android:textSize="20dp"
+            android:textColor="#4b4b4b"
+            android:height="28dp"
+            android:layout_marginTop="-2dp"
+            android:paddingLeft="60dp"
+            android:paddingTop="5dp"
+            android:background="#fcb000"
+            />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/signup_username"
-            android:layout_marginTop="60dp"
-            android:id="@+id/usernameField" />
+            android:layout_marginTop="5dp"
+            android:id="@+id/usernameField"
+            android:background="#fbfacc"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
+            android:height="35dp"
+            /><requestFocus />
 
-        <AutoCompleteTextView android:id="@+id/emailField" android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:hint="@string/signup_email"
-            android:layout_marginTop="1dp"
+        <AutoCompleteTextView android:id="@+id/emailField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/signup_email"
+            android:layout_marginTop="5dp"
             android:inputType="textEmailAddress" android:maxLines="1"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:imeOptions="actionNext"
+            android:background="#fbfacc"
+            android:height="35dp"
+            android:layout_marginBottom="0dp"
+             />
 
-        <EditText android:id="@+id/passwordField" android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:hint="@string/signup_password"
+        <EditText android:id="@+id/passwordField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/signup_password"
 
             android:imeActionLabel="@string/action_sign_up_short"
-            android:imeOptions="actionUnspecified" android:inputType="textPassword"
-            android:maxLines="1" android:singleLine="true" />
+
+            android:inputType="textPassword"
+            android:maxLines="1" android:singleLine="true"
+            android:imeOptions="actionNext"
+            android:background="#fbfacc"
+            android:height="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="-25dp"
+
+             />
+        <!--EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Name"
+            android:ems="10"
+            android:id="@+id/myFullName"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="-15dp"
+            android:background="#fbfacc"
+            android:height="35dp"
+            android:layout_below="@+id/textView4"
+            android:layout_alignRight="@+id/spCountry"
+            android:layout_alignEnd="@+id/spCountry"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+
+
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/myPercent"
+            android:hint="Undergrad Percentage"
+            android:background="#fbfacc"
+            android:height="35dp"
+            android:autoText="false"
+            android:layout_below="@+id/spUniversity"
+            android:layout_alignLeft="@+id/spUniversity"
+            android:layout_alignStart="@+id/spUniversity"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="-20dp"
+            android:layout_alignRight="@+id/spUniversity"
+            android:layout_alignEnd="@+id/spUniversity" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/myGre"
+            android:hint="GRE Score(Out of 340)"
+            android:background="#fbfacc"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="-15dp"
+            android:height="40dp"
+            android:layout_below="@+id/myPercent"
+            android:layout_alignLeft="@+id/myPercent"
+            android:layout_alignStart="@+id/myPercent"
+            android:layout_alignRight="@+id/myPercent"
+            android:layout_alignEnd="@+id/myPercent" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/myToefl"
+            android:hint="TOEFL SCORE(Out of 120)"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="-10dp"
+            android:background="#fbfacc"
+            android:height="35dp"
+            android:layout_below="@+id/myGre"
+            android:layout_alignLeft="@+id/myGre"
+            android:layout_alignStart="@+id/myGre"
+            android:layout_alignRight="@+id/myGre"
+            android:layout_alignEnd="@+id/myGre" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spCountry"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="-40dp"
+            android:background="#fbfacc"
+            android:layout_below="@+id/myFullName"
+            android:layout_centerHorizontal="true"
+            android:minHeight="20dp"
+            />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spUniversity"
+            android:background="#fbfacc"
+            android:layout_below="@+id/spCountry"
+            android:layout_alignLeft="@+id/spCountry"
+            android:layout_alignStart="@+id/spCountry"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="10dp"
+            android:minHeight="40dp" /-->
+
+        <Button android:id="@+id/email_sign_up_button" style="?android:textAppearanceSmall"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/action_sign_up"
+            android:textStyle="bold"
+            android:height="30dp"
+            android:background="#fcb000"
+            android:layout_marginBottom="10dp"
+             />
 
         <!--TextView
             android:layout_width="wrap_content"
@@ -63,7 +193,7 @@
             android:background="#ffffffff" /-->
         <!-- Spinner Dropdown -->
 
-        <Spinner android:layout_width="match_parent"
+        <!--Spinner android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spDepth"
 
@@ -78,22 +208,9 @@
             android:dropDownWidth="80dp"
             android:minHeight="50dp"
             >
-            </Spinner>
-
-            <Button android:id="@+id/email_sign_up_button" style="?android:textAppearanceSmall"
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:text="@string/action_sign_up"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <ScrollView android:id="@+id/login_form"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="90dp">
-
-        </ScrollView>
+            </Spinner-->
 
     </LinearLayout>
+
+</LinearLayout>
 

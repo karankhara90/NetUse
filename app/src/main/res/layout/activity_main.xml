@@ -6,19 +6,114 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="40px"
-        android:textColor="#ffffff"
-        android:layout_gravity="center"
-        android:id="@+id/detail"/>
     <!-- As the main content view, the view below consumes the entire
          space available using match_parent in both dimensions. -->
-    <FrameLayout android:id="@+id/container"
+    <RelativeLayout android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#6ad2ff" />
+        android:background="#6ad2ff" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Welcome "
+            android:textColor="#ffffff"
+            android:layout_gravity="left|top"
+            android:id="@+id/txtNames"
+            android:height="35dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="3dp"
+            android:background="#fcb000"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <TextView
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="#ffffff"
+
+            android:id="@+id/name"
+            android:height="35dp"
+            android:background="#fcb000"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+
+            android:layout_alignTop="@+id/txtNames"
+            android:layout_toRightOf="@+id/txtNames"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="Name of all Users"
+            android:id="@+id/btnNames"
+            android:textSize="20dp"
+            android:layout_marginTop="118dp"
+            android:background="#e8ec9b"
+            android:layout_below="@+id/txtNames"
+            android:layout_alignRight="@+id/btnSuggestNearby"
+            android:layout_alignEnd="@+id/btnSuggestNearby"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nearby Places"
+            android:id="@+id/textSuggestNearby"
+            android:textColor="#ffffff"
+
+            android:height="30dp"
+            android:textSize="19dp"
+            android:layout_alignTop="@+id/btnSuggestNearby"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="Check here"
+            android:id="@+id/btnSuggestNearby"
+            android:textSize="20dp"
+
+            android:background="#e8ec9b"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="153dp"
+            android:layout_alignRight="@+id/name"
+            android:layout_toEndOf="@+id/textSuggestNearby"
+            android:layout_toRightOf="@+id/textSuggestNearby" />
+
+        <!--TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Create Your Student Profile First"
+            android:textSize="18dp"
+            android:textColor="#e5781e"
+            android:id="@+id/textView3"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="left|top"
+            android:layout_below="@+id/txtWelcome"
+            android:layout_alignLeft="@+id/txtWelcome"
+            android:layout_alignStart="@+id/txtWelcome" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create"
+            android:id="@+id/btnCreate"
+            android:layout_gravity="left|top"
+            android:layout_below="@+id/textView3"
+            android:layout_alignLeft="@+id/textView3"
+            android:layout_marginTop="3dp"
+            android:layout_alignStart="@+id/textView3"
+            android:background="#ffffff" /-->
+    </RelativeLayout>
 
     <!-- android:layout_gravity="start" tells DrawerLayout to treat
          this as a sliding drawer on the left side for left-to-right
@@ -33,6 +128,7 @@
         android:layout_gravity="start"
         android:name="khara.karan.netuse.NavigationDrawerFragment"
         tools:layout="@layout/fragment_navigation_drawer" />
+
 
 
 </android.support.v4.widget.DrawerLayout>

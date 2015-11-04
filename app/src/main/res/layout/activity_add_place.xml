@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="#6ad2ff"
+    tools:context="khara.karan.netuse.AddPlace">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:textSize="20dp"
+        android:text="Add a new place "
+        android:layout_marginTop="0dp"
+        android:textColor="#ffffff"
+        android:layout_gravity="left|top"
+        android:id="@+id/txtNames"
+        android:layout_alignParentTop="true"
+        android:height="35dp"
+        android:paddingLeft="85dp"
+        android:paddingTop="3dp"
+        android:background="#fcb000"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:hint="Place Name"
+        android:id="@+id/placeNameField"
+        android:background="#fbfacc"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:imeOptions="actionNext"
+        android:height="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/txtNames"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" /><requestFocus />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category"
+        android:id="@+id/textNewPlace"
+        android:textColor="#ffffff"
+        android:layout_marginTop="8dp"
+        android:textSize="20dp"
+        android:layout_below="@+id/placeNameField"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spPlaceCategory"
+        android:background="#fbfacc"
+        android:layout_alignTop="@+id/textNewPlace"
+        android:layout_toEndOf="@+id/textNewPlace"
+        android:layout_toRightOf="@+id/textNewPlace"
+        android:layout_alignBottom="@+id/textNewPlace" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type"
+        android:id="@+id/textPlaceType"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/spPlaceCategory"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spPlaceType"
+        android:background="#fbfacc"
+
+        android:layout_alignTop="@+id/textPlaceType"
+        android:layout_alignLeft="@+id/spPlaceCategory"
+        android:layout_alignStart="@+id/spPlaceCategory"
+        android:layout_alignBottom="@+id/textPlaceType" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact Number"
+        android:id="@+id/textPlacePhone"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/spPlaceType"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:id="@+id/editPlaceNumber"
+        android:inputType="phone"
+        android:background="#fbfacc"
+        android:layout_below="@+id/textPlacePhone"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/spPlaceType"
+        android:layout_alignEnd="@+id/spPlaceType" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact Address"
+        android:id="@+id/textPlaceAddress"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/editPlaceNumber"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/editPlaceAddress"
+        android:background="#fbfacc"
+        android:layout_below="@+id/textPlaceAddress"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/editPlaceNumber"
+        android:layout_alignEnd="@+id/editPlaceNumber" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="City"
+        android:id="@+id/textPlaceCity"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/editPlaceAddress"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spPlaceCity"
+        android:background="#fbfacc"
+
+        android:layout_alignTop="@+id/textPlaceCity"
+        android:layout_alignRight="@+id/editPlaceAddress"
+        android:layout_alignEnd="@+id/editPlaceAddress"
+        android:layout_alignLeft="@+id/spPlaceType"
+        android:layout_alignStart="@+id/spPlaceType"
+        android:layout_alignBottom="@+id/textPlaceCity" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="Submit"
+        android:id="@+id/btnSubmitPlace"
+        android:background="#e8ec9b"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/spPlaceCity"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/spPlaceCity"
+        android:layout_alignEnd="@+id/spPlaceCity" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/btnSubmitPlace"
+        android:layout_alignEnd="@+id/btnSubmitPlace"
+        android:layout_below="@+id/btnSubmitPlace" />
+
+</RelativeLayout>

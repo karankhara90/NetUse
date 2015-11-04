@@ -1,103 +1,102 @@
 package khara.karan.netuse;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.parse.GetCallback;
+import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-public class MainActivity extends ActionBarActivity
+public class FutureStudent extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
-    TextView text;
+    protected Button mBtnSuggestUniv;
+    protected Button mBtnSuggestNearby2;
+    protected Button mBtnUpdate;
     protected TextView mFullName;
-    protected Button mBtnUpdate2;
-    protected Button mBtnNames;
-    protected Button mBtnSuggestUniv2;
-    protected Button mBtnSuggestNearby;
-    protected String mUserid;
     protected Context context;
+    String score,percent;
 
-    String userId;
-  //  String FullName;
-
-
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
     private CharSequence mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_future_student);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         context = this;
 
-
-        ParseUser currentUser = ParseUser.getCurrentUser();
+        ParseUser currentUser2 = ParseUser.getCurrentUser();
         //Toast.makeText(this, "userID :" + userId, Toast.LENGTH_LONG).show();
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("UserInfo");
+        ParseQuery<ParseObject> query2 = ParseQuery.getQuery("UserInfo");
 
-        query.whereEqualTo("userId",currentUser);
-         query.getFirstInBackground(new GetCallback<ParseObject>() {
+        query2.whereEqualTo("userId", currentUser2);
+        query2.getFirstInBackground(new GetCallback<ParseObject>() {
 
-             public void done(ParseObject object, ParseException e) {
-                 if (e == null) {
-                     String FullName = object.get("fullName").toString();
-                     mFullName = (TextView) findViewById(R.id.name);
-                     mFullName.setText(FullName);
+            public void done(ParseObject object2, ParseException e) {
+                if (e == null) {
+                    String FullName = object2.get("fullName").toString();
+                    mFullName = (TextView) findViewById(R.id.name2);
+                    mFullName.setText(FullName);
+                    score = object2.get("greScore").toString();
+                    percent = object2.get("undergradPercent").toString();
 
-                 } else {
-                     // error
-                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                } else {
+                    // error
+                    AlertDialog.Builder builder = new AlertDialog.Builder(FutureStudent.this);
 
-                     builder.setMessage(e.getMessage());
-                     builder.setTitle("Error hai ethe ji");
-                     builder.setPositiveButton(android.R.string.ok, null);
-                     AlertDialog dialog = builder.create();
-                     dialog.show();
-                 }
-             }
-         });
+                    builder.setMessage(e.getMessage());
+                    builder.setTitle("Error hai ethe ji");
+                    builder.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            }
+        });
 
-
-
-        mBtnNames = (Button) findViewById(R.id.btnNames);
-        mBtnNames.setOnClickListener(new View.OnClickListener() {
+        mBtnUpdate = (Button) findViewById(R.id.btnAddUniv2);
+        mBtnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(MainActivity.this, ShowNamesActivity.class);
+                Intent intent2 = new Intent(FutureStudent.this, UpdateProfile.class);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
                 startActivity(intent2);
             }
         });
 
-
-        mBtnSuggestNearby = (Button) findViewById(R.id.btnSuggestNearby);
-        mBtnSuggestNearby.setOnClickListener(new View.OnClickListener() {
+        mBtnSuggestUniv = (Button) findViewById(R.id.btnSuggestUniv2);
+        mBtnSuggestUniv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(MainActivity.this, NearbyPlaces.class);
+                Intent intent3 = new Intent(FutureStudent.this, SuggestUnivActivity.class);
+                Log.e("TAG","SCORE---- "+score+" ,,, PERCENT ---- "+percent);
+
+
+                Bundle bundle = new Bundle();
+                bundle.putString("score", score);
+                bundle.putString("percent", percent);
+                intent3.putExtras(bundle);
                 intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
                 startActivity(intent3);
@@ -105,13 +104,19 @@ public class MainActivity extends ActionBarActivity
             }
         });
 
+        mBtnSuggestNearby2 = (Button) findViewById(R.id.btnSuggestNearby2);
+        mBtnSuggestNearby2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent3 = new Intent(FutureStudent.this, NearbyPlaces.class);
+                intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
+                startActivity(intent3);
 
-        //ParseAnalytics.trackAppOpenedInBackground(getIntent());
+            }
+        });
 
-//        Intent intent = new Intent(this, LoginActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        startActivity(intent);
+        ParseAnalytics.trackAppOpenedInBackground(getIntent());
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -123,14 +128,14 @@ public class MainActivity extends ActionBarActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
-     /*   FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit(); */
-    }
+        @Override
+        public void onNavigationDrawerItemSelected(int position) {
+            // update the main content by replacing fragments
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                    .commit();
+        }
 
     public void onSectionAttached(int number) {
         switch (number) {
@@ -144,8 +149,8 @@ public class MainActivity extends ActionBarActivity
                 mTitle = getString(R.string.title_section2);
                 break;
             //case 3:
-                //mTitle = getString(R.string.title_section3);
-                //break;
+            //mTitle = getString(R.string.title_section3);
+            //break;
         }
     }
 
@@ -205,18 +210,18 @@ public class MainActivity extends ActionBarActivity
     /**
      * A placeholder fragment containing a simple view.
      */
-  /*  public static class PlaceholderFragment extends Fragment {
+    public static class PlaceholderFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
-     /*   private static final String ARG_SECTION_NUMBER = "section_number"; */
+        private static final String ARG_SECTION_NUMBER = "section_number";
 
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-  /*      public static PlaceholderFragment newInstance(int sectionNumber) {
+        public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -237,9 +242,8 @@ public class MainActivity extends ActionBarActivity
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
-            ((MainActivity) activity).onSectionAttached(
+            ((FutureStudent) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
-    } */
-
+    }
 }

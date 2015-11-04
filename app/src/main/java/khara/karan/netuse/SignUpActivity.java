@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -21,50 +20,74 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class SignUpActivity extends Activity {
 
     protected EditText mUsername;
     protected EditText mPassword;
     protected EditText mEmail;
-    //protected Spinner mUnivSpinner;
+    Spinner s2, s3;
+   // protected EditText mFullName, mPercent, mGre, mToefl;
+    protected Button mNext;
+
     protected Button mSignUpButton;
 
-    Spinner s1;
+    //Spinner s1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //this next line for progress bar
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-
         setContentView(R.layout.activity_sign_up);
+
+
+        // find views by ID -------------------------------------------------
         mUsername = (EditText)findViewById(R.id.usernameField);
         mPassword = (EditText)findViewById(R.id.passwordField);
         mEmail = (EditText)findViewById(R.id.emailField);
 
-        s1 = (Spinner)findViewById(R.id.spDepth);
+     /*--   mFullName = (EditText) findViewById(R.id.myFullName);
+        mPercent = (EditText) findViewById(R.id.myPercent);
+        mGre = (EditText) findViewById(R.id.myGre);
+        mToefl = (EditText) findViewById(R.id.myToefl);
+        mNext = (Button) findViewById(R.id.myNext);
+
+        //--get value from Spinner fields
+        spinner1 = (Spinner) findViewById(R.id.spCountry);
         // s1.setOnItemSelectedListener(this);
-        List<String> list = new ArrayList<String>();
-        list.add("--Choose university--");
-        list.add("CSU Fresno");
-        list.add("CSU Chico");
-        list.add("CSU East Bay");
-        list.add("CSU Fullerton");
-        list.add("CSU Long Beach");
-        list.add("CSU Los Angeles");
-        list.add("CSU San Jose");
+        List<String> list2 = new ArrayList<String>();
+        list2.add("--Choose Country--");
+        list2.add("India");
+        list2.add("US");
+        list2.add("Australia");
+
+        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list2);
+        dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter2.notifyDataSetChanged();
+        spinner1.setAdapter(dataAdapter2);
 
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, list);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dataAdapter.notifyDataSetChanged();
-        s1.setAdapter(dataAdapter);
+        spinner2 = (Spinner) findViewById(R.id.spUniversity);
 
-        // mUnivSpinner = (Spinner)findViewById(R.id.spDepth);
+        List<String> list3 = new ArrayList<String>();
+        list3.add("--Choose University--");
+        list3.add("IIT");
+        list3.add("NIT");
+        list3.add("Thapar University");
+        list3.add("PEC University");
+        list3.add(" Manipal University");
+        list3.add("VIT Vellore ");
+        list3.add("Delhi University ");
+        list3.add("UIET Punjab");
+        list3.add("Punjab Technical University Colleges");
+
+        ArrayAdapter<String> dataAdapter3 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list3);
+        dataAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter3.notifyDataSetChanged();
+        spinner2.setAdapter(dataAdapter3);
+--*/
 
         mSignUpButton = (Button)findViewById(R.id.email_sign_up_button);
 
@@ -74,7 +97,15 @@ public class SignUpActivity extends Activity {
                 String username = mUsername.getText().toString();
                 String password = mPassword.getText().toString();
                 String email = mEmail.getText().toString();
-                String univName = s1.getSelectedItem().toString();
+      /*          String fullname = mFullName.getText().toString();
+                String percent  = mPercent.getText().toString();
+                String gre    = mGre.getText().toString();
+                String toefl   = mToefl.getText().toString();
+
+                String univname = spinner2.getSelectedItem().toString();
+                String country = spinner1.getSelectedItem().toString();  */
+
+
                 // now we trim the whitespaces, in case user enters space accidently
                 username = username.trim();
                 password = password.trim();
@@ -96,8 +127,14 @@ public class SignUpActivity extends Activity {
                     newUser.setUsername(username);
                     newUser.setPassword(password);
                     newUser.setEmail(email);
-                    //newUser.set
-                    newUser.put("univName",univName);
+
+         /*           newUser.put("fullName", fullname);
+                    newUser.put("percent", percent);
+                    newUser.put("gre", gre);
+                    newUser.put("toefl", toefl);
+                    newUser.put("univName", univname);
+                    newUser.put("country", country);   */
+
 
                     /* other fields can be set just like with ParseObject
                     newUser.put("phone", "650-555-0000");
@@ -112,7 +149,10 @@ public class SignUpActivity extends Activity {
                             setProgressBarIndeterminateVisibility(false);
                             if (e == null) {
                                 // Hooray! Let them use the app now.
-                                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                Intent intent = new Intent(SignUpActivity.this, CreateProfile.class);
+                                // to pass edittext value to other activity
+                                //   intent.putExtra("mFullName", mFullName.getText().toString());
+
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
                                 startActivity(intent);

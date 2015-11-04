@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -11,8 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.parse.GetCallback;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 
@@ -23,6 +27,8 @@ public class LoginActivity extends Activity {
     protected Button mLoginButton;
 
     protected TextView mSignUpTextView;
+    public static final String TAG=LoginActivity.class.getSimpleName();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,38 +66,57 @@ public class LoginActivity extends Activity {
                     AlertDialog dialog=builder.create();
                     dialog.show();
                 }
-                else
-                {
+                else {
                     // Login
-                    System.out.print("username nd pwd not empty .......................");
+                    //System.out.print("username nd pwd not empty .......................");
                     //Toast.makeText(LoginActivity.this, "username nd pwd not empty ....................", Toast.LENGTH_LONG).show();
                     setProgressBarIndeterminateVisibility(true);    // to show the progress bar
-                    ParseUser.logInInBackground(username,password,new LogInCallback() {
+                    ParseUser.logInInBackground(username, password, new LogInCallback() {
                         @Override
-                        public void done(ParseUser parseUser, ParseException e)
-                        {
+                        public void done(ParseUser parseUser, ParseException e) {
                             setProgressBarIndeterminateVisibility(false);
-                            if(e==null)
-                            {
-                                //Toast.makeText(LoginActivity.this, "e = null.................", Toast.LENGTH_LONG).show();
+                            if (e == null) {
                                 //Success
-                                Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+                                ParseUser mCurrentUser = ParseUser.getCurrentUser();
+                                ParseQuery<ParseObject> query2 = ParseQuery.getQuery("UserInfo");
+                                query2.whereEqualTo("userId", mCurrentUser);
+                                query2.getFirstInBackground(new GetCallback<ParseObject>() {
+                                    @Override
+                                    public void done(ParseObject parseObject, ParseException e) {
+                                        if (e == null) {
+                                            String str = parseObject.get("newUnivName").toString();
 
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                            }
-                            else{
-                                AlertDialog.Builder builder=new AlertDialog.Builder(LoginActivity.this);
+                                            if (! str.equals("blank")) {
+                                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                startActivity(intent);
+                                            }
+                                            else {
+                                                Intent intent = new Intent(LoginActivity.this, FutureStudent.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                startActivity(intent);
+                                            }
+
+                                        }
+                                        else {
+                                            Log.e(TAG, "e message: " + e.getMessage());
+                                        }
+                                    }
+                                });
+                            } else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                                 builder.setMessage(e.getMessage())
                                         .setTitle(R.string.login_error_title)
-                                        .setPositiveButton(android.R.string.ok,null);
+                                        .setPositiveButton(android.R.string.ok, null);
                                 AlertDialog dialog = builder.create();
                                 dialog.show();
                             }
                         }
-                    });
 
+
+                    });
                 }
             }
         });
