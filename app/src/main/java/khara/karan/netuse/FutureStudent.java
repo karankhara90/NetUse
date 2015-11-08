@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,7 +32,8 @@ public class FutureStudent extends ActionBarActivity
     protected Button mBtnUpdate;
     protected TextView mFullName;
     protected Context context;
-    String score,percent;
+    String score,percent, undergradUniv, fullname;
+    int i;
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
@@ -55,12 +55,13 @@ public class FutureStudent extends ActionBarActivity
 
             public void done(ParseObject object2, ParseException e) {
                 if (e == null) {
-                    String FullName = object2.get("fullName").toString();
-                    mFullName = (TextView) findViewById(R.id.name2);
-                    mFullName.setText(FullName);
+                    fullname = object2.get("fullName").toString();
                     score = object2.get("greScore").toString();
                     percent = object2.get("undergradPercent").toString();
-
+                    undergradUniv = object2.get("undergradUniv").toString();
+                    //set text box with full name
+                    mFullName = (TextView) findViewById(R.id.name2);
+                    mFullName.setText(fullname);
                 } else {
                     // error
                     AlertDialog.Builder builder = new AlertDialog.Builder(FutureStudent.this);
@@ -89,13 +90,16 @@ public class FutureStudent extends ActionBarActivity
         mBtnSuggestUniv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(FutureStudent.this, SuggestUnivActivity.class);
-                Log.e("TAG","SCORE---- "+score+" ,,, PERCENT ---- "+percent);
+                Intent intent3 = new Intent(FutureStudent.this, InterActivity.class);
+                //Log.e("TAG","SCORE---- "+score+" ,,, PERCENT ---- "+percent);
 
 
                 Bundle bundle = new Bundle();
                 bundle.putString("score", score);
                 bundle.putString("percent", percent);
+                bundle.putString("fullname",fullname);
+                bundle.putString("undergradUniv",undergradUniv);
+
                 intent3.putExtras(bundle);
                 intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one

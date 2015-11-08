@@ -27,7 +27,6 @@ public class CreateProfile extends ActionBarActivity {
     protected Button mNext;
     protected Context context;
 
-
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,15 +69,48 @@ public class CreateProfile extends ActionBarActivity {
 
         List<String> list2 = new ArrayList<String>();
         list2.add("--Choose University--");
-        list2.add("IIT");
-        list2.add("NIT");
+        list2.add("IIT Delhi"); list2.add("IIT Kharagpur");
+        list2.add("IIT Bombay"); list2.add("IIT Madras");
+        list2.add("IIT Guwahati"); list2.add("IIT Kanpur");
+        list2.add("IIT (others)");  list2.add("BITS Pilani");
+        list2.add("Delhi Technological University");
+        list2.add("NIT Surathkal");
+        list2.add("NIT Trichy");
+        list2.add("NIT Durgapur");
+        list2.add("Malaviya National Institute of Technology");
+        list2.add("NIT Rourkela");
+        list2.add("BIT Mesra");
         list2.add("Thapar University");
+        list2.add("NIT Hamirpur");
+        list2.add("Jaypee Institute of Information Technology");
         list2.add("PEC University");
-        list2.add(" Manipal University");
-        list2.add("VIT Vellore ");
-        list2.add("Delhi University ");
-        list2.add("UIET Punjab");
-        list2.add("Punjab Technical University Colleges");
+        list2.add("NIT Warangal");
+        list2.add("Indraprastha Institute of Information Technology, Delhi");
+        list2.add("College of Engineering, Pune");
+        list2.add("Manipal Institute of Technology");
+        list2.add("Pune Institute of Computer Technology");
+        list2.add("R.V. College of Engineering");
+        list2.add("Vellore Institute of Technology");
+        list2.add("Nirma Institute of Technology");
+        list2.add("UIET Panjab University");
+        list2.add("Anna University");
+        list2.add("Maharaja Agrasen Institute of Technology");
+        list2.add("Madras Institute of Technology");
+        list2.add("Narula Institute of Technology");
+        list2.add("Maharashtra Institute of Technology");
+        list2.add("Guru Tegh Bahadur Institute of Technology");
+        list2.add("Meerut Institute of Engineering & Technology");
+        list2.add("NIT Delhi");
+        list2.add("Birsa Institute of Technology");
+        list2.add("Chandigarh College of Engineering & Technology");
+        list2.add("Apeejay College of Engineering");
+        list2.add("Chitkara Institute of Engineering & Technology");
+        list2.add("Beant College of Engineering & Technology");
+        list2.add("IET Bhaddal Punjab");
+        list2.add("Lovely Professional University");
+        list2.add("Bangalore Institute of Technology");
+
+
 
 
         ArrayAdapter<String> dataAdapter3 = new ArrayAdapter<String>(this,
@@ -121,7 +153,6 @@ public class CreateProfile extends ActionBarActivity {
                 userInfo.put("newUnivName","blank");
                 userInfo.saveInBackground();
                 //userInfo.saveInBackground(new MySaveCallBack(context));
-
 
 
                 Intent intent = new Intent(CreateProfile.this, FutureStudent.class);

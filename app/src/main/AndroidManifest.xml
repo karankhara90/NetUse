@@ -122,6 +122,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="khara.karan.netuse.MainActivity" />
         </activity>
+        <activity
+            android:name=".ReccPlaces"
+            android:label="@string/title_activity_recc_places"
+            android:parentActivityName=".NearbyPlaces" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="khara.karan.netuse.NearbyPlaces" />
+        </activity>
+        <activity
+            android:name=".InterActivity"
+            android:label="@string/title_activity_inter"
+            android:parentActivityName=".FutureStudent" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="khara.karan.netuse.FutureStudent" />
+        </activity>
     </application>
 
 </manifest>

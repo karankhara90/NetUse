@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShowNamesActivity extends ListActivity {
-    public static final String TAG=ShowUsersActivity.class.getSimpleName();
+    public static final String TAG=ShowNamesActivity.class.getSimpleName();
     protected Button mBtnBackNames;
     //protected List<ParseObject> mObjects;
     //protected ParseUser mCurrentUser;
