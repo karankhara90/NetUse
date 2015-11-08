@@ -83,7 +83,7 @@ public class InterActivity extends ActionBarActivity {
                             });
                         }
                         Intent intent3 = new Intent(InterActivity.this, SuggestUnivActivity.class);
-
+//
                         bundle2 = new Bundle();
                         for (int k = 0; k < list.size(); k++) {
                             if(k< list.size()){
