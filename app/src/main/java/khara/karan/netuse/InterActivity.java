@@ -56,7 +56,7 @@ public class InterActivity extends ActionBarActivity {
                             underUniv[i] = po.get("undergradUniv").toString();
                             //Log.e("TAG", "undergradUniv: " + underUniv[i]);
 
-                        }    Log.e("TAG", "..............................................");
+                           Log.e("TAG", "..............................................");
                             ParseQuery<ParseObject> query4 = ParseQuery.getQuery("UnivDetail");
                             //Log.e("TAG", ""
                             query4.whereEqualTo("univName", underUniv[i]);
