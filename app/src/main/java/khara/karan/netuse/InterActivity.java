@@ -92,8 +92,7 @@ public class InterActivity extends ActionBarActivity {
                             }
 
                         }
-
-
+                        //dfd
                         intent3.putExtras(bundle2);
                         intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
