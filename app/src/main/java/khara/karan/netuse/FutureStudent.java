@@ -1,7 +1,6 @@
 package khara.karan.netuse;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +33,7 @@ public class FutureStudent extends ActionBarActivity
     protected TextView mFullName;
     protected Context context;
     String score,percent, undergradUniv, fullname;
+    String objId;
     int i;
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
@@ -54,15 +55,35 @@ public class FutureStudent extends ActionBarActivity
         query2.getFirstInBackground(new GetCallback<ParseObject>() {
 
             public void done(ParseObject object2, ParseException e) {
-                if (e == null) {
-                    fullname = object2.get("fullName").toString();
-                    score = object2.get("greScore").toString();
-                    percent = object2.get("undergradPercent").toString();
-                    undergradUniv = object2.get("undergradUniv").toString();
-                    //set text box with full name
-                    mFullName = (TextView) findViewById(R.id.name2);
-                    mFullName.setText(fullname);
-                } else {
+                //if (e == null) {
+                try{
+                    try{
+                      // fullname = object2.get("fullName").toString();
+                      /*  score = object2.get("greScore").toString();
+                        percent = object2.get("undergradPercent").toString(); */
+                    }catch (Exception exc1){
+                        Log.e("TAG","exc1 exception:------------ "+exc1);
+                    }
+
+                    try{
+                       /* undergradUniv = object2.get("undergradUniv").toString();
+                        Log.e("TAG","undergrad univ:::::::"+undergradUniv); */
+                    }catch (Exception exc2){
+                        Log.e("TAG","exc2 exception:------------ "+exc2);
+                    }
+                    try{
+                        //set text box with full name
+                        //mFullName = (TextView) findViewById(R.id.name2);
+                      //  mFullName.setText(fullname);
+                    }catch (Exception exc3){
+                        Log.e("TAG","exc3 exception:------------ "+exc3);
+                    }
+
+                }catch (Exception exc){
+                    Log.e("TAG","exc exception:------------ "+exc);
+                }
+
+               /* } else {
                     // error
                     AlertDialog.Builder builder = new AlertDialog.Builder(FutureStudent.this);
 
@@ -71,7 +92,7 @@ public class FutureStudent extends ActionBarActivity
                     builder.setPositiveButton(android.R.string.ok, null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
-                }
+                } */
             }
         });
 
@@ -90,17 +111,17 @@ public class FutureStudent extends ActionBarActivity
         mBtnSuggestUniv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(FutureStudent.this, InterActivity.class);
+                Intent intent3 = new Intent(FutureStudent.this, FutureStudent.class);
                 //Log.e("TAG","SCORE---- "+score+" ,,, PERCENT ---- "+percent);
 
 
-                Bundle bundle = new Bundle();
+             /*   Bundle bundle = new Bundle();
                 bundle.putString("score", score);
                 bundle.putString("percent", percent);
                 bundle.putString("fullname",fullname);
                 bundle.putString("undergradUniv",undergradUniv);
 
-                intent3.putExtras(bundle);
+                intent3.putExtras(bundle); */
                 intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
                 startActivity(intent3);

@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -50,7 +49,7 @@ public class InterActivity extends ActionBarActivity {
                         Log.e("TAG", "list size: " + list.size());
                         underUniv = new String[list.size()];
                         i = -1;
-                        for (ParseObject po : list) {
+                      /*  for (ParseObject po : list) {
                             i++;
                             //Log.e("TAG", "i :: " + i);
                             underUniv[i] = po.get("undergradUniv").toString();
@@ -96,9 +95,16 @@ public class InterActivity extends ActionBarActivity {
                         intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
                         startActivity(intent3);
+                        */
 
                     }
+
+
                 });
+                Intent intent3 = new Intent(InterActivity.this, SuggestUnivActivity.class);
+                intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
+                startActivity(intent3);
             }
         });
     }
