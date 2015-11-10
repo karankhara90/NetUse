@@ -95,23 +95,6 @@ public class CreateProfile extends ActionBarActivity {
 
                 list2 = new ArrayList<String>();
 
-//                list2.add("--Choose University--"); list2.add("IIT Delhi"); list2.add("IIT Kharagpur");         list2.add("IIT Bombay"); list2.add("IIT Madras");
-//                list2.add("IIT Guwahati"); list2.add("IIT Kanpur");  list2.add("IIT (others)");  list2.add("BITS Pilani");  list2.add("Delhi Technological University");
-//                list2.add("NIT Surathkal");  list2.add("NIT Trichy");   list2.add("NIT Durgapur");      list2.add("Malaviya National Institute of Technology");
-//                list2.add("NIT Rourkela");  list2.add("BIT Mesra");  list2.add("Thapar University"); list2.add("NIT Hamirpur");
-//                list2.add("Jaypee Institute of Information Technology");  list2.add("PEC University"); list2.add("NIT Warangal");
-//                list2.add("Indraprastha Institute of Information Technology, Delhi");  list2.add("College of Engineering, Pune");
-//                list2.add("Manipal Institute of Technology");  list2.add("Pune Institute of Computer Technology");
-//                list2.add("R.V. College of Engineering");   list2.add("Vellore Institute of Technology");  list2.add("Nirma Institute of Technology");
-//                list2.add("UIET Panjab University");    list2.add("Anna University");  list2.add("Maharaja Agrasen Institute of Technology");
-//                list2.add("Madras Institute of Technology");  list2.add("Narula Institute of Technology");  list2.add("Maharashtra Institute of Technology");
-//                list2.add("Guru Tegh Bahadur Institute of Technology");  list2.add("Meerut Institute of Engineering & Technology");
-//                list2.add("NIT Delhi");   list2.add("Birsa Institute of Technology");  list2.add("Chandigarh College of Engineering & Technology");
-//                list2.add("Apeejay College of Engineering");   list2.add("Chitkara Institute of Engineering & Technology");
-//                list2.add("Beant College of Engineering & Technology");  list2.add("IET Bhaddal Punjab");
-//                list2.add("Lovely Professional University");    list2.add("Bangalore Institute of Technology");
-
-
                 univDetailHashMap = new HashMap<String, UnivDetail>();
 
                for (ParseObject univDetailObj : list) {
@@ -121,7 +104,6 @@ public class CreateProfile extends ActionBarActivity {
                     univDetail.setUnivCountry(univDetailObj.get("UnivCountry").toString());
                     if(univDetailObj.get("UnivCountry").toString().equals("India")){
                         univDetail.setUnivName(univName);
-                        // try {
                         objID = univDetailObj.getObjectId().toString();
                         univDetail.setObjectID(objID);
 
@@ -158,7 +140,7 @@ public class CreateProfile extends ActionBarActivity {
                         gre = Integer.parseInt(mGre.getText().toString());
                         toefl = Integer.parseInt(mToefl.getText().toString());
                         univnameSelected = spinner2.getSelectedItem().toString();
-                        Log.e("TAG","univ selected: "+univnameSelected);
+                       // Log.e("TAG","univ selected: "+univnameSelected);
                         countrySelected = spinner1.getSelectedItem().toString();
 
                         final ParseUser newUser2 = ParseUser.getCurrentUser();
@@ -169,13 +151,7 @@ public class CreateProfile extends ActionBarActivity {
                         q2.getFirstInBackground(new GetCallback<ParseObject>() {
                             @Override
                             public void done(ParseObject parseObject, ParseException e) {
-
-                                //ud = univDetailHashMap.get(univnameSelected);
-                                //Log.e("TAG", "ud =====" + ud);
-                                //String abc= ud.getObjectID();
-                                //Log.e("TAG","abc))))))))))))))): "+abc);
                                 userInfo.put("userId", newUser2);
-                                //   userInfo.put("univId", newUser2);
                                 userInfo.put("fullName", fullname);
                                 userInfo.put("undergradPercent", percent);
                                 userInfo.put("greScore", gre);
@@ -192,13 +168,8 @@ public class CreateProfile extends ActionBarActivity {
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
                                 startActivity(intent);
-                    }
-                    });
-                //});
-                              /*  Intent intent = new Intent(CreateProfile.this, FutureStudent.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
-                                startActivity(intent); */
+                            }
+                        });
                     }
                 });
             }

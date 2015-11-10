@@ -58,23 +58,23 @@ public class FutureStudent extends ActionBarActivity
                 //if (e == null) {
                 try{
                     try{
-                      // fullname = object2.get("fullName").toString();
-                      /*  score = object2.get("greScore").toString();
-                        percent = object2.get("undergradPercent").toString(); */
+                       fullname = object2.get("fullName").toString();
+                        score = object2.get("greScore").toString();
+                        percent = object2.get("undergradPercent").toString();
                     }catch (Exception exc1){
                         Log.e("TAG","exc1 exception:------------ "+exc1);
                     }
 
                     try{
-                       /* undergradUniv = object2.get("undergradUniv").toString();
-                        Log.e("TAG","undergrad univ:::::::"+undergradUniv); */
+                        undergradUniv = object2.get("undergradUniv").toString();
+                        Log.e("TAG","undergrad univ:::::::"+undergradUniv);
                     }catch (Exception exc2){
                         Log.e("TAG","exc2 exception:------------ "+exc2);
                     }
                     try{
                         //set text box with full name
-                        //mFullName = (TextView) findViewById(R.id.name2);
-                      //  mFullName.setText(fullname);
+                        mFullName = (TextView) findViewById(R.id.name2);
+                        mFullName.setText(fullname);
                     }catch (Exception exc3){
                         Log.e("TAG","exc3 exception:------------ "+exc3);
                     }
@@ -111,7 +111,7 @@ public class FutureStudent extends ActionBarActivity
         mBtnSuggestUniv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(FutureStudent.this, FutureStudent.class);
+                Intent intent3 = new Intent(FutureStudent.this, SuggestUnivActivity.class);
                 //Log.e("TAG","SCORE---- "+score+" ,,, PERCENT ---- "+percent);
 
 
