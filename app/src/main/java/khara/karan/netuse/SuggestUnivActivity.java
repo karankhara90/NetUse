@@ -25,22 +25,25 @@ import java.util.List;
 public class SuggestUnivActivity extends Activity {
     ListView listview;
 
-    float UndergradUnivRating1, UndergradStudRating1, GreRating1;
-    float[] UndergradUnivRating2;
-    float[] UndergradStudRating2;
-    float[] GreRating2;
-   String fullname, undergradUniv1,undergradUniv2 ;
+    float currUserUndergradUnivRating, currUserUndergradPercentRating, currUserGreRating;
+    float[] thisSeniorUndergradUnivRating;
+    float[] thisSeniorUndergradPercentRating;
+    float[] thisSeniorGreRating;
+    float [] getSeniorUserTotalRating;
+    float getCurrentUserTotalRating;
+    String fullname, undergradUniv1,undergradUniv2 ;
 //    public static
 
     String[] seniorStuds;
     float[] studAvgRating;
     float avgSeniorUserRating;
-    ParseUser currUser;
+    final ParseUser currUser = ParseUser.getCurrentUser();;
     int i,j;
     String[] univRating;
     Object object;
     int listSize;
     String rate;
+    String mNewUserId, mCurrUserId;
 
 
     public static final String TAG=SuggestUnivActivity.class.getSimpleName();
@@ -50,50 +53,19 @@ public class SuggestUnivActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggest_univ);
 
-        currUser = ParseUser.getCurrentUser();
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("UserInfo");
-        query.whereEqualTo("userId", currUser);
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject parseObject, ParseException e) {
 
-                undergradUniv1 = parseObject.get("undergradUniv").toString();
+        /**************  get Current New User Rating   *********************/
 
-                float GreScore1, UndergradPercent1;
-                GreScore1 = Float.valueOf(parseObject.get("greScore").toString());
-                UndergradPercent1 = Float.valueOf(parseObject.get("undergradPercent").toString());
-                suggestDB(parseObject.get("greScore").toString(), parseObject.get("undergradPercent").toString());
+//          getCurrentNewUserRating();
+        /*****************************************************************/
 
+        /**************  get Suggested Universities From Database   *********************/
+            getSuggestedUnivFromDatabase();
+        /*****************************************************************/
 
-                GreRating1 = getGreRating(GreScore1);
-                UndergradStudRating1 = getUndergradStudRating(UndergradPercent1);
-
-                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("UnivDetail");
-                query1.whereEqualTo("univName", undergradUniv1);
-                query1.getFirstInBackground(new GetCallback<ParseObject>() {
-                    @Override
-                    public void done(ParseObject parseObject, ParseException e) {
-                        if (parseObject != null) {
-                            String temp = parseObject.get("univRating").toString();
-
-                            UndergradUnivRating1 = Float.valueOf(temp);
-                            Log.e(TAG, "greRating1: " + GreRating1 + ",   undergradUnivRating1: " + UndergradUnivRating1 + ",  undergradStudRating21: " + UndergradStudRating1);
-                            float getCurrentUserTotalRating = getThisUserAvgRatings(GreRating1, UndergradUnivRating1, UndergradStudRating1);
-                            Log.e(TAG, "Current Student's total rating: " + getCurrentUserTotalRating);
-
-                        } else {
-                            Log.e(TAG, "exception = ^^^^^^^" + e);
-                        }
-                    }
-                });
-
-            }
-        });
-        //**************  getEachSeniorRating()   *********************/
-
-        getEachSeniorRating();
-
-        //*************************************************/
+        /**************  get Each Senior's Rating   *********************/
+          getEachSeniorRating();
+        /*************************************************************/
 
         mBtnBackSuggest = (Button) findViewById(R.id.btnBackNames);
         mBtnBackSuggest.setOnClickListener(new View.OnClickListener() {
@@ -117,58 +89,153 @@ public class SuggestUnivActivity extends Activity {
         undergradPercent = undergradPercent/10;
         return undergradPercent;
     }
+    void getSuggestedUnivFromDatabase() {
+
+        ParseQuery<ParseObject> q = ParseQuery.getQuery("UserInfo");
+        q.whereEqualTo("userId", currUser);
+        q.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+
+                String gre_score = parseObject.get("greScore").toString();
+                String under_percent = parseObject.get("undergradPercent").toString();
+
+                suggestDB(gre_score, under_percent);
+
+            }
+        });
+    }
+
+    void getCurrentNewUserRating(){
+
+    }
 
     void getEachSeniorRating(){
 
+//        currUser = ParseUser.getCurrentUser();
         ParseQuery<ParseObject> query2;
         query2 = ParseQuery.getQuery("UserInfo");
-        query2.whereNotEqualTo("newUnivName", "blank");
-        query2.whereNotEqualTo("fullName", fullname);
+//        query2.whereNotEqualTo("newUnivName", "blank");
+//        query2.whereNotEqualTo("fullName", fullname);
         query2.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
 
-                Log.e(TAG, "list size: " + list.size());
-                seniorStuds = new String[list.size()];
-                studAvgRating = new float[list.size()];
+                //Log.e(TAG, "list size: " + list.size());
+//                studAvgRating = new float[list.size()];
                 i = -1;
                 listSize = list.size();
-
+                seniorStuds = new String[list.size()];
+                thisSeniorGreRating = new float[list.size()];
+                thisSeniorUndergradPercentRating = new float[list.size()];
+                thisSeniorUndergradUnivRating = new float[list.size()];
+                getSeniorUserTotalRating = new float[list.size()];
                 String[] underUniv = new String[list.size()];
-                GreRating2 = new float[list.size()];
-                UndergradStudRating2 = new float[list.size()];
-                UndergradUnivRating2 = new float[list.size()];
+                Log.e(TAG, "************************************SENIOR USER*******************************************************");
                 for (ParseObject po : list) {
-                    i++;
-                    seniorStuds[i] = po.get("fullName").toString();
-                    String thisSenior = seniorStuds[i];
-                    Log.e(TAG, "This Senior: " + thisSenior);
 
-                    underUniv[i] = po.get("undergradUniv").toString();
-                    Log.e(TAG, "undergradUniv: " + underUniv[i]);
-                    float GreScore2, UndergradPercent2;
-                    GreScore2 = Float.valueOf(po.get("greScore").toString());
-                    UndergradPercent2 = Float.valueOf(po.get("undergradPercent").toString());
+//                    if( po.get("newUnivName").toString().equals("blank"))
+//                    {
+//                        //getCurrentNewUserRating();
+                        try{
+                            ParseObject userObj = po.getParseObject("userId");
+                            mNewUserId = userObj.fetchIfNeeded().getObjectId();
+                            mCurrUserId= currUser.getObjectId();
+//                            Log.e(TAG, " this new user: " + userObj.fetchIfNeeded().getString("username") + " has object id ==== " + mNewUserId);
+//                            Log.e(TAG, " current user: "+currUser.getUsername().toString()+" has  object id ==== " + mCurrUserId);
+                        }catch (Exception ex1){
+                            Log.e(TAG,"ex1 exception--"+ex1);
+                        }
 
-                    GreRating2[i] = getGreRating(GreScore2);
-                    UndergradStudRating2[i] = getUndergradStudRating(UndergradPercent2);
+                        if(mNewUserId.equals(mCurrUserId))
+                        {
+//                            Log.e(TAG,"/**************** ratings of current user ******************/");
+                            /**************** ratings of current user ******************/
 
-                    try{
-                        ParseObject preunivname = po.getParseObject("prevUnivName");
-                        Log.e(TAG, "obj id ==== " + preunivname.getObjectId());
-                        UndergradUnivRating2[i] = (float)preunivname.fetchIfNeeded().getInt("univRating");
-                        Log.e(TAG, "greRating2: " + GreRating2[i] + ",  undergradStudRating2: " +
-                                UndergradStudRating2[i]+", UndergradUnivRating2["+i+"] : " + UndergradUnivRating2[i]);
-                    }catch (Exception excpt){
-                        Log.e("TAG","excpt is : "+excpt);
+                            undergradUniv1 = po.get("undergradUniv").toString();
+                            float GreScore1, UndergradPercent1;
+                            GreScore1 = Float.valueOf(po.get("greScore").toString());
+                            UndergradPercent1 = Float.valueOf(po.get("undergradPercent").toString());
+
+                            currUserGreRating = getGreRating(GreScore1);
+                            currUserUndergradPercentRating = getUndergradStudRating(UndergradPercent1);
+                            try{
+                                ParseObject preunivname2 = po.getParseObject("prevUnivName");
+                                currUserUndergradUnivRating = (float) preunivname2.fetchIfNeeded().getInt("univRating");
+                            }catch(Exception ex2)
+                            {
+                                Log.e(TAG,"ex2 exception--"+ex2);
+                            }
+                            getCurrentUserTotalRating = getThisUserAvgRatings(currUserGreRating, currUserUndergradUnivRating, currUserUndergradPercentRating);
+
+                            /*ParseQuery<ParseObject> query1 = ParseQuery.getQuery("UnivDetail");
+                            query1.whereEqualTo("univName", undergradUniv1);
+                            query1.getFirstInBackground(new GetCallback<ParseObject>() {
+                                @Override
+                                public void done(ParseObject parseObject, ParseException e) {
+                                if (parseObject != null) {
+                                    String temp = parseObject.get("univRating").toString();
+                                    currUserUndergradUnivRating = Float.valueOf(temp);
+                                    getCurrentUserTotalRating = getThisUserAvgRatings(currUserGreRating, currUserUndergradUnivRating, currUserUndergradPercentRating);
+                                } else {
+                                    Log.e(TAG, "exception = ^^^^^^^" + e);
+                                }
+                                }
+                            });  */
+                        }
+//                    }
+//                    //if (! po.get("newUnivName").toString().equals("blank")) {
+//                    else
+                    if(! po.get("newUnivName").toString().equals("blank"))
+                    {
+//                        class SeniorStudent{
+//
+//                        }
+                        i++;
+                        seniorStuds[i] = po.get("fullName").toString();
+                        String thisSenior = seniorStuds[i];
+                        //                    Log.e(TAG, "This Senior: " + thisSenior);
+
+                        underUniv[i] = po.get("undergradUniv").toString();
+                        //                    Log.e(TAG, "undergradUniv: " + underUniv[i]);
+                        float GreScore2, UndergradPercent2;
+                        GreScore2 = Float.valueOf(po.get("greScore").toString());
+                        UndergradPercent2 = Float.valueOf(po.get("undergradPercent").toString());
+
+                        thisSeniorGreRating[i] = getGreRating(GreScore2);
+                        thisSeniorUndergradPercentRating[i] = getUndergradStudRating(UndergradPercent2);
+
+                        try {
+                            ParseObject preunivname = po.getParseObject("prevUnivName");
+                            thisSeniorUndergradUnivRating[i] = (float) preunivname.fetchIfNeeded().getInt("univRating");
+
+                            getSeniorUserTotalRating[i] = getThisUserAvgRatings(thisSeniorGreRating[i], thisSeniorUndergradPercentRating[i], thisSeniorUndergradUnivRating[i]);
+
+                            Log.e(TAG, "greRating2: " + thisSeniorGreRating[i] + ",  undergradStudRating2: " +
+                                    thisSeniorUndergradPercentRating[i] + ", thisSeniorUndergradUnivRating[" +
+                                    i + "] : " + thisSeniorUndergradUnivRating[i]);
+                            Log.e(TAG, "This Senior "+seniorStuds[i]+ ":" + i + " has total rating: " + getSeniorUserTotalRating[i]);
+
+
+                            Log.e(TAG, "------------------------------------------");
+                        } catch (Exception ex3) {
+                            Log.e("TAG", "excpt is : " + ex3);
+                        }
                     }
-
-
-                    Log.e(TAG, "_____________________________________________________________________");
                 }
+                Log.e(TAG, "************************************ CURRENT USER *******************************************************");
+                Log.e(TAG, "greRating1: " + currUserGreRating + ",   undergradUnivRating1: " + currUserUndergradUnivRating + ",  undergradStudRating21: " + currUserUndergradPercentRating);
+                Log.e(TAG, "Current new Student has total rating: " + getCurrentUserTotalRating);
+                Log.e(TAG, "_____________________________________________________________________________________");
+
+
+//                getCurrentNewUserRating();
+//                UserRatings objUserRatings = new UserRatings();
+//                objUserRatings.getCurrentNewUserRating();
+
             }
         });
-        ///////////////////////////////////////
+//        Log.e(TAG, "=================done with current student ratings====================================");
     }
 
     float getThisUserAvgRatings(float greRating,float undergradUnivRating,float undergradStudRating){
@@ -185,12 +252,11 @@ public class SuggestUnivActivity extends Activity {
     }
 
 
-    float userSimilarities(String currentUser, String seniorStud){
+//    float userSimilarities(String currentUser, String seniorStud) {
+//
+//        //float avg
+//    }
 
-        //float avg
-
-        return 0;
-    }
 
     void suggestDB(String grescore, String Percentage){
         float greScore = Float.valueOf(grescore);
@@ -207,7 +273,7 @@ public class SuggestUnivActivity extends Activity {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                 if (e == null) {
-                    listview = (ListView) findViewById(R.id.listView);
+                    listview = (ListView) findViewById(R.id.listViewSuggest);
                     //  String[] usernames = new String[obs.size()];
                     ArrayList<String> univnames = new ArrayList<String>();
                     int size = 30;
@@ -247,6 +313,8 @@ public class SuggestUnivActivity extends Activity {
             }
         });
     }
+      //  });
+    //}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

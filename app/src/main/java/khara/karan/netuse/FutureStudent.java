@@ -38,6 +38,7 @@ public class FutureStudent extends ActionBarActivity
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
+    public static final String TAG=FutureStudent.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class FutureStudent extends ActionBarActivity
 
                     try{
                         undergradUniv = object2.get("undergradUniv").toString();
-                        Log.e("TAG","undergrad univ:::::::"+undergradUniv);
+                        //Log.e("TAG","undergrad univ:::::::"+undergradUniv);
                     }catch (Exception exc2){
                         Log.e("TAG","exc2 exception:------------ "+exc2);
                     }

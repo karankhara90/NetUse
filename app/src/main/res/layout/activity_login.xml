@@ -48,7 +48,9 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:background="#ffffff"
-            android:layout_weight="0.45">
+            android:layout_weight="0.45"
+            android:imeOptions="actionNext"
+            >
             <requestFocus/>
         </EditText>
 
@@ -66,6 +68,7 @@
             android:layout_alignRight="@+id/usernameField"
             android:layout_alignEnd="@+id/usernameField"
             android:background="#ffffff"
+            android:imeOptions="actionNext"
             android:layout_weight="0.40" />
 
         <Button android:id="@+id/loginButton"
@@ -76,6 +79,7 @@
             android:text="@string/action_sign_in"
             android:textStyle="bold"
             android:textSize="18dp"
+            android:imeOptions="actionNext"
             android:textColor="#747474" />
 
         <TextView
