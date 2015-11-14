@@ -33,6 +33,7 @@ public class FutureStudent extends ActionBarActivity
     protected TextView mFullName;
     protected Context context;
     String score,percent, undergradUniv, fullname;
+    String currUserUndergradUnivRating;
     String objId;
     int i;
 
@@ -80,6 +81,17 @@ public class FutureStudent extends ActionBarActivity
                         Log.e("TAG","exc3 exception:------------ "+exc3);
                     }
 
+                    try{
+                        ParseObject preunivname2 = object2.getParseObject("prevUnivName");
+                        currUserUndergradUnivRating =  preunivname2.fetchIfNeeded().get("univRating").toString();
+//                        Log.e(TAG, "1: "+preunivname2.fetchIfNeeded().get("univRating").toString());
+//                        Log.e(TAG, "1: "+preunivname2.fetchIfNeeded().getInt("univRating").toString());
+                    }catch(Exception ex2)
+                    {
+                        Log.e(TAG,"ex2 exception--"+ex2);
+                    }
+
+
                 }catch (Exception exc){
                     Log.e("TAG","exc exception:------------ "+exc);
                 }
@@ -113,16 +125,18 @@ public class FutureStudent extends ActionBarActivity
             @Override
             public void onClick(View v) {
                 Intent intent3 = new Intent(FutureStudent.this, SuggestUnivActivity.class);
-                //Log.e("TAG","SCORE---- "+score+" ,,, PERCENT ---- "+percent);
+                Log.e("TAG", "SCORE=============================== " + score + " ,,, PERCENT ============================== " + percent
+                            + ",,  Univ rating ================================="+currUserUndergradUnivRating);
 
 
-             /*   Bundle bundle = new Bundle();
+                Bundle bundle = new Bundle();
                 bundle.putString("score", score);
                 bundle.putString("percent", percent);
                 bundle.putString("fullname",fullname);
                 bundle.putString("undergradUniv",undergradUniv);
+                bundle.putString("currUserUnderUnivRating",currUserUndergradUnivRating);
 
-                intent3.putExtras(bundle); */
+                intent3.putExtras(bundle);
                 intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
                 startActivity(intent3);

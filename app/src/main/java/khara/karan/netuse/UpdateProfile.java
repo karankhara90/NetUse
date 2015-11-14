@@ -25,6 +25,7 @@ public class UpdateProfile extends ActionBarActivity {
     protected Button mDone;
     protected Context context;
     Spinner spinner3;
+    String newUnivSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,60 +69,78 @@ public class UpdateProfile extends ActionBarActivity {
             public void onClick(View v) {
 
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                //ParseUser currentUser3= ParseUser.getCurrentUser();
-                //ParseObject userUpdate = new ParseObject("UserUpdate");
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("UserInfo");
+//                ParseQuery<ParseObject> query = ParseQuery.getQuery("UserInfo");
+//
+//                query.whereEqualTo("userId", currentUser);
+//
+//                query.getFirstInBackground(new GetCallback<ParseObject>() {
+//
+//                    public void done(ParseObject object, ParseException e) {
+//                        if (e == null) {
+//                            String newUnivName = spinner3.getSelectedItem().toString();
+//                            object.put("newUnivName", newUnivName);
+//                            object.put("nowUnivName", object);
+//                            object.saveInBackground();
+//                            Intent intent = new Intent(UpdateProfile.this, MainActivity.class);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
+//                            startActivity(intent);
+//
+//
+//                        } else {
+//                            // error
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(UpdateProfile.this);
+//
+//                            builder.setMessage(e.getMessage());
+//                            builder.setTitle("Error hai ethe ji");
+//                            builder.setPositiveButton(android.R.string.ok, null);
+//                            AlertDialog dialog = builder.create();
+//                            dialog.show();
+//                        }
+//
+//                    }
+//                });
 
-                query.whereEqualTo("userId", currentUser);
+                newUnivSelected = spinner3.getSelectedItem().toString();
+                if(! newUnivSelected.equals("--Choose New University--") ){
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("UserInfo");
+                    query.whereEqualTo("userId", currentUser);
+                    query.getFirstInBackground(new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(final ParseObject parseObject, ParseException e) {
+                            if(e == null){
+                                ParseQuery<ParseObject> q2 = ParseQuery.getQuery("UnivDetail");
+                                q2.whereEqualTo("univName", newUnivSelected);
+                                q2.getFirstInBackground(new GetCallback<ParseObject>() {
+                                    @Override
+                                    public void done(ParseObject parseObject2, ParseException e) {
+                                        parseObject.put("nowUnivName", parseObject2);
+                                        parseObject.put("newUnivName", newUnivSelected);
 
-                query.getFirstInBackground(new GetCallback<ParseObject>() {
 
-                    public void done(ParseObject object, ParseException e) {
-                        if (e == null) {
-                            String newUnivName = spinner3.getSelectedItem().toString();
-                            //object.get("fullName").toString();
-                            Log.e("myapp",""+newUnivName);
-                            Log.e("myapp","object--- "+object);
-                            object.put("newUnivName", newUnivName);
-                            object.saveInBackground();
-                            Intent intent = new Intent(UpdateProfile.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
-                            startActivity(intent);
+                                        parseObject.saveInBackground();
+                                        Intent intent = new Intent(UpdateProfile.this, MainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
+                                        startActivity(intent);
+                                    }
+                                });
+                            }else{
+                                Log.e("TAG","e is not null in update profile");
+                            }
 
-
-                            //mFullName = (TextView) findViewById(R.id.name);
-                            //mFullName.setText(FullName);
-
-                        } else {
-                            // error
-                            AlertDialog.Builder builder = new AlertDialog.Builder(UpdateProfile.this);
-
-                            builder.setMessage(e.getMessage());
-                            builder.setTitle("Error hai ethe ji");
-                            builder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
                         }
+                    });
+                }
+                else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(UpdateProfile.this);
 
-                                /* ParseObject userUpdate = new ParseObject("UserInfo");
-
-
-                                 //userUpdate.put("updateId",currentUser);
-
-                                 userUpdate.put("newUnivName", newUnivName);
-                                 //userUpdate.saveInBackground();
-                                 userUpdate.saveInBackground(new MySaveCallBack(context));
-
-                                 Intent intent = new Intent(UpdateProfile.this, MainActivity.class);
-                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
-                                 startActivity(intent);
-
-                             }
-                         }); */
-                    }
-                });
+                    builder.setMessage("Choose some University first");
+                    builder.setTitle("Error hai ethe ji");
+                    builder.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
 
             }
         });

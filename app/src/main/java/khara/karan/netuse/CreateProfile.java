@@ -125,7 +125,7 @@ public class CreateProfile extends ActionBarActivity {
                         spinner2.setAdapter(dataAdapter3);
 
                     }
-                }
+               }
 
                 mNext.setOnClickListener(new View.OnClickListener() {
                     @Override
