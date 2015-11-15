@@ -25,27 +25,8 @@ import java.util.List;
 public class SuggestUnivActivity extends Activity {
     /////////////////////////////////////////// ************************ //////////////////////////////////////////////////////////////
     ListView listview;
-    //////////////// currrent user's rating ////////////////////////////
-    float currUserUndergradUnivRating;
-    float currUserUndergradPercentRating;
-    float currUserGreRating;
-    float mCurrentUserAvgRating;
 
-    //////////////// Senior user's rating and similarity array ////////////////////
-    float[] mArrThisSeniorUndergradUnivRating;
-    float[] mArrThisSeniorNewUnivRating;
-    float[] mArrThisSeniorUndergradGPARating;
-    float[] mArrThisSeniorGreRating;
-    float[] mArrThisSeniorUserAvgRating;
-    float[] mArrSimilarityInUsers;
-
-    /////////////// Senior user's name and university arrays //////////////////
-    String[] mArrSeniorStudName;
-    String[] mArrSeniorPrevUnivName;
-    String[] mArrSeniorNewUnivName;
-
-
-    int i;
+    //int i;
 
     final ParseUser currUser = ParseUser.getCurrentUser();
     public static final String TAG = SuggestUnivActivity.class.getSimpleName();
@@ -66,19 +47,19 @@ public class SuggestUnivActivity extends Activity {
         GreScore1 = Float.valueOf(bundle.getString("score"));
         UndergradPercent1 = Float.valueOf(bundle.getString("percent"));
         UnivRating1 = Float.valueOf(bundle.getString("currUserUnderUnivRating"));
-        UserInfo objUserInfo1 = new UserInfo();
-        objUserInfo1.getCurrentNewUserRating(GreScore1, UndergradPercent1, UnivRating1);
+        UserRating objUserRating1 = new UserRating();
+        objUserRating1.getCurrentNewUserRating(GreScore1, UndergradPercent1, UnivRating1);
         /*****************************************************************/
+
+        /**************  get Each Senior's Rating   *********************/
+        Log.e(TAG, "!!!!!!!!!!!!!!!!!!!!!------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//        UserRating objUserRating2 = new UserRating();
+        objUserRating1.getEachSeniorRating();
+        /*************************************************************/
 
         /*********  get Suggested Universities From Database   ************/
         getSuggestedUnivFromDatabase();
         /*****************************************************************/
-
-        /**************  get Each Senior's Rating   *********************/
-        Log.e(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        UserInfo objUserInfo2 = new UserInfo();
-        objUserInfo2.getEachSeniorRating();
-        /*************************************************************/
 
         mBtnBackSuggest = (Button) findViewById(R.id.btnBackNames);
         mBtnBackSuggest.setOnClickListener(new View.OnClickListener() {

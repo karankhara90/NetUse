@@ -13,7 +13,7 @@ public class SuggestUnivFromDatabase extends Activity{
 //        float greScore = Float.valueOf(grescore);
 //        float percentage = Float.valueOf(Percentage);
 //        ParseUser mCurrentUser3 = ParseUser.getCurrentUser();
-//        ParseQuery<ParseObject> query3 = ParseQuery.getQuery("UserInfo");
+//        ParseQuery<ParseObject> query3 = ParseQuery.getQuery("UserRating");
 //
 //        query3.whereLessThanOrEqualTo("greScore", greScore+7);
 //        query3.whereGreaterThanOrEqualTo("greScore", greScore-15);

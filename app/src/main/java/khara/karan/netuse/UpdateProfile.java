@@ -69,7 +69,7 @@ public class UpdateProfile extends ActionBarActivity {
             public void onClick(View v) {
 
                 ParseUser currentUser = ParseUser.getCurrentUser();
-//                ParseQuery<ParseObject> query = ParseQuery.getQuery("UserInfo");
+//                ParseQuery<ParseObject> query = ParseQuery.getQuery("UserRating");
 //
 //                query.whereEqualTo("userId", currentUser);
 //
@@ -103,7 +103,7 @@ public class UpdateProfile extends ActionBarActivity {
 
                 newUnivSelected = spinner3.getSelectedItem().toString();
                 if(! newUnivSelected.equals("--Choose New University--") ){
-                    ParseQuery<ParseObject> query = ParseQuery.getQuery("UserInfo");
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("UserRating");
                     query.whereEqualTo("userId", currentUser);
                     query.getFirstInBackground(new GetCallback<ParseObject>() {
                         @Override

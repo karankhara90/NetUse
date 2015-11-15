@@ -7,7 +7,7 @@ public class SeniorStudent {
 //    float GreScore2, UndergradPercent2;
 //    //underUniv[i] = po.get("undergradUniv").toString();
 //    //                    Log.e(TAG, "undergradUniv: " + underUniv[i]);
-//    ParseQuery<ParseObject> query2  = ParseQuery.getQuery("UserInfo");
+//    ParseQuery<ParseObject> query2  = ParseQuery.getQuery("UserRating");
 //    query2
 //
 //    GreScore2 = Float.valueOf(po.get("greScore").toString());

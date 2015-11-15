@@ -37,7 +37,7 @@ public class UserRatings {
         String rate;
 
         currUser = ParseUser.getCurrentUser();
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("UserInfo");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("UserRating");
         query.whereEqualTo("userId", currUser);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override

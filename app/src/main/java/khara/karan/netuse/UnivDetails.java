@@ -17,10 +17,10 @@ public class UnivDetails extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //ParseUser currentUser = ParseUser.getCurrentUser();
-        final ParseObject userInfo = new ParseObject("UserInfo");
+        final ParseObject userInfo = new ParseObject("UserRating");
         //userInfo.put("univPtr",query);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("UserInfo");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("UserRating");
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
