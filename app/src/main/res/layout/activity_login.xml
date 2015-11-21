@@ -48,11 +48,11 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:background="#ffffff"
+            android:maxLines="1"
+            android:singleLine="true"
             android:layout_weight="0.45"
-            android:imeOptions="actionNext"
-            >
+            android:imeOptions="actionNext" />
             <requestFocus/>
-        </EditText>
 
         <EditText
             android:layout_width="wrap_content"

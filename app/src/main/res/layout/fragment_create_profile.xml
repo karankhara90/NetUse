@@ -36,7 +36,8 @@
         android:imeOptions="actionNext"
         android:layout_below="@+id/getUserName"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" /><requestFocus />
+        android:layout_alignParentStart="true" />
+        <requestFocus />
 
 
 

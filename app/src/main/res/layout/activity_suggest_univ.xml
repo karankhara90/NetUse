@@ -63,7 +63,7 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="160dp"
-        android:id="@+id/listView2"
+        android:id="@+id/listViewRecommend"
         android:dividerHeight="2dp"
         android:background="#fff6a5"
 

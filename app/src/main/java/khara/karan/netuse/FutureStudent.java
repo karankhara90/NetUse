@@ -36,6 +36,8 @@ public class FutureStudent extends ActionBarActivity
     String currUserUndergradUnivRating;
     String objId;
     int i;
+    float rate;
+    Calculations calculations = new Calculations();
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
@@ -91,7 +93,6 @@ public class FutureStudent extends ActionBarActivity
                         Log.e(TAG,"ex2 exception--"+ex2);
                     }
 
-
                 }catch (Exception exc){
                     Log.e("TAG","exc exception:------------ "+exc);
                 }
@@ -106,7 +107,21 @@ public class FutureStudent extends ActionBarActivity
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 } */
+
+//                ParseQuery<ParseObject> queryUpd = ParseQuery.getQuery("UnivDetail");
+//                queryUpd.findInBackground(new FindCallback<ParseObject>() {
+//                    @Override
+//                    public void done(List<ParseObject> list, ParseException e) {
+//                        for(ParseObject po : list){
+//                            int ranking = Integer.parseInt(po.get("Ranking").toString());
+//                            rate = calculations.getUnivRating(ranking);
+//                            Log.e(TAG, "Future stud rate: "+rate);
+//                            po.put("univRating",rate);
+//                        }
+//                    }
+//                });
             }
+
         });
 
         mBtnUpdate = (Button) findViewById(R.id.btnAddUniv2);
@@ -152,7 +167,6 @@ public class FutureStudent extends ActionBarActivity
                 intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
                 startActivity(intent3);
-
             }
         });
 

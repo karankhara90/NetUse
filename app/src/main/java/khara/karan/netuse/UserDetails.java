@@ -3,7 +3,7 @@ package khara.karan.netuse;
 /**
  * Created by karan on 11/14/15.
  */
-public class UserDetails implements Cloneable {
+public class UserDetails implements Cloneable { // implements cloneable coz it's array object is exactly copied to it's other array object
     float mArrThisSeniorUndergradUnivRating;
     float mArrThisSeniorNewUnivRating;
     float mArrThisSeniorUndergradGPARating;
