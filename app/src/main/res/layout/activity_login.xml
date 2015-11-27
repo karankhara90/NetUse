@@ -80,20 +80,22 @@
             android:textStyle="bold"
             android:textSize="18dp"
             android:imeOptions="actionNext"
-            android:textColor="#747474" />
+            android:background="#ff6f1b"
+            android:textColor="#ffffff" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="34dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="SIGN UP"
             android:id="@+id/signUpText"
             android:layout_gravity="center_horizontal"
-            android:textColor="#6b6b6b"
             android:textSize="18dp"
-            android:background="#ffffff"
+            android:background="#ff6f1b"
+            android:textColor="#ffffff"
+            android:layout_marginTop="8dp"
             android:paddingTop="5dp"
-            android:paddingLeft="20dp"
+            android:paddingLeft="110dp"
             android:paddingRight="15dp"
             android:paddingEnd="55dp"
             android:layout_weight="0.29" />

@@ -53,7 +53,7 @@ public class ReccPlaces extends Activity {
             }
         });
 
-        mBtnBackRecc = (Button) findViewById(R.id.btnBackRecc);
+        mBtnBackRecc = (Button) findViewById(R.id.btnBackProfile);
         mBtnBackRecc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)

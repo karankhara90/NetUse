@@ -5,8 +5,8 @@ package khara.karan.netuse;
  */
 public class SeniorStudent {
 //    float GreScore2, UndergradPercent2;
-//    //underUniv[i] = po.get("undergradUniv").toString();
-//    //                    Log.e(TAG, "undergradUniv: " + underUniv[i]);
+//    //underUniv[i] = po.get("mUndergradUniv").toString();
+//    //                    Log.e(TAG, "mUndergradUniv: " + underUniv[i]);
 //    ParseQuery<ParseObject> query2  = ParseQuery.getQuery("UserRating");
 //    query2
 //

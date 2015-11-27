@@ -5,7 +5,7 @@ package khara.karan.netuse;
  */
 public class UserRating {
 //    //////////////// currrent user's rating ////////////////////////////
-//    static float currUserUndergradUnivRating;
+//    static float mCurrUserUndergradUnivRating;
 //    static float currUserUndergradGPARating;
 //    static float currUserGreRating;
 //    static float mCurrentUserAvgRating;
@@ -40,11 +40,11 @@ public class UserRating {
 //
 //        currUserGreRating = ratingsCalculate.getGreRating(GreScore1);
 //        currUserUndergradGPARating = ratingsCalculate.getUndergradStudRating(UndergradPercent1);
-//        currUserUndergradUnivRating = UnivRating1;
-//        mCurrentUserAvgRating = ratingsCalculate.getThisUserAvgRatings(currUserGreRating, currUserUndergradUnivRating, currUserUndergradGPARating);
+//        mCurrUserUndergradUnivRating = UnivRating1;
+//        mCurrentUserAvgRating = ratingsCalculate.getThisUserAvgRatings(currUserGreRating, mCurrUserUndergradUnivRating, currUserUndergradGPARating);
 //
 //         /*Log.e("TAG", "SCORE=============== " + currUserGreRating + " ,,, PERCENT =============== " +
-//                 currUserUndergradGPARating + "Univ rating ================="+currUserUndergradUnivRating); */
+//                 currUserUndergradGPARating + "Univ rating ================="+mCurrUserUndergradUnivRating); */
 //    }
 
 //    float getPredictions() {
@@ -75,7 +75,7 @@ public class UserRating {
 //                    GreScore2 = Float.valueOf(po.get("greScore").toString());
 //                    UndergradPercent2 = Float.valueOf(po.get("undergradPercent").toString());
 //                    mArrSeniorStudName[i] = po.get("fullName").toString();
-//                    mArrSeniorPrevUnivName[i] = po.get("undergradUniv").toString();
+//                    mArrSeniorPrevUnivName[i] = po.get("mUndergradUniv").toString();
 //                    mArrSeniorNewUnivName[i] = po.get("newUnivName").toString();
 //                    mArrThisSeniorGreRating[i] = ratingsCalculate.getGreRating(GreScore2);
 //                    mArrThisSeniorUndergradGPARating[i] = ratingsCalculate.getUndergradStudRating(UndergradPercent2);
@@ -109,7 +109,7 @@ public class UserRating {
 //                                + i + "] : " + mArrThisSeniorUndergradUnivRating[i] + ", mArrThisSeniorNewUnivRating[" + i + "]: " + mArrThisSeniorNewUnivRating[i]);
 //                        Log.e(TAG, "This Senior " + mArrSeniorStudName[i] + ":" + i + " has total Average rating: " + mArrThisSeniorUserAvgRating[i]);
 //                        Log.e(TAG, "---------------------------------------------");
-//                        Log.e(TAG, "greRating1: " + currUserGreRating + ",   undergradUnivRating1: " + currUserUndergradUnivRating + ",  undergradStudRating21: " + currUserUndergradGPARating);
+//                        Log.e(TAG, "greRating1: " + currUserGreRating + ",   undergradUnivRating1: " + mCurrUserUndergradUnivRating + ",  undergradStudRating21: " + currUserUndergradGPARating);
 //                        Log.e(TAG, "Current new Student " + currUser.getUsername() + " has total Average rating: " + mCurrentUserAvgRating);
 //                        Log.e(TAG, "---------------------------------------------");
 //                        /* ************************************************************************* */
@@ -141,7 +141,7 @@ public class UserRating {
 //                    arrObjUserDetails[j].setmArrSimilarityInUsers(mArrSimilarityInUsers[j]);
 //
 //                }
-//                /* ************************** get prediction score for current new user ************************** */
+//                /* ************************** get prediction mScore for current new user ************************** */
 //                mPredictResult = getPredictScore(list.size() - 1);
 //                /* *********************************************************************************************************** */
 //
@@ -333,7 +333,7 @@ public class UserRating {
 //    float getUserSimilarities(int i) {
 //        /*Log.e(TAG, " " + mCurrentUserAvgRating + " , " + mArrThisSeniorUserAvgRating[i] + " , " + currUserGreRating + " , " +
 //                currUserUndergradGPARating
-//                + " , " + currUserUndergradUnivRating + " , " + mArrThisSeniorGreRating[i] + " , " + mArrThisSeniorUndergradGPARating[i]
+//                + " , " + mCurrUserUndergradUnivRating + " , " + mArrThisSeniorGreRating[i] + " , " + mArrThisSeniorUndergradGPARating[i]
 //                + " , " + mArrThisSeniorUndergradUnivRating[i]);*/
 //
 //        float oneA, twoA, oneB, twoB, oneC, twoC, oneASq, twoASq, oneBSq, twoBSq, oneCSq, twoCSq;
@@ -354,8 +354,8 @@ public class UserRating {
 //        twoB = mArrThisSeniorUndergradGPARating[i] - mArrThisSeniorUserAvgRating[i];
 //        twoBSq = (mArrThisSeniorUndergradGPARating[i] - mArrThisSeniorUserAvgRating[i]) * (mArrThisSeniorUndergradGPARating[i] - mArrThisSeniorUserAvgRating[i]);
 //
-//        oneC = currUserUndergradUnivRating - mCurrentUserAvgRating;
-//        oneCSq = (currUserUndergradUnivRating - mCurrentUserAvgRating) * (currUserUndergradUnivRating - mCurrentUserAvgRating);
+//        oneC = mCurrUserUndergradUnivRating - mCurrentUserAvgRating;
+//        oneCSq = (mCurrUserUndergradUnivRating - mCurrentUserAvgRating) * (mCurrUserUndergradUnivRating - mCurrentUserAvgRating);
 //
 //        twoC = mArrThisSeniorUndergradUnivRating[i] - mArrThisSeniorUserAvgRating[i];
 //        twoCSq = (mArrThisSeniorUndergradUnivRating[i] - mArrThisSeniorUserAvgRating[i]) * (mArrThisSeniorUndergradUnivRating[i] - mArrThisSeniorUserAvgRating[i]);

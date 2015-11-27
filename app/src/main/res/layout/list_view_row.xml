@@ -10,6 +10,6 @@
     android:text="Large Text"
         android:textSize="18dp"
     android:textAppearance="?android:attr/textAppearanceLarge"
-        android:background="#fffcd1" />
+        android:background="#ffffff" />
 
 </LinearLayout>

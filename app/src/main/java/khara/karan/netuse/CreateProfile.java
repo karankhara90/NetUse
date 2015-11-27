@@ -156,7 +156,7 @@ public class CreateProfile extends ActionBarActivity {
                                 userInfo.put("undergradPercent", percent);
                                 userInfo.put("greScore", gre);
                                 userInfo.put("toeflScore", toefl);
-                                userInfo.put("undergradUniv", univnameSelected);
+                                userInfo.put("mUndergradUniv", univnameSelected);
                                 userInfo.put("prevUnivName", parseObject);
                                 userInfo.put("country", countrySelected);
                                 userInfo.put("newUnivName", "blank");
@@ -175,21 +175,21 @@ public class CreateProfile extends ActionBarActivity {
             }
         });
 
-        /*List<String> list2 = new ArrayList<String>();   list2.add("--Choose University--"); list2.add("IIT Delhi"); list2.add("IIT Kharagpur");         list2.add("IIT Bombay"); list2.add("IIT Madras");
-        list2.add("IIT Guwahati"); list2.add("IIT Kanpur");  list2.add("IIT (others)");  list2.add("BITS Pilani");  list2.add("Delhi Technological University");
-        list2.add("NIT Surathkal");  list2.add("NIT Trichy");   list2.add("NIT Durgapur");      list2.add("Malaviya National Institute of Technology");
-        list2.add("NIT Rourkela");  list2.add("BIT Mesra");  list2.add("Thapar University"); list2.add("NIT Hamirpur");
-        list2.add("Jaypee Institute of Information Technology");  list2.add("PEC University"); list2.add("NIT Warangal");
-        list2.add("Indraprastha Institute of Information Technology, Delhi");  list2.add("College of Engineering, Pune");
-        list2.add("Manipal Institute of Technology");  list2.add("Pune Institute of Computer Technology");
-        list2.add("R.V. College of Engineering");   list2.add("Vellore Institute of Technology");  list2.add("Nirma Institute of Technology");
-        list2.add("UIET Panjab University");    list2.add("Anna University");  list2.add("Maharaja Agrasen Institute of Technology");
-        list2.add("Madras Institute of Technology");  list2.add("Narula Institute of Technology");  list2.add("Maharashtra Institute of Technology");
-        list2.add("Guru Tegh Bahadur Institute of Technology");  list2.add("Meerut Institute of Engineering & Technology");
-        list2.add("NIT Delhi");   list2.add("Birsa Institute of Technology");  list2.add("Chandigarh College of Engineering & Technology");
-        list2.add("Apeejay College of Engineering");   list2.add("Chitkara Institute of Engineering & Technology");
-        list2.add("Beant College of Engineering & Technology");  list2.add("IET Bhaddal Punjab");
-        list2.add("Lovely Professional University");    list2.add("Bangalore Institute of Technology"); */
+        /*List<String> mListUnivStates = new ArrayList<String>();   mListUnivStates.add("--Choose University--"); mListUnivStates.add("IIT Delhi"); mListUnivStates.add("IIT Kharagpur");         mListUnivStates.add("IIT Bombay"); mListUnivStates.add("IIT Madras");
+        mListUnivStates.add("IIT Guwahati"); mListUnivStates.add("IIT Kanpur");  mListUnivStates.add("IIT (others)");  mListUnivStates.add("BITS Pilani");  mListUnivStates.add("Delhi Technological University");
+        mListUnivStates.add("NIT Surathkal");  mListUnivStates.add("NIT Trichy");   mListUnivStates.add("NIT Durgapur");      mListUnivStates.add("Malaviya National Institute of Technology");
+        mListUnivStates.add("NIT Rourkela");  mListUnivStates.add("BIT Mesra");  mListUnivStates.add("Thapar University"); mListUnivStates.add("NIT Hamirpur");
+        mListUnivStates.add("Jaypee Institute of Information Technology");  mListUnivStates.add("PEC University"); mListUnivStates.add("NIT Warangal");
+        mListUnivStates.add("Indraprastha Institute of Information Technology, Delhi");  mListUnivStates.add("College of Engineering, Pune");
+        mListUnivStates.add("Manipal Institute of Technology");  mListUnivStates.add("Pune Institute of Computer Technology");
+        mListUnivStates.add("R.V. College of Engineering");   mListUnivStates.add("Vellore Institute of Technology");  mListUnivStates.add("Nirma Institute of Technology");
+        mListUnivStates.add("UIET Panjab University");    mListUnivStates.add("Anna University");  mListUnivStates.add("Maharaja Agrasen Institute of Technology");
+        mListUnivStates.add("Madras Institute of Technology");  mListUnivStates.add("Narula Institute of Technology");  mListUnivStates.add("Maharashtra Institute of Technology");
+        mListUnivStates.add("Guru Tegh Bahadur Institute of Technology");  mListUnivStates.add("Meerut Institute of Engineering & Technology");
+        mListUnivStates.add("NIT Delhi");   mListUnivStates.add("Birsa Institute of Technology");  mListUnivStates.add("Chandigarh College of Engineering & Technology");
+        mListUnivStates.add("Apeejay College of Engineering");   mListUnivStates.add("Chitkara Institute of Engineering & Technology");
+        mListUnivStates.add("Beant College of Engineering & Technology");  mListUnivStates.add("IET Bhaddal Punjab");
+        mListUnivStates.add("Lovely Professional University");    mListUnivStates.add("Bangalore Institute of Technology"); */
 
     }
 

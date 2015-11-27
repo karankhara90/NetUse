@@ -8,9 +8,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -26,42 +28,47 @@ import java.util.List;
 public class SuggestUnivActivity extends Activity {
     /////////////////////////////////////////// ************************ //////////////////////////////////////////////////////////////
     ListView listview;
-    ListView listView2;
+    ListView listView2,listView3,listView4;
+    TextView txtViewUnivType;
+    TextView txtViewUnivStates;
 
     //////////////// currrent user's rating ////////////////////////////
-//    static float currUserUndergradUnivRating;
+//    static float mCurrUserUndergradUnivRating;
 //    static float currUserUndergradGPARating;
 //    static float currUserGreRating;
 //    static float mCurrentUserAvgRating;
-    float currUserUndergradUnivRating;
-    float currUserUndergradGPARating;
-    float currUserGreRating;
-    float mCurrentUserAvgRating;
+    static float GreScore1, UndergradPercent1, UnivRating1;
+
+    static float currUserUndergradUnivRating;
+    static float currUserUndergradGPARating;
+    static float currUserGreRating;
+    static float mCurrentUserAvgRating;
 
     //////////////// Senior user's rating and similarity array ////////////////////
-    float[] mArrThisSeniorUndergradUnivRating;
-    float[] mArrThisSeniorNewUnivRating;
-    float[] mArrThisSeniorUndergradGPARating;
-    float[] mArrThisSeniorGreRating;
-    float[] mArrThisSeniorUserAvgRating;
-    float[] mArrSimilarityInUsers;
+    static float[] mArrThisSeniorUndergradUnivRating;
+    static float[] mArrThisSeniorNewUnivRating;
+    static float[] mArrThisSeniorUndergradGPARating;
+    static float[] mArrThisSeniorGreRating;
+    static float[] mArrThisSeniorUserAvgRating;
+    static float[] mArrSimilarityInUsers;
 
     /////////////// Senior user's name and university arrays //////////////////
-    String[] mArrSeniorStudName;
-    String[] mArrSeniorPrevUnivName;
-    String[] mArrSeniorNewUnivName;
-    UserDetails[] arrObjUserDetails;
+    static String[] mArrSeniorStudName;
+    static String[] mArrSeniorPrevUnivName;
+    static String[] mArrSeniorNewUnivName;
+    static UserDetails[] arrObjUserDetails;
 
     float predict;
 //    public static float mPredictResult;
     public float mPredictResult;
     static int i = -1;
     int j;
+    String mUnivTypePrefer2;
+    List <String> mListUnivStatesPrefer2;
 
     Calculations ratingsCalculate = new Calculations();
 
 //    final ParseUser currUser = ParseUser.getCurrentUser();
-
 
 
     float predictionForNewUser;
@@ -75,32 +82,36 @@ public class SuggestUnivActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggest_univ);
 
+        txtViewUnivType = (TextView)findViewById(R.id.txtUnivType);
+        txtViewUnivStates = (TextView)findViewById(R.id.txtUnivStates);
+
+//        HorizontalListView listview3 = (HorizontalListView) findViewById(R.id.listview);
+//        listview.setAdapter(mAdapter);
 
         /**************  get Current New User Rating   *************************/
-        float GreScore1, UndergradPercent1, UnivRating1;
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();  // get bundle from intent
-
-        GreScore1 = Float.valueOf(bundle.getString("score"));
-        UndergradPercent1 = Float.valueOf(bundle.getString("percent"));
+        GreScore1 = Float.valueOf(bundle.getString("mScore"));
+        UndergradPercent1 = Float.valueOf(bundle.getString("mPercent"));
         UnivRating1 = Float.valueOf(bundle.getString("currUserUnderUnivRating"));
         UserRating objUserRating1 = new UserRating();
 //        objUserRating1.getCurrentNewUserRating(GreScore1, UndergradPercent1, UnivRating1);
         /***********************************************************************/
-        getCurrentNewUserRating(GreScore1, UndergradPercent1, UnivRating1);
+         getCurrentNewUserRating(GreScore1, UndergradPercent1, UnivRating1);
+        /************************ put preferences of current user to database *****************************/
+
+
+        /* ********************************************************************************************** */
 
         /***********  get Each Senior's Rating and then get recommended universities for current new user ************/
 //        predictionForNewUser = objUserRating1.getPredictions();
-        getPredictions();
-//        Log.e(TAG, "predict Result: " + predictionForNewUser);
-//        Log.e(TAG,"other way: "+UserRating.mPredictResult);
-        //Log.e(TAG,"other way: "+mPredictResult);
+              getPredictions();
 //        Log.e(TAG, "----------------------------=====================------------------------");
 //        getRecommendedUniversities(predictionForNewUser);
         /* ********************************************************************************************************* */
 
         /*********  get Suggested Universities From Database   ****************/
-          getSuggestedUnivFromDatabase();
+          //getSuggestedUnivFromDatabase();
         /**********************************************************************/
 
         mBtnBackSuggest = (Button) findViewById(R.id.btnBackNames);
@@ -113,7 +124,58 @@ public class SuggestUnivActivity extends Activity {
                 startActivity(intent2);
             }
         });
+
+
     }
+
+
+
+//    private static String[] dataObjects = new String[]{ "Text #1",
+//            "Text #2",
+//            "Text #3","Text #4","Text #5","Text #6","Text #7","Text #8","Text #9","Text #10"
+//    };
+//
+//    private BaseAdapter mAdapter = new BaseAdapter() {
+//
+//        private DialogInterface.OnClickListener mOnButtonClicked = new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(SuggestUnivActivity.this);
+//                builder.setMessage("hello from " + v);
+//                builder.setPositiveButton("Cool", null);
+//                builder.show();
+//
+//            }
+//        };
+//
+//        @Override
+//        public int getCount() {
+//            return dataObjects.length;
+//        }
+//
+//        @Override
+//        public Object getItem(int position) {
+//            return null;
+//        }
+//
+//        @Override
+//        public long getItemId(int position) {
+//            return 0;
+//        }
+//
+//        @Override
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//            View retval = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewitem, null);
+//            TextView title = (TextView) retval.findViewById(R.id.title);
+//            Button button = (Button) retval.findViewById(R.id.clickbutton);
+//            button.setOnClickListener(mOnButtonClicked);
+//            title.setText(dataObjects[position]);
+//
+//            return retval;
+//        }
+//
+//    };
 
     void getCurrentNewUserRating(float GreScore1,float UndergradPercent1,float UnivRating1) {
 
@@ -123,7 +185,7 @@ public class SuggestUnivActivity extends Activity {
         mCurrentUserAvgRating = ratingsCalculate.getThisUserAvgRatings(currUserGreRating, currUserUndergradUnivRating, currUserUndergradGPARating);
 
          /*Log.e("TAG", "SCORE=============== " + currUserGreRating + " ,,, PERCENT =============== " +
-                 currUserUndergradGPARating + "Univ rating ================="+currUserUndergradUnivRating); */
+                 currUserUndergradGPARating + "Univ rating ================="+mCurrUserUndergradUnivRating); */
     }
 
     void getPredictions() {
@@ -159,7 +221,7 @@ public class SuggestUnivActivity extends Activity {
                     mArrThisSeniorGreRating[i] = ratingsCalculate.getGreRating(GreScore2);
                     mArrThisSeniorUndergradGPARating[i] = ratingsCalculate.getUndergradStudRating(UndergradPercent2);
 
-                    Log.e(TAG, "i is: " + i);
+//                    Log.e(TAG, "i is: " + i);
 
                     try {
                         ParseObject preunivname = po.getParseObject("prevUnivName");    // get object value stored in column "prevUnivName"
@@ -184,13 +246,13 @@ public class SuggestUnivActivity extends Activity {
 
 
                         /* ************************** Print Log statements ************************** */
-                        Log.e(TAG, "greRating2: " + mArrThisSeniorGreRating[i] + ", undergradStudRating2: " + mArrThisSeniorUndergradGPARating[i] + ", mArrThisSeniorUndergradUnivRating["
-                                + i + "] : " + mArrThisSeniorUndergradUnivRating[i] + ", mArrThisSeniorNewUnivRating[" + i + "]: " + mArrThisSeniorNewUnivRating[i]);
-                        Log.e(TAG, "This Senior " + mArrSeniorStudName[i] + ":" + i + " has total Average rating: " + mArrThisSeniorUserAvgRating[i]);
-                        Log.e(TAG, "---------------------------------------------");
-                        Log.e(TAG, "greRating1: " + currUserGreRating + ",   undergradUnivRating1: " + currUserUndergradUnivRating + ",  undergradStudRating21: " + currUserUndergradGPARating);
-                        Log.e(TAG, "Current new Student " + currUser.getUsername() + " has total Average rating: " + mCurrentUserAvgRating);
-                        Log.e(TAG, "---------------------------------------------");
+//                        Log.e(TAG, "greRating2: " + mArrThisSeniorGreRating[i] + ", undergradStudRating2: " + mArrThisSeniorUndergradGPARating[i] + ", mArrThisSeniorUndergradUnivRating["
+//                                + i + "] : " + mArrThisSeniorUndergradUnivRating[i] + ", mArrThisSeniorNewUnivRating[" + i + "]: " + mArrThisSeniorNewUnivRating[i]);
+//                        Log.e(TAG, "This Senior " + mArrSeniorStudName[i] + ":" + i + " has total Average rating: " + mArrThisSeniorUserAvgRating[i]);
+//                        Log.e(TAG, "---------------------------------------------");
+//                        Log.e(TAG, "greRating1: " + currUserGreRating + ",   undergradUnivRating1: " + currUserUndergradUnivRating + ",  undergradStudRating21: " + currUserUndergradGPARating);
+//                        Log.e(TAG, "Current new Student " + currUser.getUsername() + " has total Average rating: " + mCurrentUserAvgRating);
+//                        Log.e(TAG, "---------------------------------------------");
                         /* ************************************************************************* */
 
                     } catch (Exception ex3) {
@@ -198,14 +260,13 @@ public class SuggestUnivActivity extends Activity {
                     }
 
                     /* ************************** get Similarity of Each Senior user with current new user ************************** */
-                    mArrSimilarityInUsers[i] = getUserSimilarities(i);
+                      mArrSimilarityInUsers[i] = getUserSimilarities(i);
                     /* *********************************************************************************************************** */
 
-                    Log.e(TAG, "sim(" + currUser.getUsername() + ", " + mArrSeniorStudName[i] + " ) ::: " + mArrSimilarityInUsers[i]);
-                    Log.e(TAG, "_____________________________________________________________________________________");
+//                    Log.e(TAG, "sim(" + currUser.getUsername() + ", " + mArrSeniorStudName[i] + " ) ::: " + mArrSimilarityInUsers[i]);
+//                    Log.e(TAG, "_____________________________________________________________________________________");
 
                 }  //end of for loop
-
                 for (j = 0; j < list.size(); j++) {
                     arrObjUserDetails[j] = new UserDetails();
                     arrObjUserDetails[j].setmArrSeniorStudName(mArrSeniorStudName[j]);
@@ -220,7 +281,7 @@ public class SuggestUnivActivity extends Activity {
                     arrObjUserDetails[j].setmArrSimilarityInUsers(mArrSimilarityInUsers[j]);
 
                 }
-                /* ************************** get prediction score for current new user ************************** */
+                /* ************************** get prediction mScore for current new user ************************** */
                 mPredictResult = getPredictScore(list.size() - 1);
                 /* *********************************************************************************************************** */
 
@@ -228,6 +289,7 @@ public class SuggestUnivActivity extends Activity {
                 Log.e(TAG, "----------------------------=====================------------------------");
                 getRecommendedUniversities(mPredictResult);
                 /* *********************************************************************************************************** */
+                Log.e(TAG, "----------------------------=====================------------------------");
 
             } //end of void done() under method getPredictions()
         });
@@ -335,7 +397,7 @@ public class SuggestUnivActivity extends Activity {
     float getUserSimilarities(int i) {
         /*Log.e(TAG, " " + mCurrentUserAvgRating + " , " + mArrThisSeniorUserAvgRating[i] + " , " + currUserGreRating + " , " +
                 currUserUndergradGPARating
-                + " , " + currUserUndergradUnivRating + " , " + mArrThisSeniorGreRating[i] + " , " + mArrThisSeniorUndergradGPARating[i]
+                + " , " + mCurrUserUndergradUnivRating + " , " + mArrThisSeniorGreRating[i] + " , " + mArrThisSeniorUndergradGPARating[i]
                 + " , " + mArrThisSeniorUndergradUnivRating[i]);*/
 
         float oneA, twoA, oneB, twoB, oneC, twoC, oneASq, twoASq, oneBSq, twoBSq, oneCSq, twoCSq;
@@ -377,47 +439,130 @@ public class SuggestUnivActivity extends Activity {
         return simResult;
     }
 
-    float getPredictions(int j){
-        float result=1;
-        Log.e(TAG, "mArrSimilarityInUsers["+j+"]: "+ mArrSimilarityInUsers[j]);
-        Log.e(TAG, "mArrSimilarityInUsers["+j+-1+"]: "+ mArrSimilarityInUsers[j-1]);
-        Log.e(TAG, "mArrSimilarityInUsers["+j+-2+"]: "+ mArrSimilarityInUsers[j-2]);
-
-        return result;
-    }
 
     void getRecommendedUniversities(float predict){
         Log.e(TAG,"++++++++++++++++++++++++++++++++++++++++++++++++++++");
 //        final String[] recUniversities = new String[5];
         ParseQuery<ParseObject> queryRec = ParseQuery.getQuery("UnivDetail");
         queryRec.whereEqualTo("UnivCountry","United States");
-        queryRec.whereGreaterThanOrEqualTo("univRating", predict+1.7 );
-        queryRec.whereLessThanOrEqualTo("univRating", predict + 3);
+        queryRec.whereGreaterThanOrEqualTo("univRating", predict+2 );
+        queryRec.whereLessThanOrEqualTo("univRating", predict + 4.5);
         queryRec.whereLessThanOrEqualTo("univRating", 10);
         queryRec.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                if(e == null) {
-                    listView2 = (ListView) findViewById(R.id.listViewRecommend);
-                    ArrayList<String> recUniversities = new ArrayList<String>();  // didnt use arrays. coz arraylist's size is flexible unlike arrays
-                    int i = 0;
-                    for (ParseObject parseObj : list) {
-                        String rec;
-                        if (i < 10) {
-                            rec = parseObj.get("univName").toString();
-                            Log.e(TAG, "Univ name : " + rec);
-                            i++;
-                        } else {
-                            break;
+            if(e == null) {
+                listView2 = (ListView) findViewById(R.id.listViewRecommend);
+                listView3 = (ListView) findViewById(R.id.listViewRecUnivType);
+                ArrayList<String> recUniversities = new ArrayList<String>();  // didnt use arrays. coz arraylist's size is flexible unlike arrays
+                ArrayList<String> recUnivType = new ArrayList<String>();
+                int i = 0;
+                Intent intent2 = getIntent();
+                Bundle bundle = intent2.getExtras();  // get bundle from intent
+                mUnivTypePrefer2 = bundle.getString("mUnivTypePrefer").toString();
+                txtViewUnivType.setText("Recommendation on: " + mUnivTypePrefer2 + " universities");
+
+//                try{
+//                    mListUnivStatesPrefer2.add(bundle.getString("mListUnivStatesPrefer"));
+//                    txtViewUnivStates.setText(mListUnivStatesPrefer2.toString());
+//                    Log.e(TAG, "states preferred: " + mListUnivStatesPrefer2);
+//                }catch(Exception exc){
+//                    Log.e(TAG,"exc exception in univStatesprefer is: "+exc);
+//                }
+
+                Log.e(TAG,"mUnivTypePrefer2: "+mUnivTypePrefer2);
+////                if(! mUnivTypePrefer2.equals("-- Select Type you prefer --")){
+//                if(mUnivTypePrefer2.equals("public") || mUnivTypePrefer2.equals("private")){
+//                    Log.e(TAG,"mUnivTypePrefer2: "+mUnivTypePrefer2);
+//                    String predResult = String.valueOf(mPredictResult);
+//                    getRecommendedUniversitiesUnivType(predResult,mUnivTypePrefer2);
+//                }
+                for (ParseObject parseObj : list) {
+                    String rec,rec2,rec3;
+                    if (i < 15) {
+                        rec = parseObj.get("univName").toString();
+                        Log.e(TAG, "Univ name : " + rec);
+                        if(parseObj.get("UnivType").toString().equals(mUnivTypePrefer2))
+                        {
+                            rec2 = parseObj.get("univName").toString();
+                            Log.e(TAG, "==== "+mUnivTypePrefer2 +" Univ name : " + rec2);
+                            recUnivType.add(rec2);
                         }
-                        recUniversities.add(rec);
-                        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(SuggestUnivActivity.this, R.layout.list_view_row, R.id.listText, recUniversities);
-                        listView2.setAdapter(adapter2);
+
+//                        for(String listUniv : mListUnivStatesPrefer2){
+//                            if(parseObj.get("UnivState").toString().equals(listUniv)){
+//                                rec3 = parseObj.get("univName").toString();
+//                                //Log.e(TAG, "==== "+mUnivTypePrefer2 +" Univ name : " + rec2);
+//                                recUnivType.add(rec3);
+//                                break;
+//                            }
+//                        }
+
+                        i++;
+                    } else {
+                        break;
                     }
+
+                    recUniversities.add(rec);
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(SuggestUnivActivity.this, R.layout.list_view_row, R.id.listText, recUniversities);
+                    listView2.setAdapter(adapter2);
+                    listView2.setOnItemClickListener(new ListClickHandler());
+
+                    ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(SuggestUnivActivity.this, R.layout.list_view_row, R.id.listText, recUnivType);
+                    listView3.setAdapter(adapter3);
+                    listView3.setOnItemClickListener(new ListClickHandler());
+                }
+            }
+            }
+        });
+    }
+
+    void getRecommendedUniversitiesUnivType(String strPredResult, String mUnivTypePrefer2){
+        float predResult = Float.valueOf(strPredResult);
+        ParseQuery<ParseObject> queryRecType = ParseQuery.getQuery("UnivDetail");
+        queryRecType.whereEqualTo("UnivCountry","United States");
+        queryRecType.whereEqualTo("UnivTypePrefer",mUnivTypePrefer2);
+        queryRecType.whereGreaterThanOrEqualTo("univRating", predResult + 1.5);
+        queryRecType.whereLessThanOrEqualTo("univRating", predResult + 4.5);
+        queryRecType.whereLessThanOrEqualTo("univRating", 10);
+        queryRecType.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                listView3 = (ListView) findViewById(R.id.listViewRecUnivType);
+                ArrayList<String> recUniversities = new ArrayList<String>();  // didnt use arrays. coz arraylist's size is flexible unlike arrays
+                int i = 0;
+                for (ParseObject parseObj : list) {
+                    String rec;
+                    if (i < 10) {
+                        rec = parseObj.get("univName").toString();
+                        Log.e(TAG, "Univ name : " + rec);
+                        i++;
+                    } else {
+                        break;
+                    }
+
+                    recUniversities.add(rec);
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(SuggestUnivActivity.this, R.layout.list_view_row, R.id.listText, recUniversities);
+                    listView3.setAdapter(adapter2);
+                    listView3.setOnItemClickListener(new ListClickHandler());
                 }
             }
         });
+    }
 
+    public class ListClickHandler implements AdapterView.OnItemClickListener {
+
+        String univ_name;
+        @Override
+        public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3) {
+            // TODO Auto-generated method stub
+            TextView listText = (TextView) view.findViewById(R.id.listText);
+            univ_name = listText.getText().toString();
+            Intent intent = new Intent(SuggestUnivActivity.this, UnivProfile.class);
+            Log.e("TAG", "Univ Name -------------" + univ_name);
+            intent.putExtra("univ-name", univ_name);
+            startActivity(intent);
+        }
     }
 
     void getSuggestedUnivFromDatabase() {
@@ -430,7 +575,6 @@ public class SuggestUnivActivity extends Activity {
 
                 String gre_score = parseObject.get("greScore").toString();
                 String under_percent = parseObject.get("undergradPercent").toString();
-
                 suggestDB(gre_score, under_percent);
             }
         });

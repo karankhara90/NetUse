@@ -2,11 +2,14 @@ package khara.karan.netuse;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.parse.FindCallback;
@@ -22,6 +25,7 @@ public class ShowUsersActivity extends ListActivity {
     //protected ParseRelation<ParseUser> mFriendsRelation;
     protected List<ParseUser> mUsers;
     protected ParseUser mCurrentUser;
+    protected Button mBtnBackUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +47,8 @@ public class ShowUsersActivity extends ListActivity {
         super.onResume();
 
         mCurrentUser = ParseUser.getCurrentUser();
-       // Toast.makeText(ShowUsersActivity.this, "mCurrent: "+mCurrentUser.getUsername(), Toast.LENGTH_LONG).show();
         //mFriendsRelation= mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
         setProgressBarIndeterminateVisibility(true);
-
-        //ParseQuery<ParseUser> query = ParseQuery.getQuery("User"); // means query is going to return list of ParseUser objects.
-        //query.orderByAscending(ParseConstants.KEY_USERNAME);
 
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         //query.orderByAscending(ParseConstants.KEY_USERNAME);
@@ -60,28 +60,19 @@ public class ShowUsersActivity extends ListActivity {
             public void done(List<ParseUser> users, ParseException e) {
                 setProgressBarIndeterminateVisibility(false);
                 if (e == null) {
-                    // success
                     mUsers = users;
                     String[] usernames = new String[mUsers.size()];
-                    //Toast.makeText(ShowUsersActivity.this, " (2..) "+mUsers.size(), Toast.LENGTH_SHORT).show();
                     int i = 0;
-                    //if(user.getuserna)
                     for (ParseUser user : mUsers)
                     {
-                        //Toast.makeText(ShowUsersActivity.this, " (2..) ", Toast.LENGTH_SHORT).show();
                         usernames[i] = user.get("username").toString();
                         //if(! mCurrentUser.getUsername().equals(usernames[i]))
                        // {
-                            i++;
-                            //create array adapter
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(ShowUsersActivity.this,
-                                    android.R.layout.simple_list_item_checked, usernames);
-                                    //android.R.layout.simple_selectable_list_item, usernames);
-                            setListAdapter(adapter);
-
-                            //addFriendCheckmarks();
-                       // }
-                        //System.out.println("user[" + i + "]: " + usernames[i]);
+                        i++;
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(ShowUsersActivity.this,
+                                android.R.layout.simple_list_item_checked, usernames);
+                                //android.R.layout.simple_selectable_list_item, usernames);
+                        setListAdapter(adapter);
                     }
                 } else {
                     System.out.println(" e is not null");
@@ -95,6 +86,17 @@ public class ShowUsersActivity extends ListActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }
+
+                mBtnBackUser = (Button) findViewById(R.id.btnBackUser);
+                mBtnBackUser.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ShowUsersActivity.this, FutureStudent.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
+                        startActivity(intent);
+                    }
+                });
 
             }
         });

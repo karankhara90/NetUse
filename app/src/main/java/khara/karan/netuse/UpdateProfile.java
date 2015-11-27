@@ -103,7 +103,7 @@ public class UpdateProfile extends ActionBarActivity {
 
                 newUnivSelected = spinner3.getSelectedItem().toString();
                 if(! newUnivSelected.equals("--Choose New University--") ){
-                    ParseQuery<ParseObject> query = ParseQuery.getQuery("UserRating");
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("UserInfo");
                     query.whereEqualTo("userId", currentUser);
                     query.getFirstInBackground(new GetCallback<ParseObject>() {
                         @Override

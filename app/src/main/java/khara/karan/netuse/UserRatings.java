@@ -14,7 +14,7 @@ public class UserRatings {
 //        float[] UndergradUnivRating2;
 //        float[] UndergradStudRating2;
 //        float[] GreRating2;
-//        String fullname, undergradUniv1,undergradUniv2 ;
+//        String mFullname, undergradUniv1,undergradUniv2 ;
 ////    public static
 //
 //        String[] seniorStuds;
@@ -39,7 +39,7 @@ public class UserRatings {
 ////
 ////                //suggestDB(gre_score, under_percent);
 ////
-//                String undergradUniv1 = parseObject.get("undergradUniv").toString();
+//                String undergradUniv1 = parseObject.get("mUndergradUniv").toString();
 ////                float GreScore1, UndergradPercent1;
 ////                GreScore1 = Float.valueOf(parseObject.get("greScore").toString());
 ////                UndergradPercent1 = Float.valueOf(parseObject.get("undergradPercent").toString());

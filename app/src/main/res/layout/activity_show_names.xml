@@ -5,7 +5,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="#6ad2ff"
+    android:background="#befeae"
     tools:context="khara.karan.netuse.ShowNamesActivity">
 
     <TextView
@@ -48,7 +48,9 @@
         android:layout_alignRight="@android:id/list"
         android:layout_alignEnd="@android:id/list"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="#fe7628"
+        android:textColor="#ffffff" />
 
 
 
