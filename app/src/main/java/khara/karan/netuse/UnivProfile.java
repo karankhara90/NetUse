@@ -16,13 +16,13 @@ import com.parse.ParseQuery;
 import java.util.List;
 
 public class UnivProfile extends ActionBarActivity {
-    static TextView mTextViewUnivProfile;
+     TextView mTextViewUnivProfile;
     Button mBtnUnivDataGraph;
     Button mBtnBackUnivProfile;
 
     int mGreScore, num1 = 0,num2 = 0,num3 = 0,num4 = 0,num5 = 0,num6 = 0,num7 = 0,num8 = 0,num9 = 0,num10 = 0;
     int mPercent, perc1 = 0,perc2 = 0,perc3 = 0,perc4 = 0,perc5 = 0,perc6 = 0,perc7 = 0,perc8= 0,perc9= 0,perc10= 0;
-    static String univSelected;
+     String univSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,22 +36,26 @@ public class UnivProfile extends ActionBarActivity {
 
         mBtnBackUnivProfile = (Button) findViewById(R.id.btnBackUnivProfile);
         mBtnBackUnivProfile.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UnivProfile.this, FutureStudent.class);
+                Intent intent = new Intent(UnivProfile.this, SuggestUnivActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
                 startActivity(intent);
+               // onBackPressed();
             }
+
         });
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("UserInfo");
-        query.whereEqualTo("newUnivName",univSelected);
-        query.findInBackground(new FindCallback<ParseObject>() {
+        ParseQuery<ParseObject> query3 = ParseQuery.getQuery("UserInfo");
+        query3.whereEqualTo("newUnivName",univSelected);
+        query3.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                 for (ParseObject obj : list) {
                     mGreScore = Integer.parseInt(obj.get("greScore").toString());
+                    Log.e("TAG","gre: "+mGreScore);
                     mPercent = Integer.parseInt(obj.get("undergradPercent").toString());
 
                     if (mGreScore >= 290 && mGreScore <= 295) {
@@ -115,10 +119,14 @@ public class UnivProfile extends ActionBarActivity {
 
                 mBtnUnivDataGraph = (Button) findViewById(R.id.btnUnivDataGraph);
                 mBtnUnivDataGraph.setOnClickListener(new View.OnClickListener() {
+
                     @Override
                     public void onClick(View v) {
+                        setProgressBarIndeterminateVisibility(true);
+                        setProgressBarIndeterminateVisibility(false);
                         Intent intent = new Intent(UnivProfile.this, ShowWebChartActivity.class);
                         Log.e("TAG", num1 + ", " + num2 + ", " + num3 + ", " + num4 + ", " + num5);
+
                         intent.putExtra("num1", num1);
                         intent.putExtra("num2", num2);
                         intent.putExtra("num3", num3);
@@ -148,5 +156,14 @@ public class UnivProfile extends ActionBarActivity {
                 });
             }
         });
+    }
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(UnivProfile.this, SuggestUnivActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
+        startActivity(intent);
+        //super.onBackPressed();
+        //finish();
     }
 }

@@ -2,7 +2,6 @@ package khara.karan.netuse;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -91,16 +90,21 @@ public class ShowUsersActivity extends ListActivity {
                 mBtnBackUser.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(ShowUsersActivity.this, FutureStudent.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
-                        startActivity(intent);
+//                        Intent intent = new Intent(ShowUsersActivity.this, FutureStudent.class);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
+//                        startActivity(intent);
+                          onBackPressed();
                     }
                 });
 
             }
         });
 
+    }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
     }
 
     /*private void addFriendCheckmarks()

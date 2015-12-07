@@ -60,12 +60,23 @@ public class ShowWebChartActivity extends ActionBarActivity {
         mBtnBackWebChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ShowWebChartActivity.this, FutureStudent.class);
+                Intent intent = new Intent(ShowWebChartActivity.this, UnivProfile.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
                 startActivity(intent);
+                //onBackPressed();
             }
         });
+    }
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(ShowWebChartActivity.this, UnivProfile.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
+        startActivity(intent);
+//        super.onBackPressed();
+//        //finish();
+
     }
 
     public class WebAppInterface {

@@ -22,7 +22,18 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name">
+            android:windowSoftInputMode="adjustResize|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
@@ -32,10 +43,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".SignUpActivity"
             android:label="@string/title_activity_sign_up"
@@ -57,7 +64,7 @@
         <activity
             android:name=".CreateProfile"
             android:label="@string/title_activity_create_profile"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".SignUpActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="khara.karan.netuse.MainActivity" />
@@ -84,7 +91,7 @@
         <activity
             android:name=".SuggestUnivActivity"
             android:label="@string/title_activity_suggest_univ"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".FutureStudent">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="khara.karan.netuse.MainActivity" />
@@ -107,8 +114,9 @@
         </activity>
         <activity
             android:name=".FutureStudent"
-            android:label="@string/title_activity_future_student"
-            android:parentActivityName=".MainActivity">
+            android:label="Home Screen">
+
+            <!-- android:parentActivityName=".MainActivity"> -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="khara.karan.netuse.MainActivity" />
@@ -160,6 +168,26 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="khara.karan.netuse.UnivProfile" />
+        </activity>
+        <activity
+            android:name=".SuggestUnivPrefer"
+            android:label="@string/title_activity_suggest_univ_prefer"
+            android:parentActivityName=".FutureStudent" />
+        <activity
+            android:name=".ShowRateDiffChart"
+            android:label="@string/title_activity_show_rate_diff_chart"
+            android:parentActivityName=".FutureStudent">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="khara.karan.netuse.FutureStudent" />
+        </activity>
+        <activity
+            android:name=".ShowRecResults"
+            android:label="@string/title_activity_show_rec_results"
+            android:parentActivityName=".FutureStudent">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="khara.karan.netuse.FutureStudent" />
         </activity>
     </application>
 

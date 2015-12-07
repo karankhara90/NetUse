@@ -9,6 +9,7 @@ public class UnivDetail {
     String UnivCountry;
     String Ranking;
     String univRating;
+    String univLogo;
 
     public String getObjectID() {
         return objectID;
@@ -48,5 +49,13 @@ public class UnivDetail {
 
     public void setUnivRating(String univRating) {
         this.univRating = univRating;
+    }
+
+    public String getUnivLogo() {
+        return univLogo;
+    }
+
+    public void setUnivLogo(String univLogo) {
+        this.univLogo = univLogo;
     }
 }

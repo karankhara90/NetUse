@@ -1,6 +1,5 @@
 package khara.karan.netuse;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -40,6 +39,7 @@ public class UserProfile extends ActionBarActivity {
 
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("UserInfo");
+        query.whereEqualTo("userId",currentUser);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
@@ -60,14 +60,19 @@ public class UserProfile extends ActionBarActivity {
                 mBtnBackProfile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(UserProfile.this, FutureStudent.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
-                        startActivity(intent);
+//                        Intent intent = new Intent(UserProfile.this, FutureStudent.class);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
+//                        startActivity(intent);
+                            onBackPressed();
                     }
                 });
             }
         });
+    }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
     }
 
 }

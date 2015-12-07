@@ -1,9 +1,7 @@
 package khara.karan.netuse;
 
 import android.app.ListActivity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
@@ -34,6 +32,7 @@ public class ShowUnivActivity extends ListActivity {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("UnivDetail");
         query.whereNotEqualTo("UnivCountry","India");
+        query.orderByAscending("Ranking");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
@@ -44,21 +43,25 @@ public class ShowUnivActivity extends ListActivity {
                             android.R.layout.simple_list_item_checked, mArrUnivNames);
                     setListAdapter(adapter);
                 }
-                mBtnBackUniv = (Button) findViewById(R.id.btnBackUniv);
-                mBtnBackUniv.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(ShowUnivActivity.this, FutureStudent.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
-                        startActivity(intent);
-                    }
-                });
+//                mBtnBackUniv = (Button) findViewById(R.id.btnBackUniv);
+//                mBtnBackUniv.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent = new Intent(ShowUnivActivity.this, FutureStudent.class);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
+//                        startActivity(intent);
+//                    }
+//                });
             }
         });
 
 
 
+    }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
     }
 
 }

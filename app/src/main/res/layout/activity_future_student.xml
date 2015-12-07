@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
     tools:context="khara.karan.netuse.FutureStudent"
-    android:background="#dcfee3"
+    android:background="#0b8579"
     >
     <RelativeLayout android:id="@+id/container"
         android:layout_width="match_parent"
@@ -17,56 +17,61 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         >
 
+        <RatingBar
+            android:id="@+id/ratingBar1"
+            android:layout_width="wrap_content"
+            android:layout_height="41dp"
+            android:numStars="5"
+            android:rating="1.3"
+            android:stepSize="0.5"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/textView13"
+            android:layout_alignEnd="@+id/textView13" />
+
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
         android:textSize="22dp"
         android:text="Welcome "
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="20dp"
-        android:textColor="#e3000000"
+        android:textColor="#ffffff"
         android:layout_gravity="left|top"
         android:id="@+id/txtNames2"
         android:height="35dp"
-        android:paddingLeft="40dp"
-        android:paddingTop="5dp"
-        android:layout_alignParentTop="true"
+        android:paddingLeft="20dp"
+        android:paddingTop="0dp"
+        android:layout_below="@+id/textView16"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="39dp" />
     <TextView
         android:layout_width="210dp"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
         android:textSize="22dp"
         android:textColor="#e3000000"
-
         android:id="@+id/name2"
         android:height="35dp"
-
         android:paddingLeft="5dp"
-        android:paddingTop="5dp"
+        android:paddingTop="0dp"
 
         android:layout_alignTop="@+id/txtNames2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/txtNames2"
-        android:layout_toRightOf="@+id/txtNames2" />
+        android:layout_toRightOf="@+id/txtNames2"
+        android:layout_alignRight="@+id/btnAddUniv2"
+        android:layout_alignEnd="@+id/btnAddUniv2" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Got admitted? Add New University"
+        android:text="Got admitted? Add New University "
         android:id="@+id/textNewPlace2"
-        android:textColor="#e3000000"
-        android:layout_marginBottom="15dp"
+        android:textColor="#ffffff"
         android:height="30dp"
 
         android:paddingTop="5dp"
         android:textSize="14dp"
-        android:layout_below="@+id/txtNames2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/btnAddUniv2"
-        android:layout_toLeftOf="@+id/btnAddUniv2" />
+        android:layout_below="@+id/btnSuggestUniv2"
+        android:layout_alignLeft="@+id/textView15"
+        android:layout_alignStart="@+id/textView15"
+        android:layout_marginTop="78dp" />
 
 
     <Button
@@ -77,115 +82,120 @@
         android:id="@+id/btnAddUniv2"
         android:background="#ff6f1b"
         android:textColor="#ffffff"
-        android:layout_alignBottom="@+id/textNewPlace2"
-        android:layout_below="@+id/name2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignTop="@+id/textNewPlace2"
+        android:layout_toRightOf="@+id/textNewPlace2"
+        android:layout_toEndOf="@+id/textNewPlace2" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Universities based on my profile"
         android:id="@+id/textViewSuggest2"
-        android:textColor="#e3000000"
+        android:textColor="#ffffff"
 
         android:height="25dp"
         android:textSize="16dp"
-        android:layout_below="@+id/spChooseStates"
-        android:layout_marginTop="48dp"
-        android:layout_alignRight="@+id/spChooseStates"
-        android:layout_alignEnd="@+id/spChooseStates"
-        android:layout_alignLeft="@+id/spUnivType"
-        android:layout_alignStart="@+id/spUnivType" />
+        android:background="#3baba0"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
         android:text="Suggest Universities"
         android:id="@+id/btnSuggestUniv2"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:height="30dp"
-
         android:background="#ff6f1b"
         android:textColor="#ffffff"
 
+
         android:layout_below="@+id/textViewSuggest2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/textViewSuggest2"
-        android:layout_alignStart="@+id/textViewSuggest2" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/textView13"
+        android:layout_alignEnd="@+id/textView13" />
+
+
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="25dp"
+            android:layout_height="wrap_content"
+            android:text="Find the matching universities based on your profile. Rate on top, if you find the list of recommended universities helpful "
+            android:id="@+id/textView13"
             android:textSize="16dp"
-            android:text="Choose Your Preferences "
-            android:textColor="#e3000000"
-            android:layout_gravity="left|top"
-            android:id="@+id/txtPreference"
-            android:height="35dp"
-            android:paddingTop="0dp"
-
-            android:background="#d1fedb"
-            android:layout_above="@+id/spUnivType"
+            android:textColor="#fff242"
+            android:layout_marginTop="91dp"
+            android:layout_below="@+id/textView16"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
-        <Spinner
-            android:layout_width="150dp"
-            android:layout_height="45dp"
-            android:id="@+id/spUnivType"
-            android:background="#f4feec"
-            android:nestedScrollingEnabled="true"
-            android:layout_above="@+id/spChooseStates"
-            android:layout_alignLeft="@+id/txtPreference"
-            android:layout_alignStart="@+id/txtPreference"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-
-    <!--TextView
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:text="    Nearby Places"
-        android:id="@+id/textSuggestNearby2"
-        android:textColor="#e3000000"
-
-        android:textSize="16dp"
-        android:layout_marginBottom="10dp"
-        android:paddingTop="5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/btnSuggestNearby2"
-        android:layout_toStartOf="@+id/btnSuggestNearby2"
-        android:layout_alignTop="@+id/btnSuggestNearby2" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="Check here"
-        android:id="@+id/btnSuggestNearby2"
-        android:textSize="15dp"
-        android:textColor="#ffffff"
-        android:background="#ff6f1b"
-        android:layout_marginBottom="15dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/txtNames2"
-        android:layout_toEndOf="@+id/txtNames2" /-->
-
-
-
-        <khara.karan.netuse.MultiSelectionSpinner
-            android:id="@+id/spChooseStates"
-            android:background="#f3fee8"
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Your Rating "
+            android:id="@+id/textView15"
+            android:layout_alignBottom="@+id/ratingBar1"
+            android:textColor="#ffffff"
+            android:textSize="16dp"
+            android:layout_toLeftOf="@+id/ratingBar1"
+            android:layout_toStartOf="@+id/ratingBar1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Avg Ratings "
+            android:id="@+id/textView16"
+            android:textColor="#ffffff"
             android:layout_marginTop="10dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignLeft="@+id/spUnivType"
-            android:layout_alignStart="@+id/spUnivType"></khara.karan.netuse.MultiSelectionSpinner>
+            android:paddingTop="0dp"
+            android:textSize="16dp"
+            android:layout_below="@+id/ratingBar1"
+            android:layout_toLeftOf="@+id/textAvgRating"
+            android:layout_toStartOf="@+id/textAvgRating" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text=" "
+            android:paddingLeft="5dp"
+            android:id="@+id/textAvgRating"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/ratingBar1"
+            android:layout_toRightOf="@+id/textView15"
+
+            android:textColor="#ffffff" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="/5"
+            android:paddingLeft="5dp"
+            android:id="@+id/textView18"
+            android:textColor="#ffffff"
+            android:paddingTop="1dp"
+            android:layout_alignTop="@+id/textAvgRating"
+            android:layout_toRightOf="@+id/textAvgRating"
+            android:layout_toEndOf="@+id/textAvgRating" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/ratingBar1"
+            android:layout_alignLeft="@+id/textView15"
+            android:layout_alignStart="@+id/textView15"
+            android:visibility="visible"
+            android:layout_above="@+id/txtNames2"></FrameLayout>
+
+        TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/textView15"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/txtPreference"
+            android:layout_toEndOf="@+id/txtPreference" />
 
         <!--Button
             android:layout_width="wrap_content"

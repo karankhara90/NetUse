@@ -17,6 +17,7 @@
         android:height="40dp"
         android:background="#fcb000"
         android:textSize="20dp"
+        android:paddingTop="5dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
     <Spinner
@@ -25,18 +26,24 @@
         android:id="@+id/spNewUniv"
         android:background="#fbfacc"
         android:layout_marginTop="50dp"
+        android:dividerHeight="9dp"
         android:layout_marginBottom="-10dp"
         android:minHeight="40dp"
+        android:drawSelectorOnTop="true"
         />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Done"
         android:id="@+id/myDone"
-        android:background="#fcb000"
+        android:background="#ff7e27"
         android:imeOptions="actionNext"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/textView6"
-        android:layout_alignStart="@+id/textView6" />
+        android:layout_below="@+id/spNewUniv"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="70dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#ffffff" />
 
 </RelativeLayout>
