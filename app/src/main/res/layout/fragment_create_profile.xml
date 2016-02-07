@@ -36,7 +36,8 @@
         android:imeOptions="actionNext"
         android:layout_below="@+id/getUserName"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" /><requestFocus />
+        android:layout_alignParentStart="true" />
+        <requestFocus />
 
 
 
@@ -116,7 +117,9 @@
         android:id="@+id/spUniversity"
         android:background="#fbfacc"
         android:layout_marginTop="5dp"
+        android:dividerHeight="3dp"
         android:layout_below="@+id/spCountry"
+        android:drawSelectorOnTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

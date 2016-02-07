@@ -6,7 +6,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="khara.karan.netuse.LoginActivity"
-    android:background="#72c2ff">
+    android:background="#3baba0">
 
     <!-- Login progress -->
     <ProgressBar android:id="@+id/login_progress" style="?android:attr/progressBarStyleLarge"
@@ -25,9 +25,9 @@
             android:text="Sign in to your account"
             android:id="@+id/textView2"
             android:layout_gravity="center_horizontal"
-            android:textColor="#370700"
-            android:textSize="18dp"
-            android:background="#fffaa1"
+            android:textColor="#ffffff"
+            android:textSize="22dp"
+            android:background="#3baba0"
             android:paddingTop="5dp"
             android:paddingLeft="70dp"
             android:paddingRight="15dp"
@@ -48,9 +48,11 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:background="#ffffff"
-            android:layout_weight="0.45">
+            android:maxLines="1"
+            android:singleLine="true"
+            android:layout_weight="0.45"
+            android:imeOptions="actionNext" />
             <requestFocus/>
-        </EditText>
 
         <EditText
             android:layout_width="wrap_content"
@@ -66,6 +68,7 @@
             android:layout_alignRight="@+id/usernameField"
             android:layout_alignEnd="@+id/usernameField"
             android:background="#ffffff"
+            android:imeOptions="actionNext"
             android:layout_weight="0.40" />
 
         <Button android:id="@+id/loginButton"
@@ -76,20 +79,23 @@
             android:text="@string/action_sign_in"
             android:textStyle="bold"
             android:textSize="18dp"
-            android:textColor="#747474" />
+            android:imeOptions="actionNext"
+            android:background="#ff6f1b"
+            android:textColor="#ffffff" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="34dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="SIGN UP"
             android:id="@+id/signUpText"
             android:layout_gravity="center_horizontal"
-            android:textColor="#6b6b6b"
             android:textSize="18dp"
-            android:background="#ffffff"
+            android:background="#ff6f1b"
+            android:textColor="#ffffff"
+            android:layout_marginTop="8dp"
             android:paddingTop="5dp"
-            android:paddingLeft="20dp"
+            android:paddingLeft="160dp"
             android:paddingRight="15dp"
             android:paddingEnd="55dp"
             android:layout_weight="0.29" />

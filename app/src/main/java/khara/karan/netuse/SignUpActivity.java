@@ -97,8 +97,8 @@ public class SignUpActivity extends Activity {
                 String username = mUsername.getText().toString();
                 String password = mPassword.getText().toString();
                 String email = mEmail.getText().toString();
-      /*          String fullname = mFullName.getText().toString();
-                String percent  = mPercent.getText().toString();
+      /*          String mFullname = mFullName.getText().toString();
+                String mPercent  = mPercent.getText().toString();
                 String gre    = mGre.getText().toString();
                 String toefl   = mToefl.getText().toString();
 
@@ -128,8 +128,8 @@ public class SignUpActivity extends Activity {
                     newUser.setPassword(password);
                     newUser.setEmail(email);
 
-         /*           newUser.put("fullName", fullname);
-                    newUser.put("percent", percent);
+         /*           newUser.put("fullName", mFullname);
+                    newUser.put("mPercent", mPercent);
                     newUser.put("gre", gre);
                     newUser.put("toefl", toefl);
                     newUser.put("univName", univname);

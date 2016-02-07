@@ -71,6 +71,7 @@ public class LoginActivity extends Activity {
                     //System.out.print("username nd pwd not empty .......................");
                     //Toast.makeText(LoginActivity.this, "username nd pwd not empty ....................", Toast.LENGTH_LONG).show();
                     setProgressBarIndeterminateVisibility(true);    // to show the progress bar
+
                     ParseUser.logInInBackground(username, password, new LogInCallback() {
                         @Override
                         public void done(ParseUser parseUser, ParseException e) {
@@ -114,7 +115,6 @@ public class LoginActivity extends Activity {
                                 dialog.show();
                             }
                         }
-
 
                     });
                 }
