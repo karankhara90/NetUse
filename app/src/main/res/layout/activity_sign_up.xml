@@ -6,7 +6,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="khara.karan.netuse.SignUpActivity"
-    android:background="#c2fbd7"
+    android:background="@color/backgroundColor"
     android:weightSum="1">
 
     <!-- Login progress -->

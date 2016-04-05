@@ -5,17 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
-    tools:context="khara.karan.netuse.FutureStudent"
-    android:background="#0b8579"
-    >
+    tools:context="khara.karan.netuse.FutureStudent" >
+
     <RelativeLayout android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#d4e7ff"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        >
+        android:paddingTop="@dimen/activity_vertical_margin">
 
         <RatingBar
             android:id="@+id/ratingBar1"
@@ -26,14 +25,15 @@
             android:stepSize="0.5"
             android:layout_alignParentTop="true"
             android:layout_alignRight="@+id/textView13"
-            android:layout_alignEnd="@+id/textView13" />
+            android:layout_alignEnd="@+id/textView13"
+            android:background="#ffffff" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:textSize="22dp"
         android:text="Welcome "
-        android:textColor="#ffffff"
+        android:textColor="@color/textColor"
         android:layout_gravity="left|top"
         android:id="@+id/txtNames2"
         android:height="35dp"
@@ -47,7 +47,7 @@
         android:layout_width="210dp"
         android:layout_height="25dp"
         android:textSize="22dp"
-        android:textColor="#e3000000"
+        android:textColor="@color/textColor"
         android:id="@+id/name2"
         android:height="35dp"
         android:paddingLeft="5dp"
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:text="Got admitted? Add New University "
         android:id="@+id/textNewPlace2"
-        android:textColor="#ffffff"
+        android:textColor="@color/textColor"
         android:height="30dp"
 
         android:paddingTop="5dp"
@@ -91,11 +91,10 @@
         android:layout_height="wrap_content"
         android:text="Universities based on my profile"
         android:id="@+id/textViewSuggest2"
-        android:textColor="#ffffff"
+        android:textColor="@color/textColor"
 
         android:height="25dp"
         android:textSize="16dp"
-        android:background="#3baba0"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -124,11 +123,12 @@
             android:text="Find the matching universities based on your profile. Rate on top, if you find the list of recommended universities helpful "
             android:id="@+id/textView13"
             android:textSize="16dp"
-            android:textColor="#fff242"
+            android:textColor="#6f6f6f"
             android:layout_marginTop="91dp"
             android:layout_below="@+id/textView16"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+             />
 
         <TextView
             android:layout_width="wrap_content"
@@ -137,7 +137,7 @@
             android:text="Your Rating "
             android:id="@+id/textView15"
             android:layout_alignBottom="@+id/ratingBar1"
-            android:textColor="#ffffff"
+            android:textColor="@color/textColor"
             android:textSize="16dp"
             android:layout_toLeftOf="@+id/ratingBar1"
             android:layout_toStartOf="@+id/ratingBar1" />
@@ -147,16 +147,17 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Avg Ratings "
             android:id="@+id/textView16"
-            android:textColor="#ffffff"
+            android:textColor="@color/textColor"
             android:layout_marginTop="10dp"
             android:paddingTop="0dp"
             android:textSize="16dp"
             android:layout_below="@+id/ratingBar1"
             android:layout_toLeftOf="@+id/textAvgRating"
-            android:layout_toStartOf="@+id/textAvgRating" />
+            android:layout_toStartOf="@+id/textAvgRating"
+             />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="35dp"
             android:layout_height="20dp"
             android:text=" "
             android:paddingLeft="5dp"
@@ -164,38 +165,30 @@
             android:layout_marginTop="10dp"
             android:layout_below="@+id/ratingBar1"
             android:layout_toRightOf="@+id/textView15"
-
-            android:textColor="#ffffff" />
+            android:textColor="@color/textColor" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:text="/5"
             android:paddingLeft="5dp"
             android:id="@+id/textView18"
-            android:textColor="#ffffff"
+            android:textColor="@color/textColor"
             android:paddingTop="1dp"
             android:layout_alignTop="@+id/textAvgRating"
             android:layout_toRightOf="@+id/textAvgRating"
             android:layout_toEndOf="@+id/textAvgRating" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignTop="@+id/ratingBar1"
-            android:layout_alignLeft="@+id/textView15"
-            android:layout_alignStart="@+id/textView15"
-            android:visibility="visible"
-            android:layout_above="@+id/txtNames2"></FrameLayout>
 
-        TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
-            android:id="@+id/textView15"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/txtPreference"
-            android:layout_toEndOf="@+id/txtPreference" />
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+            <!--android:text="Small Text"-->
+            <!--android:id="@+id/textView15"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_toRightOf="@+id/txtPreference"-->
+            <!--android:layout_toEndOf="@+id/txtPreference" />-->
 
         <!--Button
             android:layout_width="wrap_content"

@@ -20,6 +20,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 
+
 public class LoginActivity extends Activity {
 
     protected EditText mUsername;

@@ -29,7 +29,7 @@
         android:text="----- Intermediate Results -----"
         android:textColor="#ffffff"
         android:layout_gravity="left|top"
-        android:id="@+id/txtRecommend"
+        android:id="@+id/txtResults"
         android:height="35dp"
         android:paddingLeft="15dp"
         android:paddingTop="3dp"
@@ -55,6 +55,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/listViewResults"
-        android:layout_alignEnd="@+id/listViewResults" />
+        android:layout_alignEnd="@+id/listViewResults" />#0698a1
 
 </RelativeLayout>

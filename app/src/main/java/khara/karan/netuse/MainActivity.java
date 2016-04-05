@@ -10,14 +10,21 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -33,6 +40,11 @@ public class MainActivity extends ActionBarActivity
 
     String userId;
   //  String FullName;
+
+    ArrayAdapter<String> mdrawerAdapter;
+    ArrayAdapter<String> mStudAdapter;
+    ListView mDrawerList;
+    ListView mListStudents;
 
 
     /**
@@ -51,6 +63,42 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.activity_main);
         context = this;
 
+        mListStudents = (ListView)findViewById(R.id.lvStudents);
+        mDrawerList = (ListView)findViewById(R.id.navListMain);
+        addDrawerListMain();
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0){
+                    String uni_name= mDrawerList.getItemAtPosition(0).toString();
+                    //Log.e("TAG","==============================="+name);
+                    //Intent intentMajor = new Intent(this, );
+                    ParseUser user = ParseUser.getCurrentUser();
+                    ParseQuery<ParseObject> qu = ParseQuery.getQuery("UserInfo");
+                    qu.whereEqualTo("newUnivName",uni_name);
+                    qu.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> list, ParseException e) {
+                            ArrayList<String> stu_list = new ArrayList<String>();
+                            for(ParseObject ob : list){
+                                String stu_name = ob.getString("fullName");
+
+                                stu_list.add(stu_name);
+                                mStudAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_selectable_list_item,stu_list);
+                                mListStudents.setAdapter(mStudAdapter);
+                                mListStudents.setSelector(android.R.color.background_dark);
+                                mListStudents.setBackgroundColor(0xff444444);
+                            }
+                        }
+                    });
+
+                }
+                else if(position == 1){
+
+                }
+
+            }
+        });
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         //Toast.makeText(this, "userID :" + userId, Toast.LENGTH_LONG).show();
@@ -93,25 +141,18 @@ public class MainActivity extends ActionBarActivity
         });
 
 
-        mBtnSuggestNearby = (Button) findViewById(R.id.btnSuggestNearby);
-        mBtnSuggestNearby.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent3 = new Intent(MainActivity.this, NearbyPlaces.class);
-                intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
-                startActivity(intent3);
+//        mBtnSuggestNearby = (Button) findViewById(R.id.btnSuggestNearby);
+//        mBtnSuggestNearby.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent3 = new Intent(MainActivity.this, NearbyPlaces.class);
+//                intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
+//                startActivity(intent3);
+//
+//            }
+//        });
 
-            }
-        });
-
-
-        //ParseAnalytics.trackAppOpenedInBackground(getIntent());
-
-//        Intent intent = new Intent(this, LoginActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        startActivity(intent);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -132,22 +173,7 @@ public class MainActivity extends ActionBarActivity
                 .commit(); */
     }
 
-    public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                mTitle="Menu";
-                break;
-            case 2:
-                mTitle = getString(R.string.title_section1);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_section2);
-                break;
-            //case 3:
-                //mTitle = getString(R.string.title_section3);
-                //break;
-        }
-    }
+
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
@@ -241,5 +267,32 @@ public class MainActivity extends ActionBarActivity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     } */
+
+    public void addDrawerListMain()
+    {
+        ParseUser parseUser = ParseUser.getCurrentUser();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("UserInfo");
+        query.whereEqualTo("userId",parseUser);
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                String stu_univ = parseObject.getString("newUnivName");
+                // String stu_univ = parseObject.getObjectId();
+                //String stu_univ2 = parseObject.getString("newUnivName");
+                //Log.e("TAG","stu_uni...================ "+stu_univ+ " ====== "+stu_univ2);
+
+
+                String[] drawerArr = {stu_univ};
+                mdrawerAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_selectable_list_item,drawerArr);
+                mDrawerList.setAdapter(mdrawerAdapter);
+                mDrawerList.setSelector(android.R.color.holo_green_dark);
+                mDrawerList.setBackgroundColor(0xff444444);
+            }
+        });
+
+
+
+
+    }
 
 }

@@ -14,10 +14,10 @@
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_gravity="center_horizontal"
-        android:text="Web Chart"
+        android:text="%ge of students with GRE and GPA/percent"
         android:textStyle="bold"
         android:id="@+id/textView9"
-        android:textSize="18dp"
+        android:textSize="15dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 

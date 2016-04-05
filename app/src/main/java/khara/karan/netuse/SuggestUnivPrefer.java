@@ -1,9 +1,14 @@
 package khara.karan.netuse;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,10 +19,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -30,7 +38,7 @@ public class SuggestUnivPrefer extends ActionBarActivity {
     protected ListView listview;
     protected  ListView listView2,listView3,listView4;
     protected TextView txtViewUnivType;
-    protected TextView txtViewUnivStates;
+    //protected TextView txtViewUnivStates;
 
     //////////////// currrent user's rating ////////////////////////////
 //    static float mCurrUserUndergradUnivRating;
@@ -60,10 +68,12 @@ public class SuggestUnivPrefer extends ActionBarActivity {
 
     protected float predict;
     //    public static float mPredictResult;
+    int q,p;
     protected float mPredictResult;
     protected int i = -1;
     protected int j;
     protected String mUnivTypePrefer2;
+    //protected String mUnivStatePrefer2;
     protected List<String> mListUnivStatesPrefer2;
     protected String univRank;
     protected float univRate;
@@ -72,6 +82,7 @@ public class SuggestUnivPrefer extends ActionBarActivity {
     protected ArrayList<String> list2a;
     protected ArrayList<Integer> list2b;
     protected ArrayList<String> recUnivType;
+    //protected ArrayList<String> recUnivState;
 
     Calculations ratingsCalculate = new Calculations();
 
@@ -81,6 +92,8 @@ public class SuggestUnivPrefer extends ActionBarActivity {
     float predictionForNewUser;
     final ParseUser currUser = ParseUser.getCurrentUser();
     public static final String TAG = SuggestUnivActivity.class.getSimpleName();
+    private ProgressDialog progressDialog;
+    private ImageView image_expert3;
 
 
     @Override
@@ -88,11 +101,15 @@ public class SuggestUnivPrefer extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggest_univ_prefer);
 
+        Toast.makeText(getApplicationContext(), "Wait while algorithm process results", Toast.LENGTH_SHORT).show();
+        progress_bar();
+
         txtViewUnivType = (TextView)findViewById(R.id.txtUnivType);
-        txtViewUnivStates = (TextView)findViewById(R.id.txtUnivStates);
+       // txtViewUnivStates = (TextView)findViewById(R.id.txtUnivStates);
 
         recUniversities = new ArrayList<String>();  // didnt use arrays. coz arraylist's size is flexible unlike arrays
         recUnivType = new ArrayList<String>();
+        //recUnivState = new ArrayList<String>();
 
         list2a = new ArrayList<String>();
 
@@ -115,12 +132,52 @@ public class SuggestUnivPrefer extends ActionBarActivity {
 //        predictionForNewUser = objUserRating1.getPredictions();
         getPredictions();
     }
+    void progress_bar(){
+        progressDialog = new ProgressDialog(SuggestUnivPrefer.this);
+        progressDialog.setMax(100);
+        progressDialog.setMessage("Calculating Results...");
+        progressDialog.setTitle("Please wait..");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.show();
 
+        new Thread() {
+
+            public void run() {
+
+                try{
+                    while (progressDialog.getProgress() <= progressDialog.getMax()) {
+                        sleep(100);
+                        handle.sendMessage(handle.obtainMessage());
+                        if (progressDialog.getProgress() == progressDialog
+                                .getMax()) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.e("tag", e.getMessage());
+                }
+            }
+        }.start();
+
+    }
+
+    Handler handle = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            progressDialog.incrementProgressBy(1);
+        }
+    };
     @Override
     public void onBackPressed(){
-        super.onBackPressed();
-        finish();
+        Intent intent2 = new Intent(SuggestUnivPrefer.this, FutureStudent.class);
+        intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
+        startActivity(intent2);
+//        super.onBackPressed();
+//        finish();
     }
+
 
 
     void getCurrentNewUserRating(float GreScore1,float UndergradPercent1,float UnivRating1) {
@@ -232,10 +289,10 @@ public class SuggestUnivPrefer extends ActionBarActivity {
                 /* ************************** get prediction mScore for current new user ************************** */
                 mPredictResult = getPredictScore(list.size() - 1);
                 /* *********************************************************************************************************** */
-
+                Log.e(TAG,"mPredict: "+mPredictResult);
                 /* ************************** get recommended universities for current new user ************************** */
-                Log.e(TAG, "----------------------------=====================------------------------");
-                getRecommendedUniversities(mPredictResult);
+                /*** ----------------------------=====================------------------------  */
+                   getRecommendedUniversities(mPredictResult);
                 /* *********************************************************************************************************** */
                 Log.e(TAG, "----------------------------=====================------------------------");
 
@@ -257,7 +314,7 @@ public class SuggestUnivPrefer extends ActionBarActivity {
         /*  **NOTE: here clone() is used to copy one array into another completely**  */
         tempArrSimInUsers = mArrSimilarityInUsers.clone();  // put similarity array into temp similarity array
         Arrays.sort(tempArrSimInUsers);
-        Log.e(TAG,"mArrSimilarityInUsers["+0+"]"+mArrSimilarityInUsers[0] + "mArrSimilarityInUsers["+size+"]"+mArrSimilarityInUsers[size]);
+       // Log.e(TAG,"mArrSimilarityInUsers["+0+"]"+mArrSimilarityInUsers[0] + "mArrSimilarityInUsers["+size+"]"+mArrSimilarityInUsers[size]);
         Log.e(TAG, "First 3 similarities: " + tempArrSimInUsers[size] + ", " + tempArrSimInUsers[size-1] + ", " + tempArrSimInUsers[size-2]);
 
         j =0;
@@ -265,7 +322,7 @@ public class SuggestUnivPrefer extends ActionBarActivity {
             while(mArrSimilarityInUsers[j] != tempArrSimInUsers[size] && j<=size ){
                 j++;
             }
-            Log.e(TAG,"j: "+j);
+           // Log.e(TAG,"j: "+j);
             tempArrObj[k] = arrObjUserDetails[j];
             size--;
             k++;
@@ -296,14 +353,14 @@ public class SuggestUnivPrefer extends ActionBarActivity {
         secSenRatingDiff =   tempArrObj[1].getmArrThisSeniorNewUnivRating() - (tempArrObj[1].getmArrThisSeniorUserAvgRating()-1) ;
         thirdSenRatingDiff = tempArrObj[2].getmArrThisSeniorNewUnivRating() - (tempArrObj[2].getmArrThisSeniorUserAvgRating()-1);
 
-        Log.e(TAG, "[0] This Senior New Univ Rating: "+tempArrObj[0].getmArrThisSeniorNewUnivRating());
-        Log.e(TAG, "- [0] This Senior User Avg Rating -: "+tempArrObj[0].getmArrThisSeniorUserAvgRating());
-
-        Log.e(TAG, "[1] This Senior New Univ Rating: "+tempArrObj[1].getmArrThisSeniorNewUnivRating());
-        Log.e(TAG, "- [1] This Senior User Avg Rating -: "+tempArrObj[1].getmArrThisSeniorUserAvgRating());
-
-        Log.e(TAG, "[2] This Senior New Univ Rating: "+tempArrObj[2].getmArrThisSeniorNewUnivRating());
-        Log.e(TAG, "- [2] This Senior User Avg Rating -: "+tempArrObj[2].getmArrThisSeniorUserAvgRating());
+//        Log.e(TAG, "[0] This Senior New Univ Rating: "+tempArrObj[0].getmArrThisSeniorNewUnivRating());
+//        Log.e(TAG, "- [0] This Senior User Avg Rating -: "+tempArrObj[0].getmArrThisSeniorUserAvgRating());
+//
+//        Log.e(TAG, "[1] This Senior New Univ Rating: "+tempArrObj[1].getmArrThisSeniorNewUnivRating());
+//        Log.e(TAG, "- [1] This Senior User Avg Rating -: "+tempArrObj[1].getmArrThisSeniorUserAvgRating());
+//
+//        Log.e(TAG, "[2] This Senior New Univ Rating: "+tempArrObj[2].getmArrThisSeniorNewUnivRating());
+//        Log.e(TAG, "- [2] This Senior User Avg Rating -: "+tempArrObj[2].getmArrThisSeniorUserAvgRating());
         Log.e(TAG, "------------------------------------------------------------------------------------------");
 
         firstMulti = topFirstSimilarity
@@ -312,34 +369,32 @@ public class SuggestUnivPrefer extends ActionBarActivity {
                 * secSenRatingDiff;
         thirdMulti = topThirdSimilarity
                 * thirdSenRatingDiff;
-        Log.e(TAG, "firstSenRatingDiff : "+firstSenRatingDiff);
-        Log.e(TAG, "secondSenRatingDiff: "+secSenRatingDiff);
-        Log.e(TAG, "thirdSenRatingDiff : "+thirdSenRatingDiff);
-        Log.e(TAG, "------------------------------------------------------------------------------------------");
+        //Log.e(TAG, "firstSenRatingDiff : "+firstSenRatingDiff);
+        //Log.e(TAG, "secondSenRatingDiff: "+secSenRatingDiff);
+        //Log.e(TAG, "thirdSenRatingDiff : "+thirdSenRatingDiff);
+        //Log.e(TAG, "------------------------------------------------------------------------------------------");
 
-        numeratorResult =  mCurrentUserAvgRating + firstMulti + secMulti + thirdMulti;
+        numeratorResult =  mCurrentUserAvgRating + firstMulti + secMulti + thirdMulti +2;
         Log.e(TAG, "mCurrentUserAvgRating: "+mCurrentUserAvgRating);
-        Log.e(TAG, "firstMulti : "+firstMulti);
-        Log.e(TAG, "secondMulti: "+secMulti);
-        Log.e(TAG, "thirdMulti : "+thirdMulti);
-        Log.e(TAG, "numerator result: "+ numeratorResult);
-        Log.e(TAG, "------------------------------------------------------------------------------------------");
+//        Log.e(TAG, "firstMulti : "+firstMulti);
+//        Log.e(TAG, "secondMulti: "+secMulti);
+//        Log.e(TAG, "thirdMulti : "+thirdMulti);
+//        Log.e(TAG, "numerator result: "+ numeratorResult);
+//        Log.e(TAG, "------------------------------------------------------------------------------------------");
 
         // Math.abs() converts any value with positive or negative sign into that same value with positive sign only
         denominatorResult = Math.abs(topFirstSimilarity) + Math.abs(topSecondSimilarity) + Math.abs(topThirdSimilarity);
 
-        Log.e(TAG,"|topFirstSimilarity | : "+ Math.abs(topFirstSimilarity));
-        Log.e(TAG,"|topSecondSimilarity| : "+ Math.abs(topSecondSimilarity));
-        Log.e(TAG,"|topThirdSimilarity | : "+ Math.abs(topThirdSimilarity));
-        Log.e(TAG, "denominator Result: "+ denominatorResult);
-        Log.e(TAG, "------------------------------------------------------------------------------------------");
+//        Log.e(TAG,"|topFirstSimilarity | : "+ Math.abs(topFirstSimilarity));
+//        Log.e(TAG,"|topSecondSimilarity| : "+ Math.abs(topSecondSimilarity));
+//        Log.e(TAG,"|topThirdSimilarity | : "+ Math.abs(topThirdSimilarity));
+//        Log.e(TAG, "denominator Result: "+ denominatorResult);
+//        Log.e(TAG, "------------------------------------------------------------------------------------------");
 
-        predict = numeratorResult / denominatorResult;
+        predict = (numeratorResult / denominatorResult) +4;
         Log.e(TAG, "predict Result: " + predict);
         Log.e(TAG, "------------------------------------------------------------------------------------------");
-
         return predict;
-
     }
 
     float getUserSimilarities(int i) {
@@ -390,13 +445,13 @@ public class SuggestUnivPrefer extends ActionBarActivity {
 
     void getRecommendedUniversities(float predict){
         temp_predict = predict;
-        Log.e(TAG,"++++++++++++++++++++++++++++++++++++++++++++++++++++");
+       // Log.e(TAG,"++++++++++++++++++++++++++++++++++++++++++++++++++++");
 //        final String[] recUniversities = new String[5];
         ParseQuery<ParseObject> queryRec = ParseQuery.getQuery("UnivDetail");
         queryRec.whereEqualTo("UnivCountry", "United States");
-        queryRec.whereGreaterThanOrEqualTo("univRating", predict + 2);
-        queryRec.whereLessThanOrEqualTo("univRating", predict + 4.5);
-//        queryRec.whereLessThanOrEqualTo("univRating", 10);
+        queryRec.whereGreaterThanOrEqualTo("univRating", predict + 1);
+        queryRec.whereLessThanOrEqualTo("univRating", predict + 2.5);
+        queryRec.whereLessThanOrEqualTo("univRating", 10);
         queryRec.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
@@ -404,13 +459,24 @@ public class SuggestUnivPrefer extends ActionBarActivity {
                 if(e == null) {
 //                    listView2 = (ListView) findViewById(R.id.listViewRecommend);
                     listView3 = (ListView) findViewById(R.id.listViewRecUnivType);
+                   // listView4 = (ListView) findViewById(R.id.listViewRecUnivStates);
                     //                ArrayList<String> recUniversities = new ArrayList<String>();  // didnt use arrays. coz arraylist's size is flexible unlike arrays
                     //                ArrayList<String> recUnivType = new ArrayList<String>();
                     int i = 0;
                     Intent intent2 = getIntent();
                     Bundle bundle = intent2.getExtras();  // get bundle from intent
-                    mUnivTypePrefer2 = bundle.getString("mmUnivTypePrefer").toString();
+                    mUnivTypePrefer2 = bundle.getString("mmUnivTypePrefer");
+                   // mUnivStatePrefer2 = bundle.getString("mmUnivStatePrefer");
+                    q = Integer.parseInt(bundle.getString("iValue"));
+
+                    //int i =
+//                    while( j >=0){
+//                        mListUnivStatesPrefer2.add( bundle.getString("mmListUnivStatesPrefer[" + i + "]"));
+//                    }
+                    //Log.e(TAG, "PPPPPPPPP:  " + bundle.getString("mmListUnivStatesPrefer"));
+                    //mListUnivStatesPrefer2.add( bundle.getString("mmListUnivStatesPrefer"));
                     txtViewUnivType.setText("Recommendation on: " + mUnivTypePrefer2 + " universities");
+                   // txtViewUnivStates.setText("Recommendation on: " + mUnivStatePrefer2 + " universities");
 
                     Log.e(TAG,"mUnivTypePrefer2: "+mUnivTypePrefer2);
                     ////                if(! mUnivTypePrefer2.equals("-- Select Type you prefer --")){
@@ -420,18 +486,42 @@ public class SuggestUnivPrefer extends ActionBarActivity {
                     //                    getRecommendedUniversitiesUnivType(predResult,mUnivTypePrefer2);
                     //                }
                     for (ParseObject parseObj : list) {
+                        p = q;
                         String rec,rec2,rec3;
                         if (i < 10) {
                             rec = parseObj.get("univName").toString();
                             univRank = parseObj.get("Ranking").toString();
                             univRate = Float.valueOf(parseObj.get("univRating").toString());
                             Log.e(TAG, "Univ name : " + rec);
+
                             if(parseObj.get("UnivType").toString().equals(mUnivTypePrefer2))
                             {
                                 rec2 = parseObj.get("univName").toString();
                                 Log.e(TAG, "==== "+mUnivTypePrefer2 +" Univ name : " + rec2);
                                 recUnivType.add(rec2);
                             }
+//                            if(parseObj.get("UnivState").toString().equals(mUnivStatePrefer2))
+//                            {
+//                                rec3 = parseObj.get("univName").toString();
+//                                Log.e(TAG, ")))))))) "+mUnivStatePrefer2 +" Univ name : " + rec3);
+//                                recUnivState.add(rec3);
+//                            }
+
+//                            while(p >=0){
+//                                if(parseObj.get("UnivState").toString().equals(mListUnivStatesPrefer2.get(p))){
+//                                    rec3 = parseObj.get("univName").toString();
+//                                    Log.e(TAG, "==== "+mListUnivStatesPrefer2 +" Univ name : " + rec3);
+//                                    recUnivStates.add(rec3);
+//                                    break;
+//                                }
+//                                p--;
+//                            }
+
+//                            else if(parseObj.get("UnivState").toString().equals(mListUnivStatesPrefer2.get(p))){
+//
+//                            }
+
+
 
                             i++;
                         } else {
@@ -454,6 +544,18 @@ public class SuggestUnivPrefer extends ActionBarActivity {
                         adapter3.notifyDataSetChanged();
                         listView3.setAdapter(adapter3);
                         listView3.setOnItemClickListener(new ListClickHandler());
+
+
+                        try{
+//                            MyAdapter adapter4 = new MyAdapter(SuggestUnivPrefer.this, R.layout.list_view_row, recUnivState);
+//                            adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                            adapter4.notifyDataSetChanged();
+//                            listView4.setAdapter(adapter4);
+//                            listView4.setOnItemClickListener(new ListClickHandler());
+                        }catch (Exception excp){
+                            Log.e(TAG,"excp in listview 4 is: "+excp);
+                        }
+
                     }
                 }
             }
@@ -487,9 +589,22 @@ public class SuggestUnivPrefer extends ActionBarActivity {
                     .findViewById(R.id.sub_text_rank2);
             subSpinner.setText(list2a.get(position));
 
+//            image_expert3 = (ImageView)mySpinner.findViewById(R.id.univ_logo_pic2);
+//
+//            ParseQuery<ParseObject> query = ParseQuery.getQuery("UnivDetail");
+//            query.whereEqualTo("univName",recUniversities.get(position));
+//            query.getFirstInBackground(new GetCallback<ParseObject>() {
+//                @Override
+//                public void done(ParseObject parseObject, ParseException e) {
+//                    ParseFile image = (ParseFile) parseObject.getParseFile("univLogo");
+//                    displayImage(image, image_expert3);
+//                }
+//            });
+
+
             TextView text_chance = (TextView) mySpinner
                     .findViewById(R.id.text_chance);
-            if(univRate < temp_predict+3 && univRate > temp_predict+2)
+            if(univRate < temp_predict+3 && univRate > temp_predict)
             {
                 text_chance.setText("......");
             }
@@ -499,9 +614,9 @@ public class SuggestUnivPrefer extends ActionBarActivity {
 
 
             try{
-                ImageView left_icon = (ImageView) mySpinner
-                        .findViewById(R.id.univ_logo_pic2);
-                left_icon.setImageResource(list2b.get(position));
+//                ImageView left_icon = (ImageView) mySpinner
+//                        .findViewById(R.id.univ_logo_pic2);
+//                left_icon.setImageResource(list2b.get(position));
             }
             catch (Exception exc2){
                 Log.e("TAG","exc2 exception in imageview is: "+exc2);
@@ -510,6 +625,49 @@ public class SuggestUnivPrefer extends ActionBarActivity {
             return mySpinner;
         }
     }
+
+    private void displayImage(ParseFile thumbnail, final ImageView img) {
+
+        if (thumbnail != null) {
+            thumbnail.getDataInBackground(new GetDataCallback() {
+
+                @Override
+                public void done(byte[] data, ParseException e) {
+
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,
+                                data.length);
+
+                        if (bmp != null) {
+
+                            Log.e("parse file ok", " null");
+                            // img.setImageBitmap(Bitmap.createScaledBitmap(bmp,
+                            // (display.getWidth() / 5),
+                            // (display.getWidth() /50), false));
+                            img.setImageBitmap(bmp);
+
+                            // img.setPadding(10, 10, 0, 0);
+
+
+
+                        }
+                    } else {
+                        Log.e("paser after downloade", " null");
+                    }
+
+                }
+            });
+        } else {
+
+            Log.e("parse file", " null");
+
+            // img.setImageResource(R.drawable.ic_launcher);
+
+            img.setPadding(10, 10, 10, 10);
+        }
+
+    }
+
 
     void getRecommendedUniversitiesUnivType(String strPredResult, String mUnivTypePrefer2){
         float predResult = Float.valueOf(strPredResult);

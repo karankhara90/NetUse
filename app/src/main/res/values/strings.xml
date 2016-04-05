@@ -2,7 +2,7 @@
     <string name="app_name">NetUse</string>
 
     <string name="title_section1">Show Universities</string>
-    <string name="title_section2">Show all USERS..</string>
+    <string name="title_section2">List of all USERS..</string>
     <string name="title_section3">Section 3</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -12,8 +12,18 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="back_color">#a3fdc4</string>
-    <string name="list_color">#fff6a5</string>
+    <color name="backgroundColor">#d4e7ff</color>
+    <color name="buttonColor">#ff6f1b</color>
+    <color name="textMsgColor">#fff242</color>
+    <color name="tryBackColor">#0698a1</color>
+    <color name="textColor">#000000</color>
+
+
+
+    <color name="Color">#123456</color>
+
+    <color name="back_color">#a3fdc4</color>
+    <color name="list_color">#fff6a5</color>
     <string name="signup_error_message"><![CDATA[Please make sure you enter a username,password & email address]]></string>
     <string name="create_profile_error_message"><![CDATA[Please make sure you enter a all the fields]]></string>
     <string name="signup_error_title">Ooops!!!</string>

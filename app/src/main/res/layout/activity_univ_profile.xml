@@ -14,14 +14,14 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="                    UNIVERSITY PROFILE"
+        android:text="              UNIVERSITY PROFILE"
         android:paddingTop="2dp"
-        android:textSize="14dp"
-        android:background="#ffffff"
+        android:textSize="22dp"
+        android:textColor="#ffffff"
+        android:background="#00a571"
         android:id="@+id/textView3"
-        android:layout_marginTop="18dp"
         android:layout_gravity="left|top"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -31,19 +31,64 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:hint="Univ info"
-        android:textSize="14dp"
+        android:hint="Univ Name"
+        android:textSize="18dp"
         android:background="#ffffff"
         android:id="@+id/textUnivProfile"
-        android:layout_marginTop="8dp"
         android:layout_gravity="left|top"
-        android:layout_below="@+id/textView3"
+        android:layout_above="@+id/textUnivType"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:hint="Univ Type"
+        android:textSize="18dp"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff"
+        android:id="@+id/textUnivType"
+        android:layout_gravity="left|top"
+        android:layout_above="@+id/textUnivState"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/textUnivState"
+        android:layout_alignEnd="@+id/textUnivState" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:hint="Univ State"
+        android:textSize="18dp"
+        android:padding="5dp"
+        android:background="#ffffff"
+        android:id="@+id/textUnivState"
+        android:layout_gravity="left|top"
+        android:layout_above="@+id/textUnivCity"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:hint="Univ City"
+        android:textSize="18dp"
+        android:background="#ffffff"
+        android:id="@+id/textUnivCity"
+        android:layout_gravity="left|top"
+        android:layout_above="@+id/btnUnivDataGraph"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/btnUnivDataGraph"
+        android:layout_alignStart="@+id/btnUnivDataGraph" />
 
 
     <Button
@@ -55,12 +100,13 @@
         android:id="@+id/btnUnivDataGraph"
         android:background="#ff6f1b"
         android:textColor="#ffffff"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/btnBackUnivProfile"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="104dp"
-        android:layout_alignRight="@+id/btnBackUnivProfile"
-        android:layout_alignEnd="@+id/btnBackUnivProfile" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
     <Button
@@ -72,10 +118,21 @@
         android:id="@+id/btnBackUnivProfile"
         android:background="#ff6f1b"
         android:textColor="#ffffff"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignRight="@+id/textView3"
+        android:layout_alignEnd="@+id/textView3"
+        android:layout_alignParentBottom="true" />
+
+    <ImageView
+        android:layout_width="290dp"
+        android:layout_height="200dp"
+        android:id="@+id/imageUniv"
+        android:layout_below="@+id/textView3"
+        android:layout_above="@+id/textUnivProfile"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/textUnivType"
+        android:layout_alignEnd="@+id/textUnivType" />
 
 </RelativeLayout>

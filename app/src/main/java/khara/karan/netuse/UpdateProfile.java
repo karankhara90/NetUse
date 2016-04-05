@@ -3,6 +3,8 @@ package khara.karan.netuse;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -17,7 +19,9 @@ import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -40,6 +44,7 @@ public class UpdateProfile extends ActionBarActivity {
     UnivDetail univDetail;
     private float mUniRating;
     private float mPredScore;
+    private ImageView image_expert4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -278,9 +283,17 @@ public class UpdateProfile extends ActionBarActivity {
             subSpinner.setText(list2a.get(position));
 
             try{
-                ImageView left_icon = (ImageView) mySpinner
-                        .findViewById(R.id.univ_logo_pic);
-                left_icon.setImageResource(list2b.get(position));
+//                image_expert4 = (ImageView)mySpinner.findViewById(R.id.univ_logo_pic);
+//
+//                ParseQuery<ParseObject> query = ParseQuery.getQuery("UnivDetail");
+//                query.whereEqualTo("univName", list2.get(position));
+//                query.getFirstInBackground(new GetCallback<ParseObject>() {
+//                    @Override
+//                    public void done(ParseObject parseObject, ParseException e) {
+//                        ParseFile image = (ParseFile) parseObject.getParseFile("univLogo");
+//                        displayImage(image, image_expert4);
+//                    }
+//                });
             }
             catch (Exception exc2){
                 Log.e("TAG","exc2 exception in imageview is: "+exc2);
@@ -288,6 +301,47 @@ public class UpdateProfile extends ActionBarActivity {
 
             return mySpinner;
         }
+    }
+    private void displayImage(ParseFile thumbnail, final ImageView img) {
+
+        if (thumbnail != null) {
+            thumbnail.getDataInBackground(new GetDataCallback() {
+
+                @Override
+                public void done(byte[] data, ParseException e) {
+
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,
+                                data.length);
+
+                        if (bmp != null) {
+
+                            Log.e("parse file ok", " null");
+                            // img.setImageBitmap(Bitmap.createScaledBitmap(bmp,
+                            // (display.getWidth() / 5),
+                            // (display.getWidth() /50), false));
+                            img.setImageBitmap(bmp);
+
+                            // img.setPadding(10, 10, 0, 0);
+
+
+
+                        }
+                    } else {
+                        Log.e("paser after downloade", " null");
+                    }
+
+                }
+            });
+        } else {
+
+            Log.e("parse file", " null");
+
+            // img.setImageResource(R.drawable.ic_launcher);
+
+            img.setPadding(10, 10, 10, 10);
+        }
+
     }
 }
 

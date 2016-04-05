@@ -8,8 +8,9 @@
       google.load('visualization', '1.0', {'packages':['corechart']});
 
       // Set a callback to run when the Google Visualization API is loaded.
-      google.setOnLoadCallback(drawChart2);
+
       google.setOnLoadCallback(drawChart1);
+      google.setOnLoadCallback(drawChart2);
 
       // Callback that creates and populates a data table,
       // instantiates the pie chart, passes in the data and
@@ -34,7 +35,7 @@
           ]);
 
           // Set chart options
-          var options = {'title':'GRE SCORE distribution pie chart with WebView',
+          var options = {'title':'GRE SCORE distribution of students',
                          'width':340,
                          'height':300};
 
@@ -63,7 +64,7 @@
           ]);
 
           // Set chart options
-          var options2 = {'title':'PERCENTAGE distribution pie chart with WebView',
+          var options2 = {'title':'PERCENTAGE/GPA distribution of students',
                          'width':340,
                          'height':300};
 
@@ -77,7 +78,7 @@
 
 <body>
 <!--Div that will hold the pie chart-->
-<div id="chart_div2" style="width:350; height:300"></div>
-<div id="chart_div" style="width:350; height:300"></div>
+<div id="chart_div" style="width:360; height:340"></div>
+<div id="chart_div2" style="width:360; height:340"></div>
 </body>
 </html>

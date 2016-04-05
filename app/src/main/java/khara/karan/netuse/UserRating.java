@@ -29,7 +29,7 @@ public class UserRating {
 //    static int i = -1;
 //    int j;
 //
-//    ListView listView2;
+//    ListView listViewRecommendAll;
 //    Calculations ratingsCalculate = new Calculations();
 //
 //    final ParseUser currUser = ParseUser.getCurrentUser();
@@ -168,7 +168,7 @@ public class UserRating {
 ////            public void done(List<ParseObject> list, ParseException e) {
 ////                if(e == null) {
 ////
-////                    listView2 = (ListView);
+////                    listViewRecommendAll = (ListView);
 ////                    ArrayList<String> recUniversities = new ArrayList<String>();  // didnt use arrays. coz arraylist's size is flexible unlike arrays
 ////                    int i = 0;
 ////                    for (ParseObject parseObj : list) {

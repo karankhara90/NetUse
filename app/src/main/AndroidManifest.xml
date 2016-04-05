@@ -20,7 +20,7 @@
     <application
         android:name=".NetUseApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/netuse_logo"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
@@ -33,15 +33,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>`
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".SignUpActivity"
@@ -117,9 +113,9 @@
             android:label="Home Screen">
 
             <!-- android:parentActivityName=".MainActivity"> -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="khara.karan.netuse.MainActivity" />
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value="khara.karan.netuse.MainActivity" />-->
         </activity>
         <activity
             android:name=".UnivDetails"

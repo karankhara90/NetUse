@@ -2,9 +2,14 @@ package khara.karan.netuse;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,10 +24,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -35,7 +43,7 @@ import java.util.List;
 public class SuggestUnivActivity extends Activity {
     /////////////////////////////////////////// ************************ //////////////////////////////////////////////////////////////
      ListView listview;
-     ListView listView2,listView3,listView4;
+     ListView listViewRecommendAll, listViewRecommendType,listView4;
      TextView txtViewUnivType;
     TextView txtViewUnivStates;
 
@@ -72,15 +80,15 @@ public class SuggestUnivActivity extends Activity {
     protected int j;
     protected int k=-1;
     protected String mUnivTypePrefer2;
-    protected List <String> mListUnivStatesPrefer2;
-    protected String univRank;
-    protected float univRate;
+    //protected List <String> mListUnivStatesPrefer2;
+    protected String univRankDB;
+    protected float univRateDB;
     protected static ArrayList<Float> listUnivRate;
     protected float temp_predict;
-    static ArrayList<String> recUniversities;
-    static ArrayList<String> listUnivRanking;
-    static ArrayList<Integer> list2b;
-    protected ArrayList<String> recUnivType;
+    static ArrayList<String> recUniversitiesAL;
+    static ArrayList<String> univRankingAL;
+
+    protected ArrayList<String> recUnivTypeAL;
     protected Button mBtnSuggestUnivPrefer;
 
 
@@ -89,7 +97,8 @@ public class SuggestUnivActivity extends Activity {
     String mCurrUserUndergradUnivRating;
 
     String mUnivTypePrefer;
-    Spinner mSpUnivTypes, spinner2;
+    String mUnivStatePrefer;
+    Spinner mSpUnivTypes; //, mSpUnivState;
     List<String> mListUnivType;
     ArrayList<String> mListUnivStates;
     MultiSelectionSpinner multiSelectionSpinner;
@@ -97,6 +106,10 @@ public class SuggestUnivActivity extends Activity {
     protected Context context;
 
     List<String> mListUnivStatesPrefer;
+    //List<ValueActivity> list;
+    private ProgressDialog progressDialog;
+
+    private ImageView image_expert;
 
 
     Calculations ratingsCalculate = new Calculations();
@@ -116,115 +129,15 @@ public class SuggestUnivActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggest_univ);
         context = this;
+        //start the progress dialog
+        Toast.makeText(getApplicationContext(), "Wait while algorithm process results", Toast.LENGTH_SHORT).show();
+        progress_bar();
 
-//        txtViewUnivType = (TextView)findViewById(R.id.txtUnivType);
-//        txtViewUnivStates = (TextView)findViewById(R.id.txtUnivStates);
-
-        recUniversities = new ArrayList<String>();  // didnt use arrays. coz arraylist's size is flexible unlike arrays
+        recUniversitiesAL = new ArrayList<String>();  // didnt use arrays. coz arraylist's size is flexible unlike arrays
 //        recUnivType = new ArrayList<String>();
         listUnivRate = new ArrayList<Float>();
 
-        listUnivRanking = new ArrayList<String>();
-        list2b = new ArrayList<Integer>();
-
-        list2b.add(R.drawable.yale_university);
-        list2b.add(R.drawable.wright_state_university);
-        list2b.add(R.drawable.wichita_state_university);
-        list2b.add(R.drawable.west_virginia_university);
-        list2b.add(R.drawable.wayne_state_university);
-        list2b.add(R.drawable.washington_state_university);
-        list2b.add(R.drawable.virginia_tech);
-        list2b.add(R.drawable.vanderbilt_university);
-        list2b.add(R.drawable.ut_austin);
-        list2b.add(R.drawable.university_of_wisconsin);
-        list2b.add(R.drawable.university_of_washington);
-        list2b.add(R.drawable.university_of_virginia);
-        list2b.add(R.drawable.university_of_utah);
-        list2b.add(R.drawable.university_of_texas_san_antonio);
-        list2b.add(R.drawable.university_of_texas_dallas);
-        list2b.add(R.drawable.university_of_texas_arlington);
-        list2b.add(R.drawable.university_of_southern_california);
-        list2b.add(R.drawable.university_of_south_florida);
-        list2b.add(R.drawable.university_of_south_carolina);
-        list2b.add(R.drawable.university_of_rochester);
-        list2b.add(R.drawable.university_of_pennsylvania);
-        list2b.add(R.drawable.university_of_oklahoma);
-        list2b.add(R.drawable.university_of_north_carolina_charlotte);
-        list2b.add(R.drawable.university_of_north_carolina_chapel_hill);
-        list2b.add(R.drawable.university_of_new_mexico);
-        list2b.add(R.drawable.university_of_missouri);
-        list2b.add(R.drawable.university_of_minnesota_twin_cities);
-        list2b.add(R.drawable.university_of_miami);
-        list2b.add(R.drawable.university_of_massachusetts_lowell);
-        list2b.add(R.drawable.university_of_maryland);
-        list2b.add(R.drawable.university_of_kansas);
-        list2b.add(R.drawable.university_of_iowa);
-        list2b.add(R.drawable.university_of_illinois_chicago);
-        list2b.add(R.drawable.university_of_houston_cullen);
-        list2b.add(R.drawable.university_of_georgia);
-        list2b.add(R.drawable.university_of_florida);
-        list2b.add(R.drawable.university_of_connecticut);
-        list2b.add(R.drawable.university_of_colorado_boulder);
-        list2b.add(R.drawable.university_of_cincinnati);
-        list2b.add(R.drawable.university_of_chicago);
-        list2b.add(R.drawable.university_of_california_santa_cruz);
-        list2b.add(R.drawable.university_of_california_riverside);
-        list2b.add(R.drawable.university_of_california_merced);
-        list2b.add(R.drawable.university_of_arizona);
-        list2b.add(R.drawable.university_of_alabama_huntsville);
-        list2b.add(R.drawable.university_at_buffalo_suny);
-        list2b.add(R.drawable.university_of_california_santa_barbara);
-        list2b.add(R.drawable.university_of_california_san_francisco);
-        list2b.add(R.drawable.university_of_california_san_diego);
-        list2b.add(R.drawable.university_of_california_los_angeles);
-        list2b.add(R.drawable.university_of_california_irvine);
-        list2b.add(R.drawable.university_of_california_davis);
-        list2b.add(R.drawable.university_of_california_berkeley);
-        list2b.add(R.drawable.arizona_state_university_fulton);
-        list2b.add(R.drawable.binghamton_university_suny);
-        list2b.add(R.drawable.boston_university);
-        list2b.add(R.drawable.brown_university);
-        list2b.add(R.drawable.california_institute_of_technology);
-        list2b.add(R.drawable.california_state_university_bakersfield);
-        list2b.add(R.drawable.california_state_university_chico);
-        list2b.add(R.drawable.california_state_university_east_bay);
-        list2b.add(R.drawable.california_state_university_fresno);
-        list2b.add(R.drawable.california_state_university_fullerton);
-        list2b.add(R.drawable.california_state_university_long_beach);
-        list2b.add(R.drawable.california_state_university_los_angeles);
-        list2b.add(R.drawable.california_state_university_sacramento);
-        list2b.add(R.drawable.california_state_university_san_francisco);
-        list2b.add(R.drawable.carnegie_mellon_university);
-        list2b.add(R.drawable.clemson_university);
-        list2b.add(R.drawable.colorado_state_university);
-        list2b.add(R.drawable.cornell_university);
-        list2b.add(R.drawable.drexel_university);
-        list2b.add(R.drawable.duke_university);
-        list2b.add(R.drawable.georgia_institute_of_technology);
-        list2b.add(R.drawable.harvard_university);
-        list2b.add(R.drawable.illinois_institute_of_technology);
-        list2b.add(R.drawable.iowa_state_university);
-        list2b.add(R.drawable.kansas_state_university);
-        list2b.add(R.drawable.michigan_state_university);
-        list2b.add(R.drawable.mit_university);
-        list2b.add(R.drawable.new_jersey_institute_of_technology);
-        list2b.add(R.drawable.new_mexico_state_university);
-        list2b.add(R.drawable.new_york_university);
-        list2b.add(R.drawable.north_carolina_state_university);
-        list2b.add(R.drawable.northeastern_university);
-        list2b.add(R.drawable.northwestern_university);
-        list2b.add(R.drawable.ohio_state_university);
-        list2b.add(R.drawable.oregon_state_university);
-        list2b.add(R.drawable.pennsylvania_state_university);
-        list2b.add(R.drawable.princeton_university);
-        list2b.add(R.drawable.purdue_university_west_lafayette);
-        list2b.add(R.drawable.rice_university);
-        list2b.add(R.drawable.san_diego_state_university);
-        list2b.add(R.drawable.san_jose_state_university);
-        list2b.add(R.drawable.stanford_university);
-        list2b.add(R.drawable.stony_brook_university_suny);
-        list2b.add(R.drawable.temple_university);
-        list2b.add(R.drawable.texas_a_m_university);
+        univRankingAL = new ArrayList<String>();
 
 //        HorizontalListView listview3 = (HorizontalListView) findViewById(R.id.listview);
 //        listview.setAdapter(mAdapter);
@@ -240,19 +153,11 @@ public class SuggestUnivActivity extends Activity {
             }
 
         }
-        UserRating objUserRating1 = new UserRating();
-//        objUserRating1.getCurrentNewUserRating(GreScore1, UndergradPercent1, UnivRating1);
-        /***********************************************************************/
          getCurrentNewUserRating(GreScore1, UndergradPercent1, UnivRating1);
 
         /***********  get Each Senior's Rating and then get recommended universities for current new user ************/
               getRecommendations();
         /* ********************************************************************************************************* */
-
-        /*********  get Suggested Universities From Database   ****************/
-          //getSuggestedUnivFromDatabase();
-        /**********************************************************************/
-
 
         ParseUser currentUser2 = ParseUser.getCurrentUser();
         //Toast.makeText(this, "userID :" + userId, Toast.LENGTH_LONG).show();
@@ -281,8 +186,8 @@ public class SuggestUnivActivity extends Activity {
                     }
                     try {
                         //set text box with full name
-                        mFullName = (TextView) findViewById(R.id.name2);
-                        mFullName.setText(mFullname);
+//                        mFullName = (TextView) findViewById(R.id.name2);
+//                        mFullName.setText(mFullname);
                     } catch (Exception exc3) {
                         Log.e("TAG", "exc3 exception:------------ " + exc3);
                     }
@@ -300,9 +205,10 @@ public class SuggestUnivActivity extends Activity {
                 //multiSelectionSpinner = (MultiSelectionSpinner)findViewById(R.id.getSelected);
 
 
-                multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.spChooseStates);
+//                multiSelectionSpinner = (MultiSelectionSpinner) findViewById(R.id.spChooseStates);
 
                 mSpUnivTypes = (Spinner) findViewById(R.id.spUnivType);
+                //mSpUnivState = (Spinner) findViewById(R.id.spUnivState);
                 mListUnivType = new ArrayList<String>();
                 mListUnivStates = new ArrayList<String>();
 
@@ -340,9 +246,14 @@ public class SuggestUnivActivity extends Activity {
                 mListUnivStates.add("Connecticut");
                 mListUnivStates.add("New Jersey");
 
-                multiSelectionSpinner.setItems(mListUnivStates);
+                //multiSelectionSpinner.setItems(mListUnivStates);
         //                multiSelectionSpinner.setSelection(new int[]{2, 3});
                         /*  *********************************************************** */
+                ArrayAdapter<String> dataAdapter4 = new ArrayAdapter<String>(context,
+                        android.R.layout.simple_list_item_1, mListUnivStates);
+                dataAdapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                dataAdapter4.notifyDataSetChanged();
+               // mSpUnivState.setAdapter(dataAdapter4);
 
 
                 mBtnSuggestUnivPrefer = (Button) findViewById(R.id.btnSuggestUnivPrefer);
@@ -351,24 +262,40 @@ public class SuggestUnivActivity extends Activity {
                     public void onClick(View v) {
                         setProgressBarIndeterminateVisibility(true);
                         mUnivTypePrefer = mSpUnivTypes.getSelectedItem().toString();    // get selected Univ type
-                        mListUnivStatesPrefer = multiSelectionSpinner.getSelectedStrings();
+                        //mListUnivStatesPrefer = multiSelectionSpinner.getSelectedStrings();
+                        //mListUnivStatesPrefer = multiSelectionSpinner.getSelectedStrings();
+                       // mUnivStatePrefer = mSpUnivState.getSelectedItem().toString();    // get selected Univ State
 
                         Log.e(TAG, "univ type selected::-::" + mUnivTypePrefer);
-                        Log.e(TAG, "univ states selected::=::" + mListUnivStatesPrefer.toString());
-                        object2.put("UnivStatesPrefer", mListUnivStatesPrefer);
+//                        Log.e(TAG, "univ states selected::=::" + mListUnivStatesPrefer.toString());
+//                        object2.put("UnivStatesPrefer", mListUnivStatesPrefer);
                         object2.put("UnivTypePrefer", mUnivTypePrefer);
+                        //object2.put("UnivStatePrefer", mUnivStatePrefer);
                         object2.saveInBackground();   // important to save after we put() into database in order to update database
                         Intent intent3 = new Intent(SuggestUnivActivity.this, SuggestUnivPrefer.class);
 
                         Bundle bundle3 = new Bundle();
 
-                        bundle3.putString("mmListUnivStatesPrefer", mListUnivStatesPrefer.toString());
+                       // int i = mListUnivStatesPrefer.size()-1;
+                        int j = i;
+//                        while( i>= 0){
+//                            bundle3.putString("mmListUnivStatesPrefer[" + i + "]", mListUnivStatesPrefer.get(i).toString());
+//                            i--;
+//                        }
+
+                        //bundle3.putParcelableArrayList("mStateList",mListUnivStatesPrefer);
+
+
+                       // bundle3.putString("mmListUnivStatesPrefer", mListUnivStatesPrefer.toString());
+
                         bundle3.putString("mmUnivTypePrefer", mUnivTypePrefer);
+                       // bundle3.putString("mmUnivStatePrefer", mUnivStatePrefer);
                         bundle3.putString("mmScore", mScore);
                         bundle3.putString("mmPercent", mPercent);
                         bundle3.putString("mmFullname", mFullname);
                         bundle3.putString("mmUndergradUniv", mUndergradUniv);
                         bundle3.putString("mmcurrUserUnderUnivRating", mCurrUserUndergradUnivRating);
+                        bundle3.putString("iValue",String.valueOf(j));
 
                         intent3.putExtras(bundle3);
 
@@ -383,9 +310,44 @@ public class SuggestUnivActivity extends Activity {
 
         });
 
+    }
+
+    void progress_bar(){
+        progressDialog = new ProgressDialog(SuggestUnivActivity.this);
+        progressDialog.setMax(50);
+        progressDialog.setMessage("Calculating Results...");
+        progressDialog.setTitle("Please wait..");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.show();
+
+        new Thread() {
+
+            public void run() {
+
+                try{
+                    while (progressDialog.getProgress() <= progressDialog.getMax()) {
+                        sleep(50);
+                        handle.sendMessage(handle.obtainMessage());
+                        if (progressDialog.getProgress() == progressDialog
+                                .getMax()) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.e("tag", e.getMessage());
+                }
+            }
+        }.start();
 
     }
 
+    Handler handle = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            progressDialog.incrementProgressBy(1);
+        }
+    };
 
     @Override
     public void onBackPressed(){
@@ -604,15 +566,14 @@ public class SuggestUnivActivity extends Activity {
         Log.e(TAG,"|topFirstSimilarity | : "+ Math.abs(topFirstSimilarity));
         Log.e(TAG,"|topSecondSimilarity| : "+ Math.abs(topSecondSimilarity));
         Log.e(TAG,"|topThirdSimilarity | : "+ Math.abs(topThirdSimilarity));
-        Log.e(TAG, "denominator Result: "+ denominatorResult);
+        //Log.e(TAG, "denominator Result: "+ denominatorResult);
         Log.e(TAG, "------------------------------------------------------------------------------------------");
 
-        predict = (float) ((numeratorResult / denominatorResult) +2.5);
-        Log.e(TAG, "predict Result: " + predict);
+        predict = (float) ((numeratorResult / denominatorResult) +4);
+        //Log.e(TAG, "predict Result: " + predict);
         Log.e(TAG, "------------------------------------------------------------------------------------------");
 
         return predict;
-
     }
 
     float getUserSimilarities(int i) {
@@ -662,25 +623,29 @@ public class SuggestUnivActivity extends Activity {
 
 
     void getRecommendedUnivList(float predict){
+        // dismiss the progress dialog
+
+        //progressDialog.dismiss();
+
         temp_predict = predict;
         Log.e(TAG,"++++++++++++++++++++++++++++++++++++++++++++++++++++");
 //        final String[] recUniversities = new String[5];
         ParseQuery<ParseObject> queryRec = ParseQuery.getQuery("UnivDetail");
         queryRec.whereEqualTo("UnivCountry", "United States");
-        queryRec.orderByAscending("Ranking");
-        queryRec.whereGreaterThanOrEqualTo("univRating", predict);
-        queryRec.whereLessThanOrEqualTo("univRating", predict + 1.5);
-//        queryRec.whereLessThanOrEqualTo("univRating", 10);
+        queryRec.orderByDescending("Ranking");
+        queryRec.whereGreaterThanOrEqualTo("univRating", predict - 1);
+        queryRec.whereLessThanOrEqualTo("univRating", predict + 2.5);
+        queryRec.whereLessThanOrEqualTo("univRating", 10);
         queryRec.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
 
                 if (e == null) {
-                    listView2 = (ListView) findViewById(R.id.listViewRecommend);
-                    listView3 = (ListView) findViewById(R.id.listViewRecUnivType);
+                    listViewRecommendAll = (ListView) findViewById(R.id.listViewRecommend);
+                    listViewRecommendType = (ListView) findViewById(R.id.listViewRecUnivType);
 //                    ArrayList<String> recUniversities = new ArrayList<String>();  // didnt use arrays. coz arraylist's size is flexible unlike arrays
                     ArrayList<String> recUnivType = new ArrayList<String>();
-                    int l = 0;
+                    int univListLimit = 0;
                     Intent intent2 = getIntent();
                     Bundle bundle = intent2.getExtras();  // get bundle from intent
 //                    mUnivTypePrefer2 = bundle.getString("mUnivTypePrefer").toString();
@@ -693,15 +658,15 @@ public class SuggestUnivActivity extends Activity {
                     //                    String predResult = String.valueOf(mPredictResult);
                     //                    getRecommendedUniversitiesUnivType(predResult,mUnivTypePrefer2);
                     //                }
-                    int m = 0;
+                    //int m = 0;
                     for (ParseObject parseObj : list) {
-                        String rec, rec2, rec3;
-                        if (l < 10) {
-                            rec = parseObj.get("univName").toString();
-                            univRank = parseObj.get("Ranking").toString();
-                            univRate = Float.valueOf(parseObj.get("univRating").toString());
-                            listUnivRate.add(l, univRate);
-                            Log.e(TAG, "Univ name : " + rec);
+                        String univNameDB, rec2, rec3;
+                        if (univListLimit < 20) {
+                            univNameDB = parseObj.get("univName").toString();
+                            univRankDB = parseObj.get("Ranking").toString();
+                            univRateDB = Float.valueOf(parseObj.get("univRating").toString());
+                            listUnivRate.add(univListLimit, univRateDB);
+                            Log.e(TAG, "Univ name : " + univNameDB);
 //                            if(parseObj.get("UnivType").toString().equals(mUnivTypePrefer2))
 //                            {
 //                                rec2 = parseObj.get("univName").toString();
@@ -709,30 +674,33 @@ public class SuggestUnivActivity extends Activity {
 //                                recUnivType.add(rec2);
 //                            }
 
-                            l++;
-                            m++;
+                            univListLimit++;
+                            //m++;
                         } else {
                             break;
                         }
 
 
                         setProgressBarIndeterminateVisibility(false);
-                        recUniversities.add(rec);
-                        listUnivRanking.add(univRank);
-                        MyAdapter adapter2 = new MyAdapter(SuggestUnivActivity.this, R.layout.custom_list_suggest, recUniversities);
+                        recUniversitiesAL.add(univNameDB);
+                        univRankingAL.add(univRankDB);
+
+                        //Here "MyCustomAdapter" is my own created custon adapter. This class is implemented at the end.
+                        MyCustomAdapter adapter2 = new MyCustomAdapter(SuggestUnivActivity.this, R.layout.custom_list_suggest, recUniversitiesAL);
                         //                    MyAdapter dataAdapter4 = new MyAdapter(context,
                         //                            R.layout.custom_spinner, list2);
                         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         adapter2.notifyDataSetChanged();
-                        listView2.setAdapter(adapter2);
-                        listView2.setOnItemClickListener(new ListClickHandler());
+                        listViewRecommendAll.setAdapter(adapter2);
+                        listViewRecommendAll.setOnItemClickListener(new ListClickHandler());
 
 //                        MyAdapter adapter3 = new MyAdapter(SuggestUnivActivity.this, R.layout.list_view_row, recUnivType);
 //                        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //                        adapter2.notifyDataSetChanged();
-//                        listView3.setAdapter(adapter3);
-//                        listView3.setOnItemClickListener(new ListClickHandler());
+//                        listViewRecommendType.setAdapter(adapter3);
+//                        listViewRecommendType.setOnItemClickListener(new ListClickHandler());
                     }
+
                 }
             }
         });
@@ -749,47 +717,45 @@ public class SuggestUnivActivity extends Activity {
         });
     }
 
-    public class MyAdapter extends ArrayAdapter<String> {
-
-        public MyAdapter(Context ctx, int txtViewResourceId, List<String> objects) {
+    public class MyCustomAdapter extends ArrayAdapter<String>
+    {
+        public MyCustomAdapter(Context ctx, int txtViewResourceId, List<String> objects) {
             super(ctx, txtViewResourceId, objects);
         }
+        //  The ListView( which is type of AdapterView) instance calls the getView() method on the adapter for each data element.
+          // In this method the adapter creates the row layout and maps the data to the views in the layout.
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
 
-        @Override
-        public View getDropDownView(int position, View cnvtView, ViewGroup prnt) {
-            return getCustomView(position, cnvtView, prnt);
-        }
-        @Override
-        public View getView(int pos, View cnvtView, ViewGroup prnt) {
-            return getCustomView(pos, cnvtView, prnt);
-        }
-        public View getCustomView(int position, View convertView,
-                                  ViewGroup parent) {
             Log.e(TAG,"----------=--=----------");
             k++;
-            LayoutInflater inflater = getLayoutInflater();
-            View mySpinner = inflater.inflate(R.layout.custom_list_suggest, parent,
+            LayoutInflater inflater = getLayoutInflater(); //To inflate XML layout file,you can use LayoutInflator system service.
+            View rowView = inflater.inflate(R.layout.custom_list_suggest, parent,
                     false);
-            TextView main_text = (TextView) mySpinner
-                    .findViewById(R.id.text_main_univ2);
-            /*try{
-                Log.e(TAG,"11111 "+recUniversities);
-            }catch (Exception excp){
-                Log.e(TAG,"excp in 111111"+recUniversities);
-            }
-            try{
-                Log.e(TAG,"22222 "+position);
-            }catch (Exception excp){
-                Log.e(TAG,"excp in 22222"+position);
-            }*/
-            main_text.setText(recUniversities.get(position));
 
-            TextView subSpinner = (TextView) mySpinner
-                    .findViewById(R.id.sub_text_rank2);
-            subSpinner.setText(listUnivRanking.get(position));
+            // setting text univ name, ranking, chances, image...
+            TextView tv_univ_name = (TextView) rowView.findViewById(R.id.text_main_univ2);
+                tv_univ_name.setText(recUniversitiesAL.get(position));
 
-            TextView text_chance = (TextView) mySpinner
-                    .findViewById(R.id.text_chance);
+            TextView tv_univ_rank = (TextView) rowView.findViewById(R.id.sub_text_rank2);
+                tv_univ_rank.setText(univRankingAL.get(position));
+
+            TextView tv_chances = (TextView) rowView.findViewById(R.id.text_chance);
+
+
+//             image_expert = (ImageView)rowView.findViewById(R.id.univ_logo_pic2);
+//
+//            ParseQuery<ParseObject> query = ParseQuery.getQuery("UnivDetail");
+//            query.whereEqualTo("univName",recUniversities.get(position));
+//            query.getFirstInBackground(new GetCallback<ParseObject>() {
+//                @Override
+//                public void done(ParseObject parseObject, ParseException e) {
+//                    ParseFile image = (ParseFile) parseObject.getParseFile("univLogo");
+//                    displayImage(image, image_expert);
+//                }
+//            });
+
+
 
             try{
                 Log.e(TAG,"position: "+position);
@@ -807,17 +773,25 @@ public class SuggestUnivActivity extends Activity {
                 Log.e(TAG,"excp3 in--- "+excp3);
             }
             try{
+                int highest = 100;
+                int lowest = 40;
+                int default_val = 80;
+                float inter_result;
+                float result;
+                DecimalFormat df = new DecimalFormat();
+                df.setMaximumFractionDigits(2);
                 if(listUnivRate.get(position) < temp_predict)
                 {
-
-                    text_chance.setText("High , "+( listUnivRate.get(position) / temp_predict ) *100+"%");
+                    inter_result = (highest-default_val) / (10-temp_predict);
+                    result = default_val + (inter_result * (temp_predict - listUnivRate.get(position)));
+                    tv_chances.setText(df.format(result) + "%");
                 }
                 else{
                     //Log.e(")
-                    float chances = ((listUnivRate.get(position)- temp_predict) / temp_predict)*100;
-                    DecimalFormat df = new DecimalFormat();
-                    df.setMaximumFractionDigits(2);
-                    text_chance.setText("Low , "+df.format(chances) + "%");
+
+                    inter_result = (default_val - lowest) / (10-temp_predict);
+                    result = default_val - (temp_predict * (listUnivRate.get(position) - temp_predict));
+                    tv_chances.setText(df.format(result) + "%");
                 }
             }catch (Exception excp4){
                 Log.e(TAG,"excp4 in--- "+excp4);
@@ -826,15 +800,55 @@ public class SuggestUnivActivity extends Activity {
 
 
             try{
-                ImageView left_icon = (ImageView) mySpinner
-                        .findViewById(R.id.univ_logo_pic2);
-                left_icon.setImageResource(list2b.get(position));
+//                ImageView left_icon = (ImageView) rowView
+//                        .findViewById(R.id.univ_logo_pic2);
+//                left_icon.setImageResource(list2b.get(position));
             }
             catch (Exception exc2){
                 Log.e("TAG","exc2 exception in imageview is: "+exc2);
             }
+            return rowView;
+        }
 
-            return mySpinner;
+    }
+    private void displayImage(ParseFile thumbnail, final ImageView img) {
+
+        if (thumbnail != null) {
+            thumbnail.getDataInBackground(new GetDataCallback() {
+
+                @Override
+                public void done(byte[] data, ParseException e) {
+
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,
+                                data.length);
+
+                        if (bmp != null) {
+
+                            Log.e("parse file ok", " null");
+                            // img.setImageBitmap(Bitmap.createScaledBitmap(bmp,
+                            // (display.getWidth() / 5),
+                            // (display.getWidth() /50), false));
+                            img.setImageBitmap(bmp);
+
+                            // img.setPadding(10, 10, 0, 0);
+
+
+
+                        }
+                    } else {
+                        Log.e("paser after downloade", " null");
+                    }
+
+                }
+            });
+        } else {
+
+            Log.e("parse file", " null");
+
+            // img.setImageResource(R.drawable.ic_launcher);
+
+            img.setPadding(10, 10, 10, 10);
         }
 
     }
@@ -850,7 +864,7 @@ public class SuggestUnivActivity extends Activity {
         queryRecType.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                listView3 = (ListView) findViewById(R.id.listViewRecUnivType);
+                listViewRecommendType = (ListView) findViewById(R.id.listViewRecUnivType);
                 ArrayList<String> recUniversities = new ArrayList<String>();  // didnt use arrays. coz arraylist's size is flexible unlike arrays
                 int i = 0;
                 for (ParseObject parseObj : list) {
@@ -865,8 +879,8 @@ public class SuggestUnivActivity extends Activity {
 
                     recUniversities.add(rec);
                     ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(SuggestUnivActivity.this, R.layout.list_view_row, R.id.listText, recUniversities);
-                    listView3.setAdapter(adapter2);
-                    listView3.setOnItemClickListener(new ListClickHandler());
+                    listViewRecommendType.setAdapter(adapter2);
+                    listViewRecommendType.setOnItemClickListener(new ListClickHandler());
                 }
             }
         });

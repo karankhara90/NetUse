@@ -2,9 +2,13 @@ package khara.karan.netuse;
 
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
@@ -19,12 +23,15 @@ public class ShowWebChartActivity extends ActionBarActivity {
     int mPerc1,mPerc2,mPerc3,mPerc4,mPerc5,mPerc6,mPerc7,mPerc8,mPerc9,mPerc10;
 
     WebView webView;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_web_chart);
+        progress_bar();
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         Intent intent = getIntent();
         mNum1 = intent.getIntExtra("num1", 0);
@@ -60,7 +67,7 @@ public class ShowWebChartActivity extends ActionBarActivity {
         mBtnBackWebChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ShowWebChartActivity.this, UnivProfile.class);
+                Intent intent = new Intent(ShowWebChartActivity.this, FutureStudent.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
                 startActivity(intent);
@@ -70,7 +77,7 @@ public class ShowWebChartActivity extends ActionBarActivity {
     }
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent(ShowWebChartActivity.this, UnivProfile.class);
+        Intent intent = new Intent(ShowWebChartActivity.this, FutureStudent.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
         startActivity(intent);
@@ -78,6 +85,43 @@ public class ShowWebChartActivity extends ActionBarActivity {
 //        //finish();
 
     }
+
+    void progress_bar(){
+        progressDialog = new ProgressDialog(ShowWebChartActivity.this);
+        progressDialog.setMax(50);
+        progressDialog.setMessage("Calculating Results...");
+        progressDialog.setTitle("Please wait..");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.show();
+
+        new Thread() {
+
+            public void run() {
+
+                try{
+                    while (progressDialog.getProgress() <= progressDialog.getMax()) {
+                        sleep(50);
+                        handle.sendMessage(handle.obtainMessage());
+                        if (progressDialog.getProgress() == progressDialog
+                                .getMax()) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.e("tag", e.getMessage());
+                }
+            }
+        }.start();
+
+    }
+
+    Handler handle = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            progressDialog.incrementProgressBy(1);
+        }
+    };
 
     public class WebAppInterface {
 

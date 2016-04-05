@@ -1,8 +1,11 @@
 package khara.karan.netuse;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -55,13 +58,19 @@ public class FutureStudent extends ActionBarActivity {
 
     ParseUser currentUser = ParseUser.getCurrentUser();
     private Button mBtnBackFuture;
+    private ProgressDialog progressDialog;
+
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_future_student);
-
+        //progress_bar();
         context = this;
 
         mDrawerListView = (ListView) findViewById(R.id.navList);
@@ -95,40 +104,7 @@ public class FutureStudent extends ActionBarActivity {
         // if rating value is changed and display the current rating value in the result (textview)
         // automatically
 
-            mRatingBar1.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                public void onRatingChanged(RatingBar ratingBar, final float rating,
-                                            boolean fromUser) {
-                    changeBar =1;
-                    userChangeBar = 1;
-                    mRatingRec = rating;
-                    ParseQuery<ParseObject> query11 = ParseQuery.getQuery("ratingRecList");
-                    query11.getFirstInBackground(new GetCallback<ParseObject>() {
-                        @Override
-                        public void done(ParseObject parseObject, ParseException e) {
-                                                        float getAvgRating = Float.valueOf(parseObject.get("ratingRec").toString());
-                            mTxtAvgRating.setText(String.valueOf(getAvgRating));
-                            int getTotalRatings = Integer.parseInt(parseObject.get("totalRatings").toString());
-                            mTotalAvgRating = (getAvgRating + mRatingRec) / (getTotalRatings + 1);
-                            parseObject.put("ratingRec", mTotalAvgRating);
-                            parseObject.put("totalRatings", getTotalRatings + 1);
-                            parseObject.saveInBackground();
-                            mTxtAvgRating.setText(String.valueOf(mTotalAvgRating));
 
-                            ParseQuery<ParseObject> query12 = ParseQuery.getQuery("UserInfo");
-                            query12.whereEqualTo("userId",currentUser);
-                            query12.getFirstInBackground(new GetCallback<ParseObject>() {
-                                @Override
-                                public void done(ParseObject parseObject, ParseException e) {
-                                    //if()
-                                    parseObject.put("ratingToRec",mRatingRec);
-                                    parseObject.saveInBackground();
-                                }
-                            });
-                        }
-                    });
-
-                }
-            });
 
 //        if(cc == 0){
             ParseUser currentUser2 = ParseUser.getCurrentUser();
@@ -143,9 +119,12 @@ public class FutureStudent extends ActionBarActivity {
                     //if (e == null) {
                     try {
                         try {
-                            if(changeBar == 0){
-                                object2.put("ratingToRec","1.3");
-                            }
+//                            if(changeBar == 0){
+//                                object2.put("ratingToRec","3.0");
+//                            }
+//                            if( object2.get("ratingToRec") !=null){
+//                                mRatingBar1.setRating(Float.valueOf( object2.getString("ratingToRec")));
+//                            }
 
                             mFullname = object2.get("fullName").toString();
                             mScore = object2.get("greScore").toString();
@@ -181,6 +160,70 @@ public class FutureStudent extends ActionBarActivity {
                         Log.e("TAG", "exc exception:------------ " + exc);
                     }
                     //multiSelectionSpinner = (MultiSelectionSpinner)findViewById(R.id.getSelected);
+                    ParseQuery<ParseObject> queryavgRating = ParseQuery.getQuery("ratingRecList");
+                    queryavgRating.getFirstInBackground(new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject parseObject, ParseException e) {
+
+                            float getAvgRating2 = Float.valueOf(parseObject.get("ratingRec").toString());
+                            mTxtAvgRating.setText(String.valueOf(getAvgRating2));
+
+
+                            mRatingBar1.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                                public void onRatingChanged(RatingBar ratingBar, final float rating,
+                                                            boolean fromUser) {
+                                    changeBar = 1;
+                                    userChangeBar = 1;
+                                    mRatingRec = rating;
+                                    //Log.e(TAG,"rating::"+mRatingRec);
+                                    ParseQuery<ParseObject> query11 = ParseQuery.getQuery("ratingRecList");
+                                    query11.getFirstInBackground(new GetCallback<ParseObject>() {
+                                        @Override
+                                        public void done(ParseObject parseObject, ParseException e) {
+                                            float getAvgRating = Float.valueOf(parseObject.get("ratingRec").toString());
+                                            //mTxtAvgRating.setText(String.valueOf(getAvgRating));
+                                            int getTotalRatings = Integer.parseInt(parseObject.get("totalRatings").toString());
+                                            //mTotalAvgRating = (getAvgRating + mRatingRec) / (getTotalRatings + 1);
+
+
+                                            mTotalAvgRating = ((getAvgRating * (float)getTotalRatings) + mRatingRec) / (getTotalRatings + 1);
+
+                                           // mTotalAvgRating = Math.round(mTotalAvgRating * 1000) / 1000;
+                                            Log.e(TAG,"avg rating"+getAvgRating);
+                                            Log.e(TAG,"total rating"+getTotalRatings);
+                                            Log.e(TAG,"rating given"+mRatingRec);
+                                            Log.e(TAG,"total avg"+mTotalAvgRating);
+
+
+                                            parseObject.put("ratingRec", mTotalAvgRating);
+
+                                            if(userChangeBar<=1){
+                                                parseObject.put("totalRatings", getTotalRatings + 1);
+                                                userChangeBar++;
+                                            }
+
+                                            mTxtAvgRating.setText(String.valueOf(mTotalAvgRating));
+                                            parseObject.saveInBackground();
+
+
+                                            ParseQuery<ParseObject> query12 = ParseQuery.getQuery("UserInfo");
+                                            query12.whereEqualTo("userId", currentUser);
+                                            query12.getFirstInBackground(new GetCallback<ParseObject>() {
+                                                @Override
+                                                public void done(ParseObject parseObject, ParseException e) {
+                                                    //if()
+                                                    parseObject.put("ratingToRec", mRatingRec);
+                                                    parseObject.saveInBackground();
+                                                }
+                                            });
+
+                                        }
+                                    });
+
+                                }
+                            });
+                        }
+                    });
                 }
             });
 
@@ -188,6 +231,8 @@ public class FutureStudent extends ActionBarActivity {
         mBtnSuggestUniv.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+               //start the progress dialog
+
                Intent intent3 = new Intent(FutureStudent.this, SuggestUnivActivity.class);
                Log.e("TAG", "SCORE=========== " + mScore + " , PERCENT ============ " + mPercent
                        + ",  Univ rating =============" + mCurrUserUndergradUnivRating);
@@ -219,6 +264,15 @@ public class FutureStudent extends ActionBarActivity {
 
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
     }
+//    @Override
+//    protected void onDestroy() {
+//        if (progressDialog!=null) {
+//            progressDialog.dismiss();
+//            mBtnSuggestUniv.setEnabled(true);
+//
+//        }
+//        super.onDestroy();
+//    }
 
     @Override
     public void onBackPressed(){
@@ -229,6 +283,43 @@ public class FutureStudent extends ActionBarActivity {
         ParseUser.logOut();
         navigateToLogin();
     }
+
+    void progress_bar(){
+        progressDialog = new ProgressDialog(FutureStudent.this);
+        progressDialog.setMax(50);
+        progressDialog.setMessage("Calculating Results...");
+        progressDialog.setTitle("Please wait..");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.show();
+
+        new Thread() {
+
+            public void run() {
+
+                try{
+                    while (progressDialog.getProgress() <= progressDialog.getMax()) {
+                        sleep(50);
+                        handle.sendMessage(handle.obtainMessage());
+                        if (progressDialog.getProgress() == progressDialog
+                                .getMax()) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.e("tag", e.getMessage());
+                }
+            }
+        }.start();
+
+    }
+
+    Handler handle = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            progressDialog.incrementProgressBy(1);
+        }
+    };
 
     private void navigateToLogin() {
         Intent intent = new Intent(this, LoginActivity.class);
