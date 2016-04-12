@@ -9,9 +9,11 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -34,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SuggestUnivPrefer extends ActionBarActivity {
+public class SuggestUnivPrefer extends AppCompatActivity {
     protected ListView listview;
     protected  ListView listView2,listView3,listView4;
     protected TextView txtViewUnivType;
@@ -755,13 +757,15 @@ public class SuggestUnivPrefer extends ActionBarActivity {
                     for (ParseObject b : list) {
                         String abc = b.get("newUnivName").toString();
                         if (i <= 30) {
-                            arr[i] = abc; }
+                            arr[i] = abc;
+                        }
                         repeat = 0;
                         for (int j = 0; j <= i; j++) {
                             if (abc.equals(arr[j])) {
                                 repeat++;
                                 if (repeat > 1) {
-                                    break; }
+                                    break;
+                                }
                             }
                         }
                         if (!abc.equals("blank") && repeat == 1) {
@@ -782,6 +786,13 @@ public class SuggestUnivPrefer extends ActionBarActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
     }
 
 }

@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
@@ -17,7 +19,7 @@ import android.widget.Button;
 //import android.webkit.JavascriptInterface;
 
 @SuppressLint("SetJavaScriptEnabled")
-public class ShowWebChartActivity extends ActionBarActivity {
+public class ShowWebChartActivity extends AppCompatActivity {
     Button mBtnBackWebChart;
     int mNum1,mNum2,mNum3,mNum4,mNum5,mNum6,mNum7,mNum8,mNum9,mNum10;
     int mPerc1,mPerc2,mPerc3,mPerc4,mPerc5,mPerc6,mPerc7,mPerc8,mPerc9,mPerc10;
@@ -196,6 +198,13 @@ public class ShowWebChartActivity extends ActionBarActivity {
         @JavascriptInterface
         public int getPerc10() {return mPerc10; }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
     }
 
 

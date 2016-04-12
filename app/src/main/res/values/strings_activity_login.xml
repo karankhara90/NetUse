@@ -5,6 +5,7 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Login in </string>
+    <string name="action_sign_up">Sign Up</string>
     <string name="action_sign_in_short">Log in</string>
 
 

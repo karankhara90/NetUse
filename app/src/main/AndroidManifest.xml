@@ -3,7 +3,7 @@
     package="khara.karan.netuse">
 
     <!-- To access Google+ APIs: -->
-    <uses-permission android:name="android.permission.INTERNET" />
+
     <!--
  To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
      option is required to comply with the Google+ Sign-In developer policies
@@ -26,18 +26,26 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        </activity>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>`
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".FutureStudent"
+            android:label="Home">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
+            <!-- android:parentActivityName=".MainActivity"> -->
+            <!-- <meta-data -->
+            <!-- android:name="android.support.PARENT_ACTIVITY" -->
+            <!-- android:value="khara.karan.netuse.MainActivity" /> -->
         </activity>
         <activity
             android:name=".SignUpActivity"
@@ -109,15 +117,6 @@
                 android:value="khara.karan.netuse.NearbyPlaces" />
         </activity>
         <activity
-            android:name=".FutureStudent"
-            android:label="Home Screen">
-
-            <!-- android:parentActivityName=".MainActivity"> -->
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value="khara.karan.netuse.MainActivity" />-->
-        </activity>
-        <activity
             android:name=".UnivDetails"
             android:label="@string/title_activity_univ_details"
             android:parentActivityName=".MainActivity">
@@ -185,6 +184,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="khara.karan.netuse.FutureStudent" />
         </activity>
-    </application>
 
+    </application>
 </manifest>

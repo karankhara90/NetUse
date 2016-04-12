@@ -1,10 +1,11 @@
 package khara.karan.netuse;
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,23 +19,26 @@ import com.parse.ParseUser;
 
 import java.util.List;
 
-public class ShowUsersActivity extends ListActivity {
+public class ShowUsersActivity extends AppCompatActivity {
 
     public static final String TAG=ShowUsersActivity.class.getSimpleName();
     //protected ParseRelation<ParseUser> mFriendsRelation;
     protected List<ParseUser> mUsers;
     protected ParseUser mCurrentUser;
     protected Button mBtnBackUser;
+    ListView listAllUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_users);
+        listAllUsers=(ListView)findViewById(R.id.listShowAllUsers);
+
         //Show the up button in the action bar
        // setupActionBar();
 
 
-        getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        //getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
     //private void setupActionBar() {
       //  getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -69,9 +73,9 @@ public class ShowUsersActivity extends ListActivity {
                        // {
                         i++;
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(ShowUsersActivity.this,
-                                android.R.layout.simple_list_item_checked, usernames);
+                                android.R.layout.simple_selectable_list_item, usernames);
                                 //android.R.layout.simple_selectable_list_item, usernames);
-                        setListAdapter(adapter);
+                        listAllUsers.setAdapter(adapter);
                     }
                 } else {
                     System.out.println(" e is not null");
@@ -133,8 +137,8 @@ public class ShowUsersActivity extends ListActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_show_users, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
         return true;
     }
 
@@ -152,4 +156,5 @@ public class ShowUsersActivity extends ListActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

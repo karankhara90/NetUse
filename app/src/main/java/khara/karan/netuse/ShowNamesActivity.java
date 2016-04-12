@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -57,7 +58,7 @@ public class ShowNamesActivity extends ListActivity {
             @Override
             public void done(List<ParseObject> obs, ParseException e) {
                 setProgressBarIndeterminateVisibility(false);
-                Log.e("myapp","obs: "+obs);
+                Log.e("myapp", "obs: " + obs);
                 // Log.e("myapp","e: "+e);
                 if (e == null) {
                     //  String[] usernames = new String[obs.size()];
@@ -85,12 +86,6 @@ public class ShowNamesActivity extends ListActivity {
         });
 
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_show_users, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -105,6 +100,13 @@ public class ShowNamesActivity extends ListActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
     }
 
 }

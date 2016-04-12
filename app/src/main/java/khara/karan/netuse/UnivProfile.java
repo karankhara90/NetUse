@@ -8,7 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +25,7 @@ import com.parse.ParseQuery;
 
 import java.util.List;
 
-public class UnivProfile extends ActionBarActivity {
+public class UnivProfile extends AppCompatActivity {
      TextView mTextViewUnivProfile;
     Button mBtnUnivDataGraph;
     Button mBtnBackUnivProfile;
@@ -59,19 +59,19 @@ public class UnivProfile extends ActionBarActivity {
         univSelected = intent.getStringExtra("univ-name");
         mTextViewUnivProfile.setText(univSelected);
 
-        mBtnBackUnivProfile = (Button) findViewById(R.id.btnBackUnivProfile);
-        mBtnBackUnivProfile.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UnivProfile.this, SuggestUnivActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
-                startActivity(intent);
-                // onBackPressed();
-            }
-
-        });
+//        mBtnBackUnivProfile = (Button) findViewById(R.id.btnBackUnivProfile);
+//        mBtnBackUnivProfile.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(UnivProfile.this, SuggestUnivActivity.class);
+////                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+////                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
+//                startActivity(intent);
+//                // onBackPressed();
+//            }
+//
+//        });
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("UnivDetail");
         query.whereEqualTo("univName",univSelected);
@@ -274,9 +274,9 @@ public class UnivProfile extends ActionBarActivity {
 
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent(UnivProfile.this, SuggestUnivActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
+        Intent intent = new Intent(UnivProfile.this, FutureStudent.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
         startActivity(intent);
         //super.onBackPressed();
         //finish();

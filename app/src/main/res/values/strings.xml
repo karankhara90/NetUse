@@ -12,12 +12,12 @@
 
     <string name="action_settings">Settings</string>
 
-    <color name="backgroundColor">#d4e7ff</color>
+    <!--<color name="backgroundColor">#d4e7ff</color> -->
+    <color name="backgroundColor">#eeffe8</color>
     <color name="buttonColor">#ff6f1b</color>
     <color name="textMsgColor">#fff242</color>
     <color name="tryBackColor">#0698a1</color>
     <color name="textColor">#000000</color>
-
 
 
     <color name="Color">#123456</color>
@@ -55,6 +55,9 @@
     <string name="title_activity_suggest_univ_prefer">SuggestUnivPrefer</string>
     <string name="title_activity_show_rate_diff_chart">ShowRateDiffChart</string>
     <string name="title_activity_show_rec_results">ShowRecResults</string>
+    <string name="title_activity_inbox">InboxActivity</string>
+    <string name="title_activity_profile">ProfileFragment</string>
+    <string name="title_activity_friends">FriendsActivity</string>
     <!--string-array name="univ_arrays">
         <item>Choose Univ</item>
         <item>CSU Fresno</item>
@@ -67,4 +70,8 @@
 
 
     </string-array-->
+
+    <string name="empty_inbox_label">No new messages yet</string>
+    <string name="empty_friends_label">No new Friends!! Add some</string>
+
 </resources>

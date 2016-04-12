@@ -3,7 +3,7 @@ package khara.karan.netuse;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +25,7 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateProfile extends ActionBarActivity {
+public class CreateProfile extends AppCompatActivity {
 
     Spinner spinner1, spinner2;
     protected EditText mFullName, mPercent, mGre, mToefl;
@@ -57,7 +57,7 @@ public class CreateProfile extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_profile);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         context = this;
 
 

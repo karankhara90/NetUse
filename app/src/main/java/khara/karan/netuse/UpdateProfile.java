@@ -1,12 +1,12 @@
 package khara.karan.netuse;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +29,7 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpdateProfile extends ActionBarActivity {
+public class UpdateProfile extends Activity {
 
     protected Button mDone;
     protected Context context;
@@ -45,12 +45,14 @@ public class UpdateProfile extends ActionBarActivity {
     private float mUniRating;
     private float mPredScore;
     private ImageView image_expert4;
+    public static final String MyPREFERENCES = "MyPrefs";
+//    private String file = "mydata";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         context = this;
         mDone = (Button) findViewById(R.id.myDone);
 
@@ -197,9 +199,34 @@ public class UpdateProfile extends ActionBarActivity {
                     @Override
                     public void onClick(View v) {
 
+
+
                         ParseUser currentUser = ParseUser.getCurrentUser();
 
                         newUnivSelected = spinner3.getSelectedItem().toString();
+
+
+//                        try {
+//                            FileOutputStream fOut = openFileOutput(file,MODE_WORLD_READABLE);
+//                            fOut.write(newUnivSelected.getBytes());
+//                            fOut.close();
+//                            Toast.makeText(getBaseContext(),"file saved", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        catch (Exception e) {
+//                            // TODO Auto-generated catch block
+//                            e.printStackTrace();
+//                        }
+
+
+
+//                        SharedPreferences sharedpreferences;
+//                        sharedpreferences = PreferenceManager.getDefaultSharedPreferences(context);
+//                        SharedPreferences.Editor editor = sharedpreferences.edit();
+//                        editor.putString("shared_newUniv", newUnivSelected);
+                        Log.e("TAG", newUnivSelected);
+                        System.out.println("++++===================++++ "+newUnivSelected);
+                       // editor.commit();
                         if(! newUnivSelected.equals("--Choose New University--") ){
                             ParseQuery<ParseObject> query = ParseQuery.getQuery("UserInfo");
                             query.whereEqualTo("userId", currentUser);
@@ -212,8 +239,11 @@ public class UpdateProfile extends ActionBarActivity {
                                         q2.getFirstInBackground(new GetCallback<ParseObject>() {
                                             @Override
                                             public void done(ParseObject parseObject2, ParseException e) {
+
                                                 parseObject.put("nowUnivName", parseObject2);
                                                 parseObject.put("newUnivName", newUnivSelected);
+
+
 //                                                parseObject.getParseObject("nowUnivName");
                                                 mUniRating =  Float.valueOf(parseObject2.get("univRating").toString());
                                                 mPredScore = Float.valueOf(parseObject.get("predScore").toString());

@@ -1,150 +1,233 @@
-<!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<!--&lt;!&ndash; A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. &ndash;&gt;-->
+<!--<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:id="@+id/drawer_layout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--tools:context=".MainActivity">-->
 
-    <!-- As the main content view, the view below consumes the entire
-         space available using match_parent in both dimensions. -->
-    <RelativeLayout android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#d4e7ff" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Welcome "
-            android:textColor="#ffffff"
-            android:layout_gravity="left|top"
-            android:id="@+id/txtNames"
-            android:height="35dp"
-            android:paddingLeft="5dp"
-            android:paddingTop="3dp"
-            android:background="#fcb000"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/name"
-            android:layout_toStartOf="@+id/name" />
-        <TextView
-            android:layout_width="210dp"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:textColor="#ffffff"
-
-            android:id="@+id/name"
-            android:height="35dp"
-            android:background="#fcb000"
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-
-            android:layout_above="@+id/btnNames"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="Name of all Users"
-            android:id="@+id/btnNames"
-            android:textSize="20dp"
-            android:background="#ff6f1b"
-            android:textColor="#ffffff"
-            android:layout_below="@+id/txtNames"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/lvStudents"
-            android:layout_below="@+id/btnNames"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="59dp" />
-
+    <!--&lt;!&ndash; As the main content view, the view below consumes the entire-->
+         <!--space available using match_parent in both dimensions. &ndash;&gt;-->
+    <!--<RelativeLayout android:id="@+id/container"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="#d4e7ff" >-->
 
         <!--<TextView-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:text="Nearby Places"-->
-            <!--android:id="@+id/textSuggestNearby"-->
+            <!--android:textSize="20dp"-->
+            <!--android:text="Welcome "-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:layout_gravity="left|top"-->
+            <!--android:id="@+id/txtNames"-->
+            <!--android:height="35dp"-->
+            <!--android:paddingLeft="5dp"-->
+            <!--android:paddingTop="3dp"-->
+            <!--android:background="#fcb000"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_toLeftOf="@+id/name"-->
+            <!--android:layout_toStartOf="@+id/name" />-->
+        <!--<TextView-->
+            <!--android:layout_width="210dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="18dp"-->
             <!--android:textColor="#ffffff"-->
 
+            <!--android:id="@+id/name"-->
+            <!--android:height="35dp"-->
+            <!--android:background="#fcb000"-->
+            <!--android:paddingLeft="5dp"-->
+            <!--android:paddingTop="5dp"-->
 
-            <!--android:height="30dp"-->
-            <!--android:textSize="19dp"-->
-            <!--android:layout_alignTop="@+id/btnSuggestNearby"-->
-            <!--android:layout_toLeftOf="@+id/btnSuggestNearby"-->
-            <!--android:layout_alignBottom="@+id/btnSuggestNearby" />-->
+            <!--android:layout_above="@+id/btnNames"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_alignParentEnd="true" />-->
+
+
         <!--<Button-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="30dp"-->
-            <!--android:text="Check here"-->
-            <!--android:id="@+id/btnSuggestNearby"-->
+            <!--android:text="Name of all Users"-->
+            <!--android:id="@+id/btnNames"-->
             <!--android:textSize="20dp"-->
-            <!--android:layout_marginTop="20dp"-->
             <!--android:background="#ff6f1b"-->
             <!--android:textColor="#ffffff"-->
+            <!--android:layout_below="@+id/txtNames"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true" />-->
+
+        <!--<ListView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/lvStudents"-->
             <!--android:layout_below="@+id/btnNames"-->
-            <!--android:layout_alignRight="@+id/name"-->
-            <!--android:layout_alignEnd="@+id/name" />-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_marginTop="59dp" />-->
 
 
-        <!--TextView
+        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:text="Nearby Places"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/textSuggestNearby"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:textColor="#ffffff"&ndash;&gt;-->
+
+
+            <!--&lt;!&ndash;android:height="30dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:textSize="19dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_alignTop="@+id/btnSuggestNearby"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_toLeftOf="@+id/btnSuggestNearby"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_alignBottom="@+id/btnSuggestNearby" />&ndash;&gt;-->
+        <!--&lt;!&ndash;<Button&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="30dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:text="Check here"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/btnSuggestNearby"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:textSize="20dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_marginTop="20dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:background="#ff6f1b"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:textColor="#ffffff"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_below="@+id/btnNames"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_alignRight="@+id/name"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_alignEnd="@+id/name" />&ndash;&gt;-->
+
+
+        <!--&lt;!&ndash;TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+            <!--android:text="Create Your Student Profile First"-->
+            <!--android:textSize="18dp"-->
+            <!--android:textColor="#e5781e"-->
+            <!--android:id="@+id/textView3"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:layout_gravity="left|top"-->
+            <!--android:layout_below="@+id/txtWelcome"-->
+            <!--android:layout_alignLeft="@+id/txtWelcome"-->
+            <!--android:layout_alignStart="@+id/txtWelcome" />-->
+
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Create"-->
+            <!--android:id="@+id/btnCreate"-->
+            <!--android:layout_gravity="left|top"-->
+            <!--android:layout_below="@+id/textView3"-->
+            <!--android:layout_alignLeft="@+id/textView3"-->
+            <!--android:layout_marginTop="3dp"-->
+            <!--android:layout_alignStart="@+id/textView3"-->
+            <!--android:background="#ffffff" /&ndash;&gt;-->
+    <!--</RelativeLayout>-->
+
+    <!--<ListView-->
+        <!--android:id="@+id/navListMain"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="left|start"-->
+        <!--android:background="#ffeeeeee"/>-->
+
+    <!--&lt;!&ndash; android:layout_gravity="start" tells DrawerLayout to treat-->
+         <!--this as a sliding drawer on the left side for left-to-right-->
+         <!--languages and on the right side for right-to-left languages.-->
+         <!--If you're not building against API 17 or higher, use-->
+         <!--android:layout_gravity="left" instead. &ndash;&gt;-->
+    <!--&lt;!&ndash; The drawer is given a fixed width in dp and extends the full height of-->
+         <!--the container. &ndash;&gt;-->
+    <!--<fragment android:id="@+id/navigation_drawer"-->
+        <!--android:layout_width="@dimen/navigation_drawer_width"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="start"-->
+        <!--android:name="khara.karan.netuse.NavigationDrawerFragment"-->
+        <!--tools:layout="@layout/fragment_navigation_drawer" />-->
+
+
+
+
+<!--</android.support.v4.widget.DrawerLayout>-->
+
+
+<!--<android.support.v4.view.ViewPager-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:id="@+id/pager"-->
+    <!--android:theme="@style/MyTheme"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@drawable/net4"-->
+    <!--tools:context=".MyActivity" />-->
+
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    tools:context="khara.karan.netuse.MainActivity">
+
+    <include layout="@layout/appcompattop" />
+
+    <!-- The navigation drawer -->
+    <RelativeLayout
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:id="@+id/drawerPane"
+        android:layout_gravity="start">
+
+    <!-- Profile Box -->
+
+    <RelativeLayout
+        android:id="@+id/profileBox"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/material_blue_grey_800"
+        android:padding="8dp" >
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/netuse_logo"
+            android:layout_marginTop="15dp" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Create Your Student Profile First"
-            android:textSize="18dp"
-            android:textColor="#e5781e"
-            android:id="@+id/textView3"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="left|top"
-            android:layout_below="@+id/txtWelcome"
-            android:layout_alignLeft="@+id/txtWelcome"
-            android:layout_alignStart="@+id/txtWelcome" />
+            android:layout_height="42dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/avatar"
+            android:orientation="vertical" >
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Create"
-            android:id="@+id/btnCreate"
-            android:layout_gravity="left|top"
-            android:layout_below="@+id/textView3"
-            android:layout_alignLeft="@+id/textView3"
-            android:layout_marginTop="3dp"
-            android:layout_alignStart="@+id/textView3"
-            android:background="#ffffff" /-->
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your name here"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="4dp"
+                android:text="View Profile"
+                android:textColor="#fff"
+                android:textSize="12sp" />
+        </LinearLayout>
     </RelativeLayout>
 
     <ListView
-        android:id="@+id/navListMain"
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="left|start"
-        android:background="#ffeeeeee"/>
-
-    <!-- android:layout_gravity="start" tells DrawerLayout to treat
-         this as a sliding drawer on the left side for left-to-right
-         languages and on the right side for right-to-left languages.
-         If you're not building against API 17 or higher, use
-         android:layout_gravity="left" instead. -->
-    <!-- The drawer is given a fixed width in dp and extends the full height of
-         the container. -->
-    <fragment android:id="@+id/navigation_drawer"
-        android:layout_width="@dimen/navigation_drawer_width"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:name="khara.karan.netuse.NavigationDrawerFragment"
-        tools:layout="@layout/fragment_navigation_drawer" />
-
-
-
-
-</android.support.v4.widget.DrawerLayout>
+    android:id="@+id/navListDrawer"
+    android:layout_width="200dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="left|start"
+    android:background="#ffeeeeee"/>
+</RelativeLayout>
+    </android.support.v4.widget.DrawerLayout>

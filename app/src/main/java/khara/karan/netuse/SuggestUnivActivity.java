@@ -1,6 +1,5 @@
 package khara.karan.netuse;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,9 +9,11 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SuggestUnivActivity extends Activity {
+public class SuggestUnivActivity extends AppCompatActivity {
     /////////////////////////////////////////// ************************ //////////////////////////////////////////////////////////////
      ListView listview;
      ListView listViewRecommendAll, listViewRecommendType,listView4;
@@ -113,6 +114,7 @@ public class SuggestUnivActivity extends Activity {
 
 
     Calculations ratingsCalculate = new Calculations();
+    int count;
 
 //    final ParseUser currUser = ParseUser.getCurrentUser();
 
@@ -125,13 +127,14 @@ public class SuggestUnivActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        progress_bar();
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggest_univ);
         context = this;
         //start the progress dialog
         Toast.makeText(getApplicationContext(), "Wait while algorithm process results", Toast.LENGTH_SHORT).show();
-        progress_bar();
+//        progress_bar();
 
         recUniversitiesAL = new ArrayList<String>();  // didnt use arrays. coz arraylist's size is flexible unlike arrays
 //        recUnivType = new ArrayList<String>();
@@ -162,6 +165,8 @@ public class SuggestUnivActivity extends Activity {
         ParseUser currentUser2 = ParseUser.getCurrentUser();
         //Toast.makeText(this, "userID :" + userId, Toast.LENGTH_LONG).show();
 
+
+
         ParseQuery<ParseObject> query2 = ParseQuery.getQuery("UserInfo");
 
         query2.whereEqualTo("userId", currentUser2);
@@ -170,6 +175,7 @@ public class SuggestUnivActivity extends Activity {
             public void done(final ParseObject object2, ParseException e) {
                 //if (e == null) {
                 try {
+                    //dia.dismiss();
                     try {
                         mFullname = object2.get("fullName").toString();
                         mScore = object2.get("greScore").toString();
@@ -260,7 +266,7 @@ public class SuggestUnivActivity extends Activity {
                 mBtnSuggestUnivPrefer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        setProgressBarIndeterminateVisibility(true);
+//                        setProgressBarIndeterminateVisibility(true);
                         mUnivTypePrefer = mSpUnivTypes.getSelectedItem().toString();    // get selected Univ type
                         //mListUnivStatesPrefer = multiSelectionSpinner.getSelectedStrings();
                         //mListUnivStatesPrefer = multiSelectionSpinner.getSelectedStrings();
@@ -314,11 +320,14 @@ public class SuggestUnivActivity extends Activity {
 
     void progress_bar(){
         progressDialog = new ProgressDialog(SuggestUnivActivity.this);
-        progressDialog.setMax(50);
+        progressDialog.setMax(100);
         progressDialog.setMessage("Calculating Results...");
         progressDialog.setTitle("Please wait..");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        count =1;
+        //progressDialog.setProgress(count);
+        progressDialog.setProgressStyle(count);
         progressDialog.show();
+
 
         new Thread() {
 
@@ -326,12 +335,19 @@ public class SuggestUnivActivity extends Activity {
 
                 try{
                     while (progressDialog.getProgress() <= progressDialog.getMax()) {
-                        sleep(50);
+                        sleep(1000);
                         handle.sendMessage(handle.obtainMessage());
                         if (progressDialog.getProgress() == progressDialog
                                 .getMax()) {
                             progressDialog.dismiss();
                         }
+
+                        if(count<=100){
+                            count++;
+                            progressDialog.setProgressStyle(count);
+                            //Log.e("TAG","******************************************** "+count);
+                        }
+                        //progressDialog.setProgress(count);
                     }
                 } catch (Exception e) {
                     Log.e("tag", e.getMessage());
@@ -372,14 +388,17 @@ public class SuggestUnivActivity extends Activity {
     }
 
     void getRecommendations() {
-//        setProgressBarIndeterminateVisibility(true);
-        Log.e(TAG,"[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ ====  ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]");
+        setProgressBarIndeterminateVisibility(true);
+        Log.e(TAG, "[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ ====  ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]");
+//        progress_bar();
+        final ProgressDialog dia = ProgressDialog.show(this, "Please wait", "Calculating Results...");
         ParseQuery<ParseObject> query2;
         query2 = ParseQuery.getQuery("UserInfo");
         query2.whereNotEqualTo("newUnivName", "blank");
         query2.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
+
                 mArrSeniorStudName = new String[list.size()];
                 mArrSeniorPrevUnivName = new String[list.size()];
                 mArrSeniorNewUnivName = new String[list.size()];
@@ -466,10 +485,13 @@ public class SuggestUnivActivity extends Activity {
                 /* ************************** get prediction mScore for current new user ************************** */
                 mPredictResult = getPredictScore(list.size() - 1);
                 /* *********************************************************************************************************** */
-
+                setProgressBarIndeterminateVisibility(false);
+                dia.dismiss();
                 /* ************************** get recommended universities for current new user ************************** */
                 Log.e(TAG, "----------------------------=====================------------------------");
+
                 getRecommendedUnivList(mPredictResult);
+
                 /* *********************************************************************************************************** */
                 Log.e(TAG, "----------------------------=====================------------------------");
 
@@ -627,6 +649,7 @@ public class SuggestUnivActivity extends Activity {
 
         //progressDialog.dismiss();
 
+
         temp_predict = predict;
         Log.e(TAG,"++++++++++++++++++++++++++++++++++++++++++++++++++++");
 //        final String[] recUniversities = new String[5];
@@ -641,6 +664,7 @@ public class SuggestUnivActivity extends Activity {
             public void done(List<ParseObject> list, ParseException e) {
 
                 if (e == null) {
+//                    dia.dismiss();
                     listViewRecommendAll = (ListView) findViewById(R.id.listViewRecommend);
                     listViewRecommendType = (ListView) findViewById(R.id.listViewRecUnivType);
 //                    ArrayList<String> recUniversities = new ArrayList<String>();  // didnt use arrays. coz arraylist's size is flexible unlike arrays
@@ -659,7 +683,8 @@ public class SuggestUnivActivity extends Activity {
                     //                    getRecommendedUniversitiesUnivType(predResult,mUnivTypePrefer2);
                     //                }
                     //int m = 0;
-                    for (ParseObject parseObj : list) {
+                    for (ParseObject parseObj : list)
+                    {
                         String univNameDB, rec2, rec3;
                         if (univListLimit < 20) {
                             univNameDB = parseObj.get("univName").toString();
@@ -681,7 +706,7 @@ public class SuggestUnivActivity extends Activity {
                         }
 
 
-                        setProgressBarIndeterminateVisibility(false);
+//                        setProgressBarIndeterminateVisibility(false);
                         recUniversitiesAL.add(univNameDB);
                         univRankingAL.add(univRankDB);
 
@@ -716,6 +741,57 @@ public class SuggestUnivActivity extends Activity {
             }
         });
     }
+
+//    private class UserAdapter extends BaseAdapter
+//    {
+//
+//        /* (non-Javadoc)
+//         * @see android.widget.Adapter#getCount()
+//         */
+//        @Override
+//        public int getCount()
+//        {
+//            return listViewRecommendAll.size();
+//        }
+//
+//        /* (non-Javadoc)
+//         * @see android.widget.Adapter#getItem(int)
+//         */
+//        @Override
+//        public ParseUser getItem(int arg0)
+//        {
+//            return uList.get(arg0);
+//        }
+//
+//        /* (non-Javadoc)
+//         * @see android.widget.Adapter#getItemId(int)
+//         */
+//        @Override
+//        public long getItemId(int arg0)
+//        {
+//            return arg0;
+//        }
+//
+//        /* (non-Javadoc)
+//         * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
+//         */
+//        @Override
+//        public View getView(int pos, View v, ViewGroup arg2)
+//        {
+//            if (v == null)
+//                v = getLayoutInflater().inflate(R.layout.chat_item, null);
+//
+//            ParseUser c = getItem(pos);
+//            TextView lbl = (TextView) v;
+//            lbl.setText(c.getUsername());
+//            lbl.setCompoundDrawablesWithIntrinsicBounds(
+//                    c.getBoolean("online") ? R.drawable.ic_online
+//                            : R.drawable.ic_offline, 0, R.drawable.arrow, 0);
+//
+//            return v;
+//        }
+//
+//    }
 
     public class MyCustomAdapter extends ArrayAdapter<String>
     {
@@ -939,13 +1015,15 @@ public class SuggestUnivActivity extends Activity {
                     for (ParseObject b : list) {
                         String abc = b.get("newUnivName").toString();
                         if (i <= 30) {
-                            arr[i] = abc; }
+                            arr[i] = abc;
+                        }
                         repeat = 0;
                         for (int j = 0; j <= i; j++) {
                             if (abc.equals(arr[j])) {
                                 repeat++;
                                 if (repeat > 1) {
-                                    break; }
+                                    break;
+                                }
                             }
                         }
                         if (!abc.equals("blank") && repeat == 1) {
@@ -970,13 +1048,6 @@ public class SuggestUnivActivity extends Activity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_show_users, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -989,6 +1060,12 @@ public class SuggestUnivActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
     }
 
 }

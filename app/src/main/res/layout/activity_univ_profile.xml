@@ -1,36 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="khara.karan.netuse.UnivProfile"
     android:background="#eeffe8">
 
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="              UNIVERSITY PROFILE"
-        android:paddingTop="2dp"
-        android:textSize="22dp"
-        android:textColor="#ffffff"
-        android:background="#00a571"
-        android:id="@+id/textView3"
-        android:layout_gravity="left|top"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:background="#008B8B"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <!--<android.support.design.widget.TabLayout-->
+    <!--android:id="@+id/tab_layout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/toolbar"-->
+    <!--android:background="#008B8B"-->
+    <!--android:elevation="6dp"-->
+    <!--android:minHeight="?attr/actionBarSize"-->
+    <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>-->
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:weightSum="1">
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="UNIVERSITY PROFILE"
+        android:layout_gravity="center"
+        android:textSize="22dp"
+        android:textColor="@color/main_color_green"
+        android:textStyle="bold"
+        android:id="@+id/textView3"
+            android:layout_marginTop="40dp"
+            android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/imageUniv"
+            android:layout_below="@+id/textView3"
+            android:layout_above="@+id/textUnivProfile"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+
+            android:layout_alignRight="@+id/textUnivProfile"
+            android:layout_alignEnd="@+id/textUnivProfile"
+            android:layout_weight="0.39" />
+
+        <TextView
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:hint="Univ Name"
@@ -44,7 +91,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:hint="Univ Type"
@@ -59,7 +106,7 @@
         android:layout_alignRight="@+id/textUnivState"
         android:layout_alignEnd="@+id/textUnivState" />
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:hint="Univ State"
@@ -76,7 +123,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:hint="Univ City"
@@ -92,47 +139,23 @@
 
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:textSize="20dp"
-        android:text="Student Data Graph"
+        android:text="Get Student Data Graph"
         android:paddingTop="5dp"
         android:id="@+id/btnUnivDataGraph"
-        android:background="#ff6f1b"
+        android:background="@color/main_color_green"
         android:textColor="#ffffff"
-        android:layout_above="@+id/btnBackUnivProfile"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:textSize="20dp"
-        android:text="Back"
-        android:paddingTop="5dp"
-        android:id="@+id/btnBackUnivProfile"
-        android:background="#ff6f1b"
-        android:textColor="#ffffff"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textView3"
-        android:layout_alignEnd="@+id/textView3"
-        android:layout_alignParentBottom="true" />
-
-    <ImageView
-        android:layout_width="290dp"
-        android:layout_height="200dp"
-        android:id="@+id/imageUniv"
-        android:layout_below="@+id/textView3"
-        android:layout_above="@+id/textUnivProfile"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textUnivType"
-        android:layout_alignEnd="@+id/textUnivType" />
+    </LinearLayout>
 
 </RelativeLayout>

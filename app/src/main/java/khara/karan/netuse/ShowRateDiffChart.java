@@ -3,8 +3,10 @@ package khara.karan.netuse;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.LinearLayout;
 
 import com.parse.FindCallback;
@@ -22,7 +24,7 @@ import org.achartengine.renderer.XYSeriesRenderer;
 
 import java.util.List;
 
-public class ShowRateDiffChart extends ActionBarActivity {
+public class ShowRateDiffChart extends AppCompatActivity {
 
     double mRateDiff;
     static double mUserNo;
@@ -31,7 +33,7 @@ public class ShowRateDiffChart extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_rate_diff_chart);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final XYSeries series = new XYSeries("Rating Difference");
 
@@ -137,6 +139,13 @@ public class ShowRateDiffChart extends ActionBarActivity {
         startActivity(intent);
         //super.onBackPressed();
         //finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
     }
 
 }

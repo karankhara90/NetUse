@@ -1,7 +1,7 @@
 package khara.karan.netuse;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +13,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-public class UserProfile extends ActionBarActivity {
+public class UserProfile extends AppCompatActivity {
     protected TextView mFullName;
     protected TextView mPrevUniv;
     protected TextView mUnivCountry;
