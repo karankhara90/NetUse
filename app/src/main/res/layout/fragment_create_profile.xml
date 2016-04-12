@@ -95,7 +95,7 @@
         android:layout_alignEnd="@+id/myGre"
         android:maxLines="1"
         android:singleLine="true"
-        android:imeOptions="actionNext"/>
+        android:imeOptions="actionGo"/>
 
     <Button
         android:layout_width="match_parent"

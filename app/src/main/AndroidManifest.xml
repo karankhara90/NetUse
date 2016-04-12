@@ -4,6 +4,7 @@
 
     <!-- To access Google+ APIs: -->
 
+
     <!--
  To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
      option is required to comply with the Google+ Sign-In developer policies
@@ -27,18 +28,16 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize|stateHidden">
-        </activity>
-
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".FutureStudent"
             android:label="Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -184,6 +183,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="khara.karan.netuse.FutureStudent" />
         </activity>
-
+        <activity
+            android:name=".authentication.emailVerification"
+            android:label="@string/title_activity_email_verification"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="khara.karan.netuse.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".authentication.VerifyConfirmation"
+            android:label="@string/title_activity_sent_verification"
+            android:parentActivityName=".authentication.emailVerification"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="khara.karan.netuse.authentication.emailVerification" />
+        </activity>
     </application>
+
 </manifest>

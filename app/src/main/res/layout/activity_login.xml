@@ -57,7 +57,7 @@
         <EditText
             android:id="@+id/passwordField"
             android:hint="Password"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionDone"
             style="@style/editext_whitebg"
             android:layout_width="match_parent"
             android:layout_height="60dp"

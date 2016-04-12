@@ -71,7 +71,7 @@
             android:imeActionLabel="@string/action_sign_up_short"
             android:inputType="textPassword"
             android:singleLine="true"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionDone"
             style="@style/editext_whitebg"
             android:layout_marginTop="@dimen/pad_5dp"
             android:drawableLeft="@drawable/ic_pwd" >

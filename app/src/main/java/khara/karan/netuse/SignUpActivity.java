@@ -127,14 +127,7 @@ public class SignUpActivity extends Activity {
                     newUser.setUsername(username);
                     newUser.setPassword(password);
                     newUser.setEmail(email);
-
-         /*           newUser.put("fullName", mFullname);
-                    newUser.put("mPercent", mPercent);
-                    newUser.put("gre", gre);
-                    newUser.put("toefl", toefl);
-                    newUser.put("univName", univname);
-                    newUser.put("country", country);   */
-
+                    newUser.put("isEmailVerified",true);
 
                     /* other fields can be set just like with ParseObject
                     newUser.put("phone", "650-555-0000");
@@ -148,10 +141,7 @@ public class SignUpActivity extends Activity {
                         public void done(ParseException e) {
                             setProgressBarIndeterminateVisibility(false);
                             if (e == null) {
-                                // Hooray! Let them use the app now.
                                 Intent intent = new Intent(SignUpActivity.this, CreateProfile.class);
-                                // to pass edittext value to other activity
-                                //   intent.putExtra("mFullName", mFullName.getText().toString());
 
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one

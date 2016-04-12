@@ -41,7 +41,7 @@ public class LoginActivity extends Activity {
         mSignUpTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                Intent intent = new Intent(LoginActivity.this, khara.karan.netuse.authentication.emailVerification.class);
                 startActivity(intent);
             }
         });

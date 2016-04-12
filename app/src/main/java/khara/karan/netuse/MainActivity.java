@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity //ActionBarActivity
 //            {
 //                viewPager.setCurrentItem(tab.getPosition());
 //            }
-//
+//.
 //            @Override
 //            public void onTabUnselected(TabLayout.Tab tab) {
 //
