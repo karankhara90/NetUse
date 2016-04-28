@@ -53,6 +53,16 @@
             android:drawableLeft="@drawable/ic_username" >
             <requestFocus />
         </EditText>
+    <!--<EditText-->
+        <!--android:id="@+id/emailField"-->
+        <!--android:hint="Email"-->
+        <!--style="@style/editext_whitebg"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:drawableLeft="@drawable/ic_username" >-->
+        <!--<requestFocus />-->
+    <!--</EditText>-->
+
 
         <EditText
             android:id="@+id/passwordField"
@@ -91,6 +101,24 @@
             android:layout_marginLeft="@dimen/pad_10dp"
             />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height_30dp"
+        android:id="@+id/forgotPwdText"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="@dimen/pad_10dp"
+        android:text="Forgot password?"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/newLoginMsg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_25dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="You can now login with new password"
+        android:visibility="invisible"
+        android:textColor="@color/red" />
 
 </LinearLayout>
 

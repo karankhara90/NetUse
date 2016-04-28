@@ -201,6 +201,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="khara.karan.netuse.authentication.emailVerification" />
         </activity>
+        <activity
+            android:name=".authentication.NewPwdVerification"
+            android:label="@string/title_activity_new_pwd_verification"
+            android:parentActivityName=".authentication.emailVerification"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="khara.karan.netuse.authentication.emailVerification" />
+        </activity>
+        <activity
+            android:name=".authentication.forgotPwdEmailVerify"
+            android:label="@string/title_activity_forgot_pwd_email_verify"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="khara.karan.netuse.LoginActivity" />
+        </activity>
     </application>
 
 </manifest>

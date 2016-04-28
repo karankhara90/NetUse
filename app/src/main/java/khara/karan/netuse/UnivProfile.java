@@ -86,31 +86,8 @@ public class UnivProfile extends AppCompatActivity {
                 mTextViewUnivCity.setText(mUnivCity);
                 mTextViewUnivType.setText(mUnivType);
 
-//                ParseFile fileObject = (ParseFile)parseObject.get("univLogo");
-//                fileObject.getDataInBackground(new GetDataCallback() {
-//                    @Override
-//                    public void done(byte[] bytes, ParseException e) {
-//                        if (e == null) {
-//                            ImageView ad1=(ImageView) findViewById(R.id.ad1);
-//                            // Set the Bitmap into the
-//                            // ImageView
-//                            ad1.setImageBitmap(bmp);
-//
-//                        } else {
-//                            Log.d("test", "There was a problem downloading the data.");
-//                        }
-//                    }
-//                });
-
                 ParseFile image = (ParseFile) parseObject.getParseFile("univLogo");
                 displayImage(image, image_expert);
-//                ParseFile postImage = parseObject.getParseFile("univLogo");
-//                String imageUrl = postImage.getUrl() ;//live url
-//                Uri imageUri = Uri.parse(imageUrl);
-//
-//                Picasso.with(context).load(imageUri.toString()).into(image_expert);
-
-
 
             }
         });

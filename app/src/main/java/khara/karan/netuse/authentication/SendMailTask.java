@@ -56,6 +56,8 @@ public class SendMailTask extends AsyncTask {
 
     @Override
     public void onPostExecute(Object result) {
+        //Toast.makeText(,"Email sent",Toast.LENGTH_LONG).show();
+        Log.e("TAG","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
         statusDialog.dismiss();
     }
 

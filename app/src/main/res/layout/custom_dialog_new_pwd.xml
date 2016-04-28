@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <!--<EditText-->
+        <!--android:id="@+id/confirmCodeForPwd"-->
+        <!--android:hint="Confirmation code"-->
+        <!--android:layout_margin="@dimen/pad_5dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/pad_30dp"-->
+        <!--android:background="@color/white"-->
+        <!--/>-->
+    <!--<EditText-->
+        <!--android:id="@+id/editTextNewPwd1"-->
+        <!--android:hint="New Password"-->
+        <!--android:layout_margin="@dimen/pad_5dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/pad_30dp"-->
+        <!--android:background="@color/white"-->
+        <!--/>-->
+    <!--<EditText-->
+        <!--android:id="@+id/editTextNewPwd2"-->
+        <!--android:hint="New Password"-->
+        <!--android:layout_margin="@dimen/pad_5dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/pad_30dp"-->
+        <!--android:background="@color/white"-->
+        <!--/>-->
+
+
+
+
+</LinearLayout>
+
+
+

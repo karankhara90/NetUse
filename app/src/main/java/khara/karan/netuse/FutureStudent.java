@@ -3,6 +3,7 @@ package khara.karan.netuse;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -41,10 +42,11 @@ import java.util.ArrayList;
 
 
 public class FutureStudent extends AppCompatActivity {
+    private static final String PREFS_NAME = "PREFS_FILE";
     protected Button mBtnSuggestUniv;
     protected Button mBtnSuggestNearby2;
     protected Button mBtnUpdate;
-    protected TextView mFullName;
+    protected TextView mTextViewFullName;
     protected TextView  mTxtAvgRating;
     protected Context context;
     String mScore, mPercent, mUndergradUniv, mFullname;
@@ -53,6 +55,8 @@ public class FutureStudent extends AppCompatActivity {
 //    private ActionBarDrawerToggle mDrawerToggle;
 //    private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
+    private TextView mProfileUserName;
+    private TextView mViewProfile;
     private ArrayAdapter<String> mAdapter;
     private RatingBar mRatingBar1;
 
@@ -111,10 +115,28 @@ public class FutureStudent extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         // ---- navigation drawer ----- //
+
+        mProfileUserName = (TextView)findViewById(R.id.userName);
+        // Restore preferences
+        SharedPreferences getSharedPreferences = getSharedPreferences(PREFS_NAME, 0);
+        String getFullName = getSharedPreferences.getString("sharedFullName", "Welcome User");
+        mProfileUserName.setText(getFullName);
+
+        mViewProfile = (TextView)findViewById(R.id.viewProfile);
+        mViewProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent viewProfileIntent = new Intent(FutureStudent.this,UserProfile.class);
+                startActivity(viewProfileIntent);
+            }
+        });
+
         mDrawerListView = (ListView) findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
         mActivityTitle = getTitle().toString();
+
 
         addDrawerItems();
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -172,6 +194,13 @@ public class FutureStudent extends AppCompatActivity {
                             mScore = object2.get("greScore").toString();
                             mPercent = object2.get("undergradPercent").toString();
                             Log.e(TAG, mFullname + ",. "+ mScore+ ",. "+mPercent);
+
+                            SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, 0);
+                            SharedPreferences.Editor editor = sharedPreferences.edit(); // We need an Editor object to make preference changes.
+                            editor.putString("sharedFullName", mFullname);
+                            // Commit the edits!
+                            editor.commit();
+
                         } catch (Exception exc1) {
                             Log.e("TAG", "exc1 exception:------------ " + exc1);
                         }
@@ -184,8 +213,8 @@ public class FutureStudent extends AppCompatActivity {
                         }
                         try {
                             //set text box with full name
-                            mFullName = (TextView) findViewById(R.id.name2);
-                            mFullName.setText(mFullname);
+                            mTextViewFullName = (TextView) findViewById(R.id.textUserFullName);
+                            mTextViewFullName.setText(mFullname);
                         } catch (Exception exc3) {
                             Log.e("TAG", "exc3 exception:------------ " + exc3);
                         }
@@ -280,16 +309,16 @@ public class FutureStudent extends AppCompatActivity {
                        + ",  Univ rating =============" + mCurrUserUndergradUnivRating);
 
                Bundle bundle = new Bundle();
-               bundle.putString("mScore", mScore);
-               bundle.putString("mPercent", mPercent);
+               bundle.putString("bundleScore", mScore);
+               bundle.putString("bundlePercent", mPercent);
                bundle.putString("mFullname", mFullname);
                bundle.putString("mUndergradUniv", mUndergradUniv);
-               bundle.putString("currUserUnderUnivRating", mCurrUserUndergradUnivRating);
+               bundle.putString("bundleCurrUserUnderUnivRating", mCurrUserUndergradUnivRating);
 
                intent3.putExtras(bundle);
                intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                intent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
-               progress_bar();
+//               progress_bar();
                startActivity(intent3);
            }
         });
@@ -472,10 +501,10 @@ public class FutureStudent extends AppCompatActivity {
 //        mDrawerListView.setAdapter(mAdapter);
 //        mDrawerListView.setSelector((android.R.color.holo_blue_dark));
 
-        mNavItems.add(new NavItem("Your Profile", "View your profile", R.drawable.ic_username));
+        mNavItems.add(new NavItem("Your Profile", "View your profile", R.drawable.user_pic));
         mNavItems.add(new NavItem("Show Universities", "List of all US universities", R.drawable.ic_offline));
         mNavItems.add(new NavItem("Show Users", "List of all users", R.drawable.ic_username));
-        mNavItems.add(new NavItem("Evaluation Metrics", "Evaluation graph", R.drawable.ic_offline));
+        mNavItems.add(new NavItem("Evaluation Metrics", "Evaluation graph", R.drawable.chart_pic));
 
         // DrawerLayout
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);

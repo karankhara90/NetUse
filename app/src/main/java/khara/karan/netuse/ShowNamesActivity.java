@@ -67,8 +67,7 @@ public class ShowNamesActivity extends ListActivity {
                     for (ParseObject a : obs) {
                         //usernames[i] = a.get("fullName").toString();
                         usernames.add(a.get("fullName").toString());
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(ShowNamesActivity.this,
-                                android.R.layout.simple_list_item_1, usernames);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(ShowNamesActivity.this, android.R.layout.simple_list_item_1, usernames);
                         setListAdapter(adapter);
 
                     }
@@ -81,10 +80,8 @@ public class ShowNamesActivity extends ListActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }
-
             }
         });
-
     }
 
     @Override

@@ -75,5 +75,7 @@
     <string name="empty_friends_label">No new Friends!! Add some</string>
     <string name="title_activity_email_verification">emailVerification</string>
     <string name="title_activity_sent_verification">sentVerification</string>
+    <string name="title_activity_new_pwd_verification">NewPwdVerification</string>
+    <string name="title_activity_forgot_pwd_email_verify">forgotPwdEmailVerify</string>
 
 </resources>

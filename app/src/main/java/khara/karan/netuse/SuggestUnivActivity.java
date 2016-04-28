@@ -53,12 +53,16 @@ public class SuggestUnivActivity extends AppCompatActivity {
 //    static float currUserUndergradGPARating;
 //    static float currUserGreRating;
 //    static float mCurrentUserAvgRating;
-    static float GreScore1, UndergradPercent1, UnivRating1;
+    protected float GreScore1, UndergradPercent1, UnivRating1;
 
-    static float currUserUndergradUnivRating;
-    static float currUserUndergradGPARating;
-    static float currUserGreRating;
-    static float mCurrentUserAvgRating;
+//    static float currUserUndergradUnivRating;
+//    static float currUserUndergradGPARating;
+//    static float currUserGreRating;
+//    static float mCurrentUserAvgRating;
+    protected float currUserUndergradUnivRating;
+    protected float currUserUndergradGPARating;
+    protected float currUserGreRating;
+    protected float mCurrentUserAvgRating;
 
     //////////////// Senior user's rating and similarity array ////////////////////
     protected float[] mArrThisSeniorUndergradUnivRating;
@@ -83,26 +87,30 @@ public class SuggestUnivActivity extends AppCompatActivity {
     protected String mUnivTypePrefer2;
     //protected List <String> mListUnivStatesPrefer2;
     protected String univRankDB;
+    protected String univTypeDB;
     protected float univRateDB;
-    protected static ArrayList<Float> listUnivRate;
+    protected ParseFile univLogoDB;
     protected float temp_predict;
-    static ArrayList<String> recUniversitiesAL;
-    static ArrayList<String> univRankingAL;
-
+//    protected static ArrayList<Float> listUnivRate;
+//    static ArrayList<String> recUniversitiesAL;
+//    static ArrayList<String> univRankingAL;
+    protected ArrayList<Float> listUnivRate;
+    protected ArrayList<String> recUniversitiesAL;
+    protected ArrayList<String> univRankingAL;
     protected ArrayList<String> recUnivTypeAL;
+    private ArrayList<ParseFile> univLogoAL;
+
     protected Button mBtnSuggestUnivPrefer;
-
-
     protected TextView mFullName;
-    String mScore, mPercent, mUndergradUniv, mFullname;
-    String mCurrUserUndergradUnivRating;
+    protected String mScore, mPercent, mUndergradUniv, mFullname;
+    protected String mCurrUserUndergradUnivRating;
 
-    String mUnivTypePrefer;
-    String mUnivStatePrefer;
-    Spinner mSpUnivTypes; //, mSpUnivState;
-    List<String> mListUnivType;
-    ArrayList<String> mListUnivStates;
-    MultiSelectionSpinner multiSelectionSpinner;
+    protected String mUnivTypePrefer;
+    protected String mUnivStatePrefer;
+    protected Spinner mSpUnivTypes; //, mSpUnivState;
+    protected List<String> mListUnivType;
+    protected ArrayList<String> mListUnivStates;
+    protected MultiSelectionSpinner multiSelectionSpinner;
     protected Button mBtnChooseStates;
     protected Context context;
 
@@ -110,19 +118,18 @@ public class SuggestUnivActivity extends AppCompatActivity {
     //List<ValueActivity> list;
     private ProgressDialog progressDialog;
 
-    private ImageView image_expert;
+    protected ImageView image_expert;
 
 
     Calculations ratingsCalculate = new Calculations();
     int count;
-
 //    final ParseUser currUser = ParseUser.getCurrentUser();
-
-
     float predictionForNewUser;
     final ParseUser currUser = ParseUser.getCurrentUser();
     public static final String TAG = SuggestUnivActivity.class.getSimpleName();
     protected Button mBtnBackSuggest;
+    protected View rowView;
+    protected int mPosition;
     /////////////////////////////////////////// ************************ //////////////////////////////////////////////////////////////
 
     @Override
@@ -137,22 +144,24 @@ public class SuggestUnivActivity extends AppCompatActivity {
 //        progress_bar();
 
         recUniversitiesAL = new ArrayList<String>();  // didnt use arrays. coz arraylist's size is flexible unlike arrays
-//        recUnivType = new ArrayList<String>();
+        recUnivTypeAL = new ArrayList<String>();
         listUnivRate = new ArrayList<Float>();
-
         univRankingAL = new ArrayList<String>();
+        univLogoAL = new ArrayList<ParseFile>();
+
 
 //        HorizontalListView listview3 = (HorizontalListView) findViewById(R.id.listview);
 //        listview.setAdapter(mAdapter);
 
+
         /**************  get Current New User Rating   *************************/
-        Intent intent2 = this.getIntent();
+        Intent intent2 = getIntent();
         if(intent2 !=null){
             Bundle bundle2 = intent2.getExtras();  // get bundle from intent
             if(bundle2 != null){
-                GreScore1 = Float.valueOf(bundle2.getString("mScore"));
-                UndergradPercent1 = Float.valueOf(bundle2.getString("mPercent"));
-                UnivRating1 = Float.valueOf(bundle2.getString("currUserUnderUnivRating"));
+                GreScore1 = Float.valueOf(bundle2.getString("bundleScore"));
+                UndergradPercent1 = Float.valueOf(bundle2.getString("bundlePercent"));
+                UnivRating1 = Float.valueOf(bundle2.getString("bundleCurrUserUnderUnivRating"));
             }
 
         }
@@ -367,10 +376,10 @@ public class SuggestUnivActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        Intent intent2 = new Intent(SuggestUnivActivity.this, FutureStudent.class);
-        intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
-        startActivity(intent2);
+        Intent intentBackPressed = new Intent(SuggestUnivActivity.this, FutureStudent.class);
+        intentBackPressed.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intentBackPressed.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // also clear the old one
+        startActivity(intentBackPressed);
 //        super.onBackPressed();
 //        finish();
     }
@@ -670,8 +679,8 @@ public class SuggestUnivActivity extends AppCompatActivity {
 //                    ArrayList<String> recUniversities = new ArrayList<String>();  // didnt use arrays. coz arraylist's size is flexible unlike arrays
                     ArrayList<String> recUnivType = new ArrayList<String>();
                     int univListLimit = 0;
-                    Intent intent2 = getIntent();
-                    Bundle bundle = intent2.getExtras();  // get bundle from intent
+//                    Intent intent2 = getIntent();
+//                    Bundle bundle = intent2.getExtras();  // get bundle from intent
 //                    mUnivTypePrefer2 = bundle.getString("mUnivTypePrefer").toString();
 //                    txtViewUnivType.setText("Recommendation on: " + mUnivTypePrefer2 + " universities");
 //
@@ -689,8 +698,14 @@ public class SuggestUnivActivity extends AppCompatActivity {
                         if (univListLimit < 20) {
                             univNameDB = parseObj.get("univName").toString();
                             univRankDB = parseObj.get("Ranking").toString();
+                            univTypeDB = parseObj.get("UnivType").toString();
+                            univLogoDB = (ParseFile)parseObj.getParseFile("univLogo");
+//                            ParseFile image = (ParseFile) parseObject.getParseFile("univLogo");
+
                             univRateDB = Float.valueOf(parseObj.get("univRating").toString());
+
                             listUnivRate.add(univListLimit, univRateDB);
+
                             Log.e(TAG, "Univ name : " + univNameDB);
 //                            if(parseObj.get("UnivType").toString().equals(mUnivTypePrefer2))
 //                            {
@@ -709,6 +724,8 @@ public class SuggestUnivActivity extends AppCompatActivity {
 //                        setProgressBarIndeterminateVisibility(false);
                         recUniversitiesAL.add(univNameDB);
                         univRankingAL.add(univRankDB);
+                        recUnivTypeAL.add(univTypeDB);
+                        univLogoAL.add(univLogoDB);
 
                         //Here "MyCustomAdapter" is my own created custon adapter. This class is implemented at the end.
                         MyCustomAdapter adapter2 = new MyCustomAdapter(SuggestUnivActivity.this, R.layout.custom_list_suggest, recUniversitiesAL);
@@ -806,7 +823,7 @@ public class SuggestUnivActivity extends AppCompatActivity {
             Log.e(TAG,"----------=--=----------");
             k++;
             LayoutInflater inflater = getLayoutInflater(); //To inflate XML layout file,you can use LayoutInflator system service.
-            View rowView = inflater.inflate(R.layout.custom_list_suggest, parent,
+            rowView = inflater.inflate(R.layout.custom_list_suggest, parent,
                     false);
 
             // setting text univ name, ranking, chances, image...
@@ -816,13 +833,19 @@ public class SuggestUnivActivity extends AppCompatActivity {
             TextView tv_univ_rank = (TextView) rowView.findViewById(R.id.sub_text_rank2);
                 tv_univ_rank.setText(univRankingAL.get(position));
 
+            TextView tv_univ_type = (TextView)rowView.findViewById(R.id.textSuggestUnivType);
+            tv_univ_type.setText(recUnivTypeAL.get(position));
+
             TextView tv_chances = (TextView) rowView.findViewById(R.id.text_chance);
 
+            mPosition = position;
 
-//             image_expert = (ImageView)rowView.findViewById(R.id.univ_logo_pic2);
-//
+//            new PostTask().execute();
+            image_expert = (ImageView)rowView.findViewById(R.id.univ_logo_pic2);
+
+             displayImage(univLogoAL.get(position),image_expert);
 //            ParseQuery<ParseObject> query = ParseQuery.getQuery("UnivDetail");
-//            query.whereEqualTo("univName",recUniversities.get(position));
+//            query.whereEqualTo("univName",recUniversitiesAL.get(mPosition));
 //            query.getFirstInBackground(new GetCallback<ParseObject>() {
 //                @Override
 //                public void done(ParseObject parseObject, ParseException e) {
@@ -830,7 +853,6 @@ public class SuggestUnivActivity extends AppCompatActivity {
 //                    displayImage(image, image_expert);
 //                }
 //            });
-
 
 
             try{
@@ -887,6 +909,57 @@ public class SuggestUnivActivity extends AppCompatActivity {
         }
 
     }
+
+//    // The definition of our task class
+//    class PostTask extends AsyncTask<String, Integer, String> {
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+////                    displayProgressBar("Downloading...");
+//        }
+//
+//
+//        @Override
+//        protected String doInBackground(String... params) {
+//            String url=params[0];
+//
+////                    // Dummy code
+////                    for (int i = 0; i <= 100; i += 5) {
+////                        try {
+////                            Thread.sleep(50);
+////                        } catch (InterruptedException e) {
+////                            e.printStackTrace();
+////                        }
+////                        publishProgress(i);
+////                    }
+//
+//            return "All Done!";
+//        }
+//
+//        @Override
+//        protected void onProgressUpdate(Integer... values) {
+//            super.onProgressUpdate(values);
+////                    updateProgressBar(values[0]);
+//            image_expert = (ImageView)rowView.findViewById(R.id.univ_logo_pic2);
+//
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String result) {
+//            super.onPostExecute(result);
+////                    dismissProgressBar();
+//            ParseQuery<ParseObject> query = ParseQuery.getQuery("UnivDetail");
+//            query.whereEqualTo("univName",recUniversitiesAL.get(mPosition));
+//            query.getFirstInBackground(new GetCallback<ParseObject>() {
+//                @Override
+//                public void done(ParseObject parseObject, ParseException e) {
+//                    ParseFile image = (ParseFile) parseObject.getParseFile("univLogo");
+//                    displayImage(image, image_expert);
+//                }
+//            });
+//        }
+//    }
+
     private void displayImage(ParseFile thumbnail, final ImageView img) {
 
         if (thumbnail != null) {
