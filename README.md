@@ -9,9 +9,9 @@ University Admission Recommender System
 * Simple create your profile and ask to recommend you universities. System will do it's work.
 
 #### Technologies:
-●	StuNet provides US University admission recommendations to students by mathematically calculating similarities.
-●	Used Recommender Systems based Collaborative Filtering algorithms and Pearson Correlation technique.
-●	Worked on Android 5.0, used custom views, fragments, Alert box, Android Toolbar, Navigation Drawer.
-●	Worked on memory management, Services, multi-threading, SQLite, Parse API, Shared Preferences.
-●	Used k-NN approach using Collaborative Filtering algorithms using Pearson Correlation technique.
-●	Used DDMS and Log cat for debugging and GitHub for version control.
+* StuNet provides US University admission recommendations to students by mathematically calculating similarities.
+* Used Recommender Systems based Collaborative Filtering algorithms and Pearson Correlation technique.
+* Worked on Android 5.0, used custom views, fragments, Alert box, Android Toolbar, Navigation Drawer.
+*	Worked on memory management, Services, multi-threading, SQLite, Parse API, Shared Preferences.
+*	Used k-NN approach using Collaborative Filtering algorithms using Pearson Correlation technique.
+*	Used DDMS and Log cat for debugging and GitHub for version control.
