@@ -1,7 +1,7 @@
 # StuNet
 University Admission Recommender System
 
-# About:
+### About:
 * Every semester thousands of international students apply for advanced studies in the U.S. universities. 
 * Suggesting universities to students is not easy, as every student has different academic records such as previous university, GPA, GRE and TOEFL scores.
 * This application learns about students’ profiles and recommend the universities with higher chances of getting admissions to students. 
