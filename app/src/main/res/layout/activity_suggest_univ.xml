@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    tools:context="khara.karan.netuse.SuggestUnivActivity" >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+
+
+        <!--ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView"
+            android:dividerHeight="5dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/txtNames"
+            android:background="#fff6a5"
+            android:layout_marginBottom="90dp">
+        </ListView-->
+        <!--TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:textSize="16dp"
+            android:text="Suggested Universities from database "
+            android:textColor="#5f5e5e"
+            android:layout_gravity="left|top"
+            android:id="@+id/txtNames2"
+            android:height="35dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="0dp"
+
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:id="@+id/listViewSuggest"
+            android:dividerHeight="2dp"
+            android:background="#fff6a5"
+
+            android:layout_below="@+id/txtNames2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+        </ListView-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textSize="18dp"
+            android:text="University Recommendations for you  "
+            android:textColor="#00a571"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:id="@+id/txtRecommend"
+            android:paddingLeft="15dp"
+            android:paddingTop="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" >
+            </TextView>
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="1340dp"
+            android:id="@+id/listViewRecommend"
+            android:dividerHeight="2dp"
+            android:divider="@color/main_color_green"
+            android:background="#ffffff"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:drawSelectorOnTop="true"
+            android:layout_above="@+id/txtPreference"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView10"
+            tools:listitem="@layout/custom_list_suggest"
+            android:layout_weight="0.60">
+        </ListView>
+
+
+        <!--<Button-->
+            <!--style="?android:attr/buttonStyleSmall"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:text="Back"-->
+            <!--android:id="@+id/btnBackNames"-->
+            <!--android:layout_alignParentBottom="true"-->
+
+            <!--android:background="#ff6f1b"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignRight="@+id/listViewRecUnivStates"-->
+            <!--android:layout_alignEnd="@+id/listViewRecUnivStates" />-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:textSize="16dp"
+            android:text="Choose University Type"
+            android:textColor="#f7282828"
+            android:layout_gravity="left"
+            android:id="@+id/txtPreference"
+            android:paddingTop="0dp"
+            android:gravity="bottom"
+            android:layout_above="@+id/spUnivType"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" >
+            </TextView>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="horizontal"
+        >
+        <Spinner
+            android:layout_width="203dp"
+            android:layout_height="55dp"
+            android:id="@+id/spUnivType"
+            android:background="@color/white"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp" >
+            </Spinner>
+
+        <!--<Spinner-->
+            <!--android:id="@+id/spUnivState"-->
+            <!--android:nestedScrollingEnabled="true"-->
+            <!--android:background="#f3fee8"-->
+            <!--android:layout_width="320dp"-->
+            <!--android:layout_height="12dp"-->
+            <!--android:layout_marginBottom="4dp"-->
+            <!--android:layout_above="@+id/btnSuggestUnivPrefer"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_alignParentEnd="true" >-->
+            <!--</Spinner>-->
+
+
+        <!--<khara.karan.netuse.MultiSelectionSpinner-->
+            <!--android:id="@+id/spChooseStates"-->
+            <!--android:background="#f3fee8"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="45dp"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:layout_above="@+id/btnSuggestUnivPrefer"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignRight="@+id/btnSuggestUnivPrefer"-->
+            <!--android:layout_alignEnd="@+id/btnSuggestUnivPrefer"></khara.karan.netuse.MultiSelectionSpinner>-->
+
+        <Button
+            android:layout_width="83dp"
+            android:layout_height="50dp"
+            android:text="Suggest"
+            android:id="@+id/btnSuggestUnivPrefer"
+            android:textSize="16dp"
+            android:background="@color/main_color_green"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:textColor="#ffffff" >
+            </Button>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    </ScrollView>

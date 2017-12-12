@@ -1,0 +1,81 @@
+<resources>
+    <string name="app_name">NetUse</string>
+
+    <string name="title_section1">Show Universities</string>
+    <string name="title_section2">List of all USERS..</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_users">Show Users</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!--<color name="backgroundColor">#d4e7ff</color> -->
+    <color name="backgroundColor">#eeffe8</color>
+    <color name="buttonColor">#ff6f1b</color>
+    <color name="textMsgColor">#fff242</color>
+    <color name="tryBackColor">#0698a1</color>
+    <color name="textColor">#000000</color>
+
+
+    <color name="Color">#123456</color>
+
+    <color name="back_color">#a3fdc4</color>
+    <color name="list_color">#fff6a5</color>
+    <string name="signup_error_message"><![CDATA[Please make sure you enter a username,password & email address]]></string>
+    <string name="create_profile_error_message"><![CDATA[Please make sure you enter a all the fields]]></string>
+    <string name="signup_error_title">Ooops!!!</string>
+    <string name="create_profile_error_title">Ooops!!!</string>
+    <string name="login_error_message">Please fill username and password fields</string>
+    <string name="login_error_title">Oops!!</string>
+    <string name="menu_logout_label">Logout</string>
+    <string name="title_activity_show_users">ShowUsersActivity</string>
+    <string name="error_title">We are sorry</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="univ_prompt">Choose University</string>
+    <string name="title_activity_create_profile">CreateProfile</string>
+    <string name="title_activity_update_profile">UpdateProfile</string>
+    <string name="title_activity_current_user">CurrentUserActivity</string>
+    <string name="title_activity_show_names">ShowNamesActivity</string>
+    <string name="title_activity_suggest_univ">SuggestUnivActivity</string>
+    <string name="title_activity_nearby_places">NearbyPlaces</string>
+    <string name="title_activity_add_place">AddPlace</string>
+    <string name="title_activity_future_student">FutureStudent</string>
+    <string name="title_activity_univ_details">UnivDetails</string>
+    <string name="title_activity_recc_places">ReccPlaces</string>
+    <string name="title_activity_inter">InterActivity</string>
+    <string name="title_activity_show_univ">ShowUnivActivity</string>
+    <string name="title_activity_user_profile">UserProfile</string>
+    <string name="title_activity_univ_profile">UnivProfile</string>
+    <string name="title_activity_show_web_chart">ShowWebChartActivity</string>
+    <string name="title_activity_suggest_univ_prefer">SuggestUnivPrefer</string>
+    <string name="title_activity_show_rate_diff_chart">ShowRateDiffChart</string>
+    <string name="title_activity_show_rec_results">ShowRecResults</string>
+    <string name="title_activity_inbox">InboxActivity</string>
+    <string name="title_activity_profile">ProfileFragment</string>
+    <string name="title_activity_friends">FriendsActivity</string>
+    <!--string-array name="univ_arrays">
+        <item>Choose Univ</item>
+        <item>CSU Fresno</item>
+        <item>CSU Chico</item>
+        <item>CSU East Bay</item>
+        <item>CSU Fullerton</item>
+        <item>CSU Long Beach</item>
+        <item>CSU Los Angeles</item>
+        <item>CSU San Jose</item>
+
+
+    </string-array-->
+
+    <string name="empty_inbox_label">No new messages yet</string>
+    <string name="empty_friends_label">No new Friends!! Add some</string>
+    <string name="title_activity_email_verification">emailVerification</string>
+    <string name="title_activity_sent_verification">sentVerification</string>
+    <string name="title_activity_new_pwd_verification">NewPwdVerification</string>
+    <string name="title_activity_forgot_pwd_email_verify">forgotPwdEmailVerify</string>
+
+</resources>

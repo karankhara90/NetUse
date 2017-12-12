@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="2px" >
+
+    <ImageView
+        android:id="@+id/univ_logo_pic"
+        android:layout_width="150px"
+        android:layout_height="150px"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="1dp"
+        android:background="#e6fecb" />
+
+    <TextView
+        android:id="@+id/text_main_univ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3px"
+        android:hint="univ name"
+        android:textColor="#0022ee"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="4dp"
+        android:layout_alignTop="@+id/univ_logo_pic"
+        android:layout_toRightOf="@+id/univ_logo_pic"
+        android:layout_toEndOf="@+id/univ_logo_pic" />
+
+    <TextView
+        android:id="@+id/sub_text_seen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:padding="2px"
+        android:hint="ranking"
+        android:textStyle="bold"
+        android:layout_marginLeft="5dp"
+        android:textColor="#777777"
+        android:layout_below="@+id/text_main_univ"
+        android:layout_alignLeft="@+id/text_main_univ"
+        android:layout_alignStart="@+id/text_main_univ" />
+    <TextView
+        android:id="@+id/sub_text_rank"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:padding="2px"
+        android:textStyle="bold"
+        android:hint="rank"
+        android:layout_marginLeft="3dp"
+        android:textColor="#777777"
+        android:layout_below="@+id/text_main_univ"
+        android:layout_toRightOf="@+id/sub_text_seen"
+        android:layout_toEndOf="@+id/sub_text_seen" />
+
+    <TextView
+        android:id="@+id/sub_text_divide"
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        android:textSize="10dp"
+        android:paddingTop="0px"
+        android:hint="------------------------------------------------------------------------------------------"
+        android:layout_below="@+id/sub_text_seen"
+        android:layout_alignLeft="@+id/sub_text_seen"
+        android:layout_alignStart="@+id/sub_text_seen"
+        android:textColor="#dfdfdf" />
+
+</RelativeLayout>

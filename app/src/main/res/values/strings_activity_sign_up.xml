@@ -1,0 +1,16 @@
+<resources>
+    <string name="title_activity_sign_up">Sign up</string>
+
+    <!-- Strings related to login -->
+    <string name="signup_username">Username</string>
+    <string name="signup_email">Email</string>
+    <string name="signup_password">Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="verify">Verify</string>
+    <string name="action_sign_up_short">Sign up</string>
+
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+
+    <string name="error_field_required_signup">This field is required</string>
+</resources>
