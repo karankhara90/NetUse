@@ -1,9 +1,9 @@
 package khara.karan.netuse;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
-public class ShowRecResults extends ActionBarActivity {
+public class ShowRecResults extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

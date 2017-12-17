@@ -47,42 +47,42 @@ public class FriendsFragment extends ListFragment
         ParseQuery<ParseUser> query= mFriendsRelation.getQuery();
         query.addAscendingOrder(ParseConstants.KEY_USERNAME);
 
-        query.findInBackground(new FindCallback<ParseUser>() {
-            @Override
-            public void done(List<ParseUser> friends, ParseException e)
-            {
-                //getActivity().setProgressBarIndeterminateVisibility(false);
-                if(e==null)
-                {
-                    mFriends=friends;
-                    String[] usernames = new String[mFriends.size()];
-                    int i = 0;
-                    for(ParseUser user: mFriends) {
-                        usernames[i] = user.getUsername();
-                        System.out.println("user[" + i + "]: " + usernames[i]);
-                        i++;
-                    }
-                    //create array adapter
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
-                            android.R.layout.simple_list_item_1,usernames);
-                    listViewFriendsList.setAdapter(adapter);
-                }
-                else
-                {
-                    Log.e(TAG, e.getMessage());
-
-                    AlertDialog.Builder builder= new AlertDialog.Builder(getListView().getContext());
-
-                    builder.setMessage(e.getMessage());
-                    builder.setTitle(getString(R.string.error_title));
-                    builder.setPositiveButton(android.R.string.ok,null);
-                    AlertDialog dialog=builder.create();
-                    dialog.show();
-                }
-
-
-            }
-        });
+//        query.findInBackground(new FindCallback<ParseUser>() {
+//            @Override
+//            public void done(List<ParseUser> friends, ParseException e)
+//            {
+//                //getActivity().setProgressBarIndeterminateVisibility(false);
+//                if(e==null)
+//                {
+//                    mFriends=friends;
+//                    String[] usernames = new String[mFriends.size()];
+//                    int i = 0;
+//                    for(ParseUser user: mFriends) {
+//                        usernames[i] = user.getUsername();
+//                        System.out.println("user[" + i + "]: " + usernames[i]);
+//                        i++;
+//                    }
+//                    //create array adapter
+//                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
+//                            android.R.layout.simple_list_item_1,usernames);
+//                    listViewFriendsList.setAdapter(adapter);
+//                }
+//                else
+//                {
+//                    Log.e(TAG, e.getMessage());
+//
+//                    AlertDialog.Builder builder= new AlertDialog.Builder(getListView().getContext());
+//
+//                    builder.setMessage(e.getMessage());
+//                    builder.setTitle(getString(R.string.error_title));
+//                    builder.setPositiveButton(android.R.string.ok,null);
+//                    AlertDialog dialog=builder.create();
+//                    dialog.show();
+//                }
+//
+//
+//            }
+//        });
 
     }
 }

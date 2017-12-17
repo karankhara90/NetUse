@@ -40,20 +40,22 @@
             android:layout_marginRight="50dp"
             />
 
-        <AutoCompleteTextView android:id="@+id/emailField"
-            android:hint="@string/signup_email"
-            android:singleLine="true"
-            android:imeOptions="actionNext"
-            android:inputType="textEmailAddress"
+        <AutoCompleteTextView
+            android:id="@+id/emailSignUpField"
             style="@style/editext_whitebg"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:drawableLeft="@drawable/ic_username" >
+            android:drawableLeft="@drawable/ic_username"
+            android:hint="@string/signup_email"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:singleLine="true">
+
             <requestFocus />
-            </AutoCompleteTextView>
+        </AutoCompleteTextView>
 
         <EditText
-            android:id="@+id/usernameField"
+            android:id="@+id/usernameSignUpField"
             android:hint="@string/signup_username"
             android:singleLine="true"
             android:imeOptions="actionNext"
@@ -64,7 +66,7 @@
             android:drawableLeft="@drawable/ic_username" >
         </EditText>
 
-        <EditText android:id="@+id/passwordField"
+        <EditText android:id="@+id/passwordSignUpField"
             android:hint="@string/signup_password"
             android:layout_width="match_parent"
             android:layout_height="60dp"

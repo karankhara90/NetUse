@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "782189854547",
+    "firebase_url": "https://stunet-id.firebaseio.com",
+    "project_id": "stunet-id",
+    "storage_bucket": "stunet-id.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782189854547:android:ca7787e8695b4030",
+        "android_client_info": {
+          "package_name": "khara.karan.netuse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782189854547-i2j0pmfllj1mv7jqc5ra5u1jr1f6ecee.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "khara.karan.netuse",
+            "certificate_hash": "bc97b87c3572514a40d322b7949ddf567540a7be"
+          }
+        },
+        {
+          "client_id": "782189854547-ng4ogq65fgc3ho1i5c9hs3lo4tmuet7i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBO6rbZztruKKHNujBsvCiGhL4eqhDc15c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782189854547-ng4ogq65fgc3ho1i5c9hs3lo4tmuet7i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
