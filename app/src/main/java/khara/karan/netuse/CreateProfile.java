@@ -11,22 +11,22 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.database.ValueEventListener;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import khara.karan.netuse.MyPOJO.CountryCRUD;
 import khara.karan.netuse.MyPOJO.UserInfo;
@@ -40,30 +40,42 @@ public class CreateProfile extends AppCompatActivity {
     protected TextView mUserName;
     protected Button mNext;
     protected Context context;
-    String objId;
-    String univName,univRank;
-    List<Integer> univLogo;
+
+
+//    List<Integer> univLogo;
     List<String> arrayListCountry;
     List<String> list2;
     List<String> list2a;
     List<String> arrayListUniversities;
+    List<String> arrayListRanking;
+    List<String> arrayListRating;
+    List<String> arrayListLogos;
 
-    UnivDetail univDetail;
-    //HashMap<String,UnivDetail> univDetailHashMap;
-    String objID, univRate;
 
-    String fullname;
+    private String userId="";
+    String fullname="";
+
+    private String univId="";
+    private String univName ="";
+    private String univRank="";
+    private String univRate="";
+    private String univCountry="";
+    private String univState="";
+    private String univCity="";
+    private String univLogo;
+    private String univType;
+
+    private String univnameSelected="";
+    private String countrySelected="";
     int percent,gre,toefl;
-    String univnameSelected, countrySelected;
-    UnivDetail ud;
 
-    ParseObject object;
     DatabaseReference mUserProfileDB;
     DatabaseReference mUnivDetailsDB;
 
     CountryCRUD countryCRUD;
     private UserInfo userInfo;
-    private String userId="";
+    private UnivDetail[] univDetail;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -73,12 +85,24 @@ public class CreateProfile extends AppCompatActivity {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         context = this;
         mUserProfileDB = FirebaseDatabase.getInstance().getReference().child("UserProfile");
+        mUnivDetailsDB = FirebaseDatabase.getInstance().getReference().child("UniversityProfile");
 
+        mUnivDetailsDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                readUniversityDetails(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
         list2 = new ArrayList<String>();
         list2a = new ArrayList<String>();
-        arrayListUniversities = new ArrayList<String>();
+//        arrayListUniversities = new ArrayList<String>();
 //
 //        arrayListUniversities.add(R.drawable.yale_university);
 //        arrayListUniversities.add(R.drawable.wright_state_university);
@@ -208,32 +232,15 @@ public class CreateProfile extends AppCompatActivity {
         spinnerCountry.setAdapter(dataAdapterCountry);
 
 
-        // add universities to arraylist
-        arrayListUniversities.add("--Choose University--");
-        arrayListUniversities.add("IIT Delhi");
-        arrayListUniversities.add("IIT Bombay");
-        arrayListUniversities.add("Chitkara University");
-        arrayListUniversities.add("IET Bhaddal");
-        arrayListUniversities.add("CEC Landran");
-        arrayListUniversities.add("PEC University");
-//        MyAdapter dataAdapterUniversity = new MyAdapter(context, R.layout.custom_spinner ,arrayListUniversities);
-        ArrayAdapter<String> dataAdapterUniversity = new ArrayAdapter<String>(context,
-                android.R.layout.simple_spinner_item, arrayListUniversities);
-        dataAdapterUniversity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dataAdapterUniversity.notifyDataSetChanged();
-        spinnerUniversity.setAdapter(dataAdapterUniversity);
-
         mNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 try {
                     userId = FirebaseAuth.getInstance().getUid();
+
                     Log.e("TAG","userId: "+ userId);
                     fullname = mFullName.getText().toString();
-//                    DatabaseReference fd =  FirebaseDatabase.getInstance().getReference();
-//                    fd.getRef()
-
                     percent = Integer.parseInt(mPercent.getText().toString());
                     gre = Integer.parseInt(mGre.getText().toString());
                     toefl = Integer.parseInt(mToefl.getText().toString());
@@ -272,7 +279,7 @@ public class CreateProfile extends AppCompatActivity {
 //                    //if(univDetailObj.get("UnivCountry").toString().equals("India")){
 //                        univDetail.setUnivName(univName);
 //                        objID = univDetailObj.getObjectId().toString();
-//                        univDetail.setObjectID(objID);
+//                        univDetail.setUnivId(objID);
 //
 //                        univDetail.setRanking(univRank);
 //                        univRate = univDetailObj.get("univRating").toString();
@@ -369,41 +376,120 @@ public class CreateProfile extends AppCompatActivity {
 
     }
 
-//    public class MyAdapter extends ArrayAdapter<String> {
-//
-//        public MyAdapter(Context ctx, int txtViewResourceId, List<String> objects) {
-//            super(ctx, txtViewResourceId, objects);
-//        }
-//
-//        @Override
-//        public View getDropDownView(int position, View cnvtView, ViewGroup prnt) {
-//            return getCustomView(position, cnvtView, prnt);
-//        }
-//        @Override
-//        public View getView(int pos, View cnvtView, ViewGroup prnt) {
-//            return getCustomView(pos, cnvtView, prnt);
-//        }
-//        public View getCustomView(int position, View convertView,
-//                                  ViewGroup parent) {
-//            LayoutInflater inflater = getLayoutInflater();
-//            View mySpinner = inflater.inflate(R.layout.custom_spinner, parent,
-//                    false);
-//            TextView main_text = (TextView) mySpinner
-//                    .findViewById(R.id.text_main_univ);
-//            main_text.setText(list2.get(position));
-//
-//            TextView subSpinner = (TextView) mySpinner
-//                    .findViewById(R.id.sub_text_rank);
-//            subSpinner.setText(list2a.get(position));
-//            try{
-////                ImageView left_icon = (ImageView) mySpinner
-////                        .findViewById(R.id.univ_logo_pic);
-////                left_icon.setImageResource(list2b.get(position));
+    private void readUniversityDetails(DataSnapshot dataSnapshot){
+        int size = (int) dataSnapshot.getChildrenCount();
+        Log.e("TAG","size: "+size);
+        int i=0;
+        arrayListUniversities = new ArrayList<String>();
+        arrayListRanking = new ArrayList<String>();
+        arrayListRating = new ArrayList<String>();
+
+        for(DataSnapshot ds : dataSnapshot.getChildren()){
+            univDetail = new UnivDetail[size+1];
+
+            Map<String, String>  univMap = (Map<String, String>) ds.getValue();
+
+                univId =   univMap.get("univId");
+                univName = univMap.get("univName");
+                univRank = String.valueOf(univMap.get("univRanking"));
+                univRate = String.valueOf(univMap.get("univRating"));
+                univCountry = univMap.get("univCountry");
+                univState = univMap.get("univState");
+                univCity = univMap.get("univCity");
+                univLogo = univMap.get("univLogo");
+                univType = univMap.get("univType");
+
+                Log.e("TAG","univName from Map: "+univName);
+
+                if(i < size){
+                    Log.e("TAG","i is: "+i);
+                    univDetail[i] = new UnivDetail();
+                    univDetail[i].setUnivId(univId);
+                    Log.e("TAG","univ id: "+univDetail[i].getUnivId());
+                    univDetail[i].setUnivName(univName);
+                    univDetail[i].setUnivCountry(univCountry);
+                    univDetail[i].setUnivState(univState);
+                    univDetail[i].setUnivCity(univCity);
+                    univDetail[i].setUnivRanking(univRank);
+                    univDetail[i].setUnivRating(univRate);
+                    univDetail[i].setUnivType(univType);
+                    univDetail[i].setUnivLogo(univLogo);
+
+                    Log.e("TAG","univDetail.getUnivId: "+univDetail[i].getUnivId());
+                    Log.e("TAG","univDetail.getUnivName: "+univDetail[i].getUnivName());
+                    Log.e("TAG","univDetail.getUnivRanking"+univDetail[i].getUnivRanking());
+                    Log.e("TAG","univDetail.getUnivState: "+univDetail[i].getUnivState());
+
+//                arrayListUniversities.add(univDetail.getUnivId());
+                    arrayListUniversities.add(univName);
+                    arrayListRanking.add(univDetail[i].getUnivRanking());
+                    arrayListRating.add(univDetail[i].getUnivRating());
+
+//                    arrayListLogos.add();
+                }
+            i++;
+
+        }
+
+
+        try {
+            MyAdapter dataAdapterUniversity = new MyAdapter(context, R.layout.custom_spinner ,arrayListUniversities);
+            dataAdapterUniversity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            dataAdapterUniversity.notifyDataSetChanged();
+            spinnerUniversity.setAdapter(dataAdapterUniversity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public class MyAdapter extends ArrayAdapter<String> {
+
+
+        public MyAdapter(Context ctx, int txtViewResourceId, List<String> objects) {
+            super(ctx, txtViewResourceId, objects);
+        }
+
+        @Override
+        public View getDropDownView(int position, View cnvtView, ViewGroup prnt) {
+            return getCustomView(position, cnvtView, prnt);
+        }
+        @Override
+        public View getView(int position, View cnvtView, ViewGroup prnt) {
+            return getCustomView(position, cnvtView, prnt);
+        }
+        public View getCustomView(int position, View convertView,
+                                  ViewGroup parent) {
+            Log.e("TAG","position: "+position);
+            LayoutInflater inflater = getLayoutInflater();
+            View mySpinner = inflater.inflate(R.layout.custom_spinner, parent,
+                    false);
+
+                TextView tvUnivName = (TextView) mySpinner
+                        .findViewById(R.id.tvProfileUnivName);
+//            tvUnivName.setText(univDetail[position].getUnivName());
+                tvUnivName.setText(arrayListUniversities.get(position));
+
+                TextView tvRanking = (TextView) mySpinner
+                        .findViewById(R.id.tvProfileRanking);
+                tvRanking.setText(arrayListRanking.get(position));
+
+                TextView tvRating = (TextView) mySpinner
+                        .findViewById(R.id.tvProfileRating);
+                tvRating.setText(arrayListRating.get(position));
+//            subSpinner.setText("rank");
+
+                try{
+//                ImageView left_icon = (ImageView) mySpinner
+//                        .findViewById(R.id.univ_logo_pic);
+//                left_icon.setImageResource(list2b.get(position));
+                }
+                catch (Exception exc2){
+                    Log.e("TAG","exc2 exception in imageview is: "+exc2);
+                }
+
 //            }
-//            catch (Exception exc2){
-//                Log.e("TAG","exc2 exception in imageview is: "+exc2);
-//            }
-//            return mySpinner;
-//        }
-//    }
+
+            return mySpinner;
+        }
+    }
 }

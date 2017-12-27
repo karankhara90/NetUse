@@ -49,6 +49,8 @@ dependencies {
 //    compile 'com.google.android.gms:play-services:11.6.2'
 
     // firebase related
+    compile 'com.google.firebase:firebase-core:11.6.2'
+    compile 'com.google.firebase:firebase-database:11.6.2'
     implementation 'com.google.firebase:firebase-core:11.6.2'
     implementation 'com.google.firebase:firebase-database:11.6.2'
     implementation 'com.google.firebase:firebase-storage:11.6.2'
@@ -63,4 +65,4 @@ dependencies {
 }
 
 // Add to the bottom of the file
-apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services' 

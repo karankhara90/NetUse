@@ -179,7 +179,7 @@
 ////                    if(univDetailObj.get("UnivCountry").toString().equals("United States")) {
 //                        univDetail.setUnivName(univName);
 //                        objID = univDetailObj.getObjectId().toString();
-//                        univDetail.setObjectID(objID);
+//                        univDetail.setUnivId(objID);
 //
 //                    univDetail.setRanking(univRank);
 //                        univRate = univDetailObj.get("univRating").toString();

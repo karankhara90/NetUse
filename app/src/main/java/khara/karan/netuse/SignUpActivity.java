@@ -57,7 +57,7 @@ public class SignUpActivity extends Activity {
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_sign_up);
 
-        mUnivDetailsDB = FirebaseDatabase.getInstance().getReference().child("UniversityProfile");
+//        mUnivDetailsDB = FirebaseDatabase.getInstance().getReference().child("UniversityProfile");
 
         // find views by ID -------------------------------------------------
         mUsername = (EditText)findViewById(R.id.usernameSignUpField);
@@ -83,7 +83,6 @@ public class SignUpActivity extends Activity {
 //                DatabaseReference univRef = mUnivDetailsDB.child(taskId).child("univLogo");
 //                univRef.setValue("gs://stunet-id.appspot.com/arizona_state_university_fulton.png");
 
-                UploadTask uploadTask;
 
                 String username = mUsername.getText().toString();
                 String password = mPassword.getText().toString();
@@ -106,8 +105,8 @@ public class SignUpActivity extends Activity {
 
                 } else {
                     // create new user
-                    mDialog.dismiss();
-                    setProgressBarIndeterminateVisibility(true);
+
+//                    setProgressBarIndeterminateVisibility(true);
                     registerUserToFirebase(username, password, email);
 
 //                    newUser.put("isEmailVerified",true);
@@ -152,6 +151,7 @@ public class SignUpActivity extends Activity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 try{
+                    mDialog.dismiss();
                     if (!task.isSuccessful()) {
                         //error registering user
                         showAlertDialog("Error", task.getException().getMessage());
@@ -195,7 +195,7 @@ public class SignUpActivity extends Activity {
                         });
 
                     }
-                }catch (Exception e){
+                }catch (Exception e){//
                     System.out.println("Exception e: "+e);
                 }
             }

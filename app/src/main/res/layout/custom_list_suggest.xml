@@ -9,7 +9,6 @@
         android:id="@+id/univ_logo_pic2"
         android:layout_width="72dp"
         android:layout_height="72dp"
-
         android:padding="4dp"
         android:layout_marginTop="14dp"
         android:layout_marginLeft="1dp"
@@ -44,7 +43,7 @@
         android:layout_toEndOf="@+id/univ_logo_pic2"
         android:id="@+id/linearLayout2">
         <TextView
-            android:id="@+id/sub_text_seen"
+            android:id="@+id/textViewRating"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:gravity="center|left"
@@ -64,8 +63,8 @@
             android:hint="rank"
             android:textStyle="bold"
             android:textColor="#0022ee"
-            android:layout_alignTop="@+id/sub_text_seen"
-            android:layout_toRightOf="@+id/sub_text_seen" />
+            android:layout_alignTop="@+id/textViewRating"
+            android:layout_toRightOf="@+id/textViewRating" />
     </LinearLayout>
 
     <LinearLayout

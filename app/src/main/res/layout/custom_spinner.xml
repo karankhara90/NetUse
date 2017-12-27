@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
     android:orientation="vertical"
     android:padding="2px" >
 
@@ -15,57 +15,104 @@
         android:layout_marginRight="1dp"
         android:background="#e6fecb" />
 
-    <TextView
-        android:id="@+id/text_main_univ"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="3px"
-        android:hint="univ name"
-        android:textColor="#0022ee"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        android:layout_marginLeft="4dp"
-        android:layout_alignTop="@+id/univ_logo_pic"
-        android:layout_toRightOf="@+id/univ_logo_pic"
-        android:layout_toEndOf="@+id/univ_logo_pic" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/univ_logo_pic"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/sub_text_seen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14dp"
-        android:padding="2px"
-        android:hint="ranking"
-        android:textStyle="bold"
-        android:layout_marginLeft="5dp"
-        android:textColor="#777777"
-        android:layout_below="@+id/text_main_univ"
-        android:layout_alignLeft="@+id/text_main_univ"
-        android:layout_alignStart="@+id/text_main_univ" />
-    <TextView
-        android:id="@+id/sub_text_rank"
-        android:layout_width="32dp"
-        android:layout_height="wrap_content"
-        android:textSize="14dp"
-        android:padding="2px"
-        android:textStyle="bold"
-        android:hint="rank"
-        android:layout_marginLeft="3dp"
-        android:textColor="#777777"
-        android:layout_below="@+id/text_main_univ"
-        android:layout_toRightOf="@+id/sub_text_seen"
-        android:layout_toEndOf="@+id/sub_text_seen" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_toRightOf="@id/univ_logo_pic"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvProfileUnivName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/univ_logo_pic"
+                android:layout_marginLeft="4dp"
+                android:layout_toEndOf="@+id/univ_logo_pic"
+                android:layout_toRightOf="@+id/univ_logo_pic"
+                android:hint="univ name"
+                android:padding="3px"
+                android:textColor="#0022ee"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="278dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/univ_logo_pic"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textRanking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/sub_text_divide"
+                android:layout_alignStart="@+id/tvProfileUnivName"
+                android:padding="3px"
+                android:text="Rank"
+                android:textColor="#777777"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvProfileRanking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_above="@+id/textRanking"
+                android:layout_toEndOf="@+id/tvProfileUnivName"
+                android:hint="rank"
+                android:padding="2px"
+                android:textColor="#777777"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textRating"
+                android:layout_width="52dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:padding="2px"
+                android:text="Rating"
+                android:textColor="#777777"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvProfileRating"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/tvProfileUnivName"
+                android:hint="rate"
+                android:padding="2px"
+                android:textColor="#777777"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
 
     <TextView
         android:id="@+id/sub_text_divide"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:textSize="10dp"
-        android:paddingTop="0px"
+        android:layout_alignStart="@+id/univ_logo_pic"
+        android:layout_below="@+id/univ_logo_pic"
         android:hint="------------------------------------------------------------------------------------------"
-        android:layout_below="@+id/sub_text_seen"
-        android:layout_alignLeft="@+id/sub_text_seen"
-        android:layout_alignStart="@+id/sub_text_seen"
-        android:textColor="#dfdfdf" />
+        android:paddingTop="0px"
+        android:textColor="#dfdfdf"
+        android:textSize="10dp" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>

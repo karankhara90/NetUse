@@ -1,22 +1,22 @@
 package khara.karan.netuse;
 
-/**
- * Created by karan on 11/8/15.
- */
 public class UnivDetail {
-    String objectID;
+    String univId;
     String univName;
-    String UnivCountry;
-    String Ranking;
+    String univCountry;
+    String univState;
+    String univCity;
+    String univRanking;
     String univRating;
     String univLogo;
+    String univType;
 
-    public String getObjectID() {
-        return objectID;
+    public String getUnivId() {
+        return univId;
     }
 
-    public void setObjectID(String objectID) {
-        this.objectID = objectID;
+    public void setUnivId(String univId) {
+        this.univId = univId;
     }
 
     public String getUnivName() {
@@ -28,19 +28,35 @@ public class UnivDetail {
     }
 
     public String getUnivCountry() {
-        return UnivCountry;
+        return univCountry;
     }
 
     public void setUnivCountry(String univCountry) {
-        UnivCountry = univCountry;
+        this.univCountry = univCountry;
     }
 
-    public String getRanking() {
-        return Ranking;
+    public String getUnivState() {
+        return univState;
     }
 
-    public void setRanking(String ranking) {
-        Ranking = ranking;
+    public void setUnivState(String univState) {
+        this.univState = univState;
+    }
+
+    public String getUnivCity() {
+        return univCity;
+    }
+
+    public void setUnivCity(String univCity) {
+        this.univCity = univCity;
+    }
+
+    public String getUnivRanking() {
+        return univRanking;
+    }
+
+    public void setUnivRanking(String univRanking) {
+        this.univRanking = univRanking;
     }
 
     public String getUnivRating() {
@@ -57,5 +73,13 @@ public class UnivDetail {
 
     public void setUnivLogo(String univLogo) {
         this.univLogo = univLogo;
+    }
+
+    public String getUnivType() {
+        return univType;
+    }
+
+    public void setUnivType(String univType) {
+        this.univType = univType;
     }
 }
